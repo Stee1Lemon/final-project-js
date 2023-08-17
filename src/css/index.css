@@ -3,8 +3,10 @@
 @import './common.css';
 @import './header.css';
 @import './hero.css';
-@import './categories-and-popular-recipes.css';
-@import './filter-and-recipes-cards.css';
+@import './categories.css';
+@import './popular-recipes.css';
+@import './filter.css';
+@import './recipes-cards.css';
 @import './order-pop-up.css';
 @import './rating-pop-up.css';
 @import './recipe-pop-up.css';
