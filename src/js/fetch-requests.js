@@ -1,11 +1,4 @@
-// console.log('1. Fetch requests');
 import axios from 'axios';
-
-// const test1 = axios.get(
-//   'https://tasty-treats-backend.p.goit.global/api/events'
-// );
-
-// test.then(response => console.log(response.data[0]));
 
 export class FetchInfo {
   constructor(id) {
@@ -60,11 +53,16 @@ export class FetchInfoByFilter {
   }
 }
 
-// const test = new FetchInfo('6462a8f74c3d0ddd28897fbc');
+// function ok() {
+//   const ingr = new FetchInfo();
+//   ingr
+//     .fetchAllIngredients()
+//     .then(resp => console.log(resp.data))
+//     .catch(err => console.log(err));
+// }
 
-// const find = new FetchInfoByFilter();
+// ok();
 
-// // find.fetchFilteredItems().then(response => console.log(response));
-// test.fetchRecipeById().then(response => console.log(response));
+const ingr = new FetchInfo();
 
-// test.fetchPopularRecipes().then(response => console.log(response));
+ingr.fetchAllCategories().then(resp => console.log(resp.data)).catch();
