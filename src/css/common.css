@@ -1,4 +1,29 @@
 :root {
+  --light-color: #fff;
+  --dark-color: #050505;
+  --accent-color: #9bb537;
+  --stars-color: #eea10c;
+  --btn-text-color: #f8f8f8;
+
+  --light-theme-text-color: #050505;
+  /* transparent 50% */
+  --light-theme-semi-transparent-color: #05050580;
+  /* transparent 30% */
+  --light-theme-almost-transparent-color: #0505054d;
+  /* transparent 20% */
+  --light-theme-transparent-color: #05050533;
+  --light-theme-slider-semi-transparent-color: #f8f8f880;
+
+  --dark-theme-background-color: #1e1e1e;
+  --dark-theme-text-color: #fff;
+  /* transparent 50% */
+  --dark-theme-semi-transparent-color: #ffffff80;
+  /* transparent 30% */
+  --dark-theme-almost-transparent-color: #ffffff4d;
+  /* transparent 20% */
+  --dark-theme-transparent: #ffffff33;
+
+  --animation: 250ms cubic-bezier(0.23, 0.86, 0.79, 0.77);
 }
 
 html {
@@ -23,7 +48,8 @@ html {
 }
 
 .rad-img {
-  border-radius: 8px;
+  overflow: hidden;
+  border-radius: 15px;
 }
 
 .container {
@@ -54,4 +80,20 @@ html {
 
 .sections-flex {
   display: flex;
+  gap: 64px;
+}
+
+.base-btn {
+  margin: 20px;
+  padding: 14px 28px;
+  color: var(--btn-text-color);
+  background-color: var(--accent-color);
+  border: 1px var(--accent-color) solid;
+  border-radius: 15px;
+  transition: color var(--animation);
+}
+
+.base-btn:hover,
+.base-btn:focus {
+  color: var(--dark-color);
 }

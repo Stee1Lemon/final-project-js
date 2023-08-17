@@ -1,4 +1,11 @@
 @import '~node_modules/modern-normalize/modern-normalize.css';
 @import './reset.css';
-@import './common';
-@import './example';
+@import './common.css';
+@import './header.css';
+@import './hero.css';
+@import './categories-and-popular-recipes.css';
+@import './filter-and-recipes-cards.css';
+@import './order-pop-up.css';
+@import './rating-pop-up.css';
+@import './recipe-pop-up.css';
+@import './favorites-page.css';

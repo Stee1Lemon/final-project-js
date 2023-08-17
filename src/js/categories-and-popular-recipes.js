@@ -1,0 +1,1 @@
+// console.log('5. Categories and popular recipes')
