@@ -5,7 +5,7 @@ const recipesTable = document.querySelector('.js-card-items');
 async function doRecipesCards() {
   const recipes = new FetchInfo();
   try {
-    const page = await recipes.fetchGetAllRecipes();
+    const page = await recipes.fetchAllRecipesPerPage(9);
     cardsMarkUp(page.data.results);
   } catch (error) {
     console.log(error.message);
@@ -39,3 +39,4 @@ function cardsMarkUp(cardInfo) {
     .join('');
   recipesTable.innerHTML = cardsO;
 }
+
