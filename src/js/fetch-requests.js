@@ -3,7 +3,6 @@ import axios from 'axios';
 export class FetchInfo {
   constructor(id) {
     this.BASE_URL = 'https://tasty-treats-backend.p.goit.global/api/';
-    this.id = id || '6462a8f74c3d0ddd288980d4';
   }
 
   fetchEventsMasterClass() {
@@ -36,8 +35,8 @@ export class FetchInfo {
     return axios.get(`${this.BASE_URL}areas`);
   }
 
-  fetchRecipeById() {
-    return axios.get(`${this.BASE_URL}recipes/${this.id}`);
+  fetchRecipeById(id) {
+    return axios.get(`${this.BASE_URL}recipes/${id}`);
   }
 
   //   postOrder() {
@@ -62,4 +61,3 @@ export class FetchInfoByFilter {
     );
   }
 }
-
