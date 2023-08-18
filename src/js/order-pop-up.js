@@ -34,7 +34,7 @@ function onInputData() {
     e.preventDefault();
     
     if(name.value === '' || phone.value === '' || email.value === '')
-    return Notify.info('Please, fill all fields!');
+    return Notify.info('Please, fill name, phone and email!');
 
     // відсилання на бек
 

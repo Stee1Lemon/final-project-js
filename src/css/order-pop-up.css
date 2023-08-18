@@ -23,7 +23,7 @@
     left: 5%; 
 }
 
-.btn-close{
+.order-btn-close{
     position: absolute;
     right: 14px;
     top: 14px;
@@ -49,7 +49,7 @@
     margin-bottom: 23px;
 }
 
-.modal-form{
+.form-order{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -102,12 +102,11 @@
     border-color: var(--stars-color);
 }
 
-.btn-close:hover,
-.btn-close:focus{
+.order-btn-close:hover,
+.order-btn-close:focus{
     border: 1px solid var(--accent-color);
     border-radius: 50%;
 }
-
 
 @media screen and (min-width: 375px){
     .modal-order{
