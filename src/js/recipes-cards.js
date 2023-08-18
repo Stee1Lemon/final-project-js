@@ -16,7 +16,7 @@ export async function doRecipesCards() {
 
 doRecipesCards();
 
-function cardsMarkUp(cardInfo) {
+export function cardsMarkUp(cardInfo) {
   const cardsO = cardInfo
     .map(({ _id, preview, title, description, rating }) => {
       return `<li class="recipe-card">
