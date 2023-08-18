@@ -1,5 +1,9 @@
+.categories-section {
+  padding: 40px 8px 20px 0;
+}
+
 .categories-btn {
-  margin: 80px 0 24px 0;
+  margin: 0px 0 24px 0;
   background-color: inherit;
   border: 1px var(--light-theme-transparent-color) solid;
   color: var(--light-theme-semi-transparent-color);
@@ -82,8 +86,12 @@
 
 /* MEDIA TABLET */
 @media screen and (min-width: 768px) {
+  .categories-section {
+    padding: 53px 0 32px 0;
+  }
+
   .categories-btn {
-    margin: 106px 0 30px 0;
+    margin: 0 0 30px 0;
   }
 
   .categories-container {
@@ -105,8 +113,12 @@
 
 /* MEDIA DESKTOP */
 @media screen and (min-width: 1200px) {
+  .categories-section {
+    padding: 63px 0 32px 0;
+  }
+
   .categories-btn {
-    margin: 126px 0 42px 0;
+    margin: 0 0 42px 0;
   }
 
   .categories-container {

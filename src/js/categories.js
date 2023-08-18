@@ -1,7 +1,7 @@
 import { FetchInfo } from './fetch-requests';
 
-const categoriesBtnEl = document.querySelector('.categories-btn');
-const categoriesListEl = document.querySelector('.categories-list');
+const categoriesBtnEl = document.querySelector('.categories-btn-js');
+const categoriesListEl = document.querySelector('.categories-list-js');
 
 let categoryBtns = [];
 
@@ -53,7 +53,7 @@ function handlerAllCategoriesBtn() {
 
 function getAllRecipes() {
     const allRecipes = new FetchInfo();
-    allRecipes.fetchAllRecipesPerPage(limit = 6)
+    allRecipes.fetchAllRecipesPerPage(limit = 9)
     .then(resp => {
       //   функ що приймає масив resp.data.results і рендерить всі рецепти (innerHTML)
     })
@@ -79,7 +79,7 @@ function handlerCategoryBtn(ev) {
 
 function getRecipesByCategory(category) {
     const recipesByCategory = new FetchInfo();
-    recipesByCategory.fetchByCategory(category, page = 1, limit = 6)
+    recipesByCategory.fetchByCategory(category, page = 1, limit = 9)
     .then(resp => {
       if (resp.data.results.length === 0) {
         // функ що малює помилку при рендері рецептів рецептів по категорії на місці рецептів і приймає рядок повідомлення ('We are sorry. There are no recipes in this category.');
