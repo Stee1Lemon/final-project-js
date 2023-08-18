@@ -10,6 +10,10 @@ export class FetchInfo {
     return axios.get(`${this.BASE_URL}events`);
   }
 
+  fetchGetAllRecipes() {
+    return axios.get(`${this.BASE_URL}recipes`);
+  }
+
   fetchPopularRecipes() {
     return axios.get(`${this.BASE_URL}recipes/popular`);
   }
@@ -52,17 +56,3 @@ export class FetchInfoByFilter {
     );
   }
 }
-
-// function ok() {
-//   const ingr = new FetchInfo();
-//   ingr
-//     .fetchAllIngredients()
-//     .then(resp => console.log(resp.data))
-//     .catch(err => console.log(err));
-// }
-
-// ok();
-
-const ingr = new FetchInfo();
-
-ingr.fetchAllCategories().then(resp => console.log(resp.data)).catch();
