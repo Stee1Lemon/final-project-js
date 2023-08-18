@@ -3,7 +3,7 @@ import { FetchInfo } from './fetch-requests';
 const errorEl = document.querySelector('.error-el');
 const recipesTable = document.querySelector('.js-card-items');
 
-async function doRecipesCards() {
+export async function doRecipesCards() {
   const recipes = new FetchInfo();
   try {
     const page = await recipes.fetchAllRecipesPerPage(9);
