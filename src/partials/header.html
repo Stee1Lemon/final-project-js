@@ -1,7 +1,7 @@
-<header class="container">
-  <h2>Header section</h2>
+<header class="container header-container">
+  <!-- <h2>Header section</h2>
   <a href="/src/index.html">Main (can click)</a>
-  <a href="/src/favorites.html">Favorites (can click)</a>
+  <a href="/src/favorites.html">Favorites (can click)</a> -->
   <nav class="header-navigation">
     <ul class="header-list">
       <li class="header-item">
@@ -10,12 +10,26 @@
       <li class="header-item">
         <a href="/src/favorites.html">Favorites</a>
       </li>
-      <a href="/src/index.html" class="header-logo"
-        >tasty
-        <span class="part-logo">treats.</span>
-      </a>
     </ul>
+    <a href="/src/index.html" class="header-logo"
+      >tasty
+      <span class="part-logo">treats.</span>
+    </a>
   </nav>
-  <button class="header-basket"></button>
-  <button class="header-switch"></button>
+  <div class="header-buttons">
+    <button class="header-basket">
+      <svg class="header-icon-basket" width="24 " height="24">
+        <use href="./images/icons.svg#icon-shopping-cart"></use>
+      </svg>
+    </button>
+    <label class="switch">
+      <input type="checkbox" />
+      <span class="slider round"></span>
+    </label>
+    <button class="header-burger">
+      <svg class="header-icon-burger" width="32 " height="32">
+        <use href="./images/icons.svg#iconb"></use>
+      </svg>
+    </button>
+  </div>
 </header>
