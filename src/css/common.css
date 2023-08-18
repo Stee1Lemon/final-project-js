@@ -105,6 +105,7 @@ body {
 .base-btn:hover,
 .base-btn:focus {
   color: var(--dark-color);
+  outline: none;
 }
 
 .error-el > p {

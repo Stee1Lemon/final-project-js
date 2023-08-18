@@ -6,18 +6,38 @@ const recipesTable = document.querySelector('.js-card-items');
 
 const recipes = new FetchInfo();
 
-export async function doRecipesCards() {
-  const recipes = new FetchInfo();
+function isPhone(event) {
+  if (event.matches) {
+    doRecipesCards(6);
+  } else {
+    isTablet(largeMedia);
+  }
+}
+
+function isTablet(event) {
+  if (event.matches) {
+    doRecipesCards(8);
+  } else {
+    doRecipesCards(9);
+  }
+}
+
+const smallMedia = window.matchMedia('(max-width: 768px)');
+const largeMedia = window.matchMedia('(max-width: 1200px)');
+isPhone(smallMedia);
+smallMedia.addEventListener('change', isPhone);
+largeMedia.addEventListener('change', isTablet);
+
+
+export async function doRecipesCards(num) {
   try {
-    const page = await recipes.fetchAllRecipesPerPage(9);
+    const page = await recipes.fetchAllRecipesPerPage(num);
     cardsMarkUp(page.data.results);
   } catch (error) {
     errorEl.classList.remove('is-hidden');
     console.log(error.message);
   }
 }
-
-doRecipesCards();
 
 export function cardsMarkUp(cardInfo) {
   const cardsO = cardInfo
@@ -54,31 +74,11 @@ function addToFavoriteListener() {
 }
 
 function addToFavoriteItem(event) {
-  console.log('ok', event.currentTarget.id);
   const recipeId = event.currentTarget.id;
   recipes.fetchRecipeById(recipeId).then(resp => {
-    // console.log(resp.data);
     addToLocalStorage(resp.data);
   });
 }
-
-const save = (key, value) => {
-  try {
-    const serializedState = JSON.stringify(value);
-    localStorage.setItem(key, serializedState);
-  } catch (error) {
-    console.error('Set state error: ', error.message);
-  }
-};
-
-const load = key => {
-  try {
-    const serializedState = localStorage.getItem(key);
-    return serializedState === null ? undefined : JSON.parse(serializedState);
-  } catch (error) {
-    console.error('Get state error: ', error.message);
-  }
-};
 
 function addToLocalStorage(recipe) {
   const toFavorite = [
@@ -87,6 +87,5 @@ function addToLocalStorage(recipe) {
       favorite: true,
     },
   ];
-  console.log(toFavorite);
   localStorage.setItem('toFavorite', JSON.stringify(toFavorite));
 }
