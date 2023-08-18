@@ -10,12 +10,22 @@ export class FetchInfo {
     return axios.get(`${this.BASE_URL}events`);
   }
 
+  fetchAllRecipesPerPage(limit) {
+    return axios.get(`${this.BASE_URL}recipes?limit=${limit}`);
+  }
+
   fetchPopularRecipes() {
     return axios.get(`${this.BASE_URL}recipes/popular`);
   }
 
   fetchAllCategories() {
     return axios.get(`${this.BASE_URL}categories`);
+  }
+
+  fetchByCategory(category, page, limit) {
+    return axios.get(
+      `${this.BASE_URL}recipes?category=${category}&page=${page}&limit=${limit}`
+    );
   }
 
   fetchAllIngredients() {
@@ -53,16 +63,3 @@ export class FetchInfoByFilter {
   }
 }
 
-// function ok() {
-//   const ingr = new FetchInfo();
-//   ingr
-//     .fetchAllIngredients()
-//     .then(resp => console.log(resp.data))
-//     .catch(err => console.log(err));
-// }
-
-// ok();
-
-const ingr = new FetchInfo();
-
-ingr.fetchAllCategories().then(resp => console.log(resp.data)).catch();

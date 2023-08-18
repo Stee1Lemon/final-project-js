@@ -10,3 +10,6 @@ import './js/order-pop-up.js';
 import './js/rating-pop-up.js';
 import './js/recipe-pop-up.js';
 import './js/favorites-page.js';
+import './js/scroll-up.js';
+import './js/loader.js';
+import './js/local-storage.js';

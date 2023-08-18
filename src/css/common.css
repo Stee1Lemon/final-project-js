@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500&family=Inter:wght@400;500;600&family=Poppins:wght@600&display=swap');
+
 :root {
   --light-color: #fff;
   --dark-color: #050505;
@@ -28,6 +30,10 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
 }
 
 .is-hidden {
@@ -70,21 +76,24 @@ html {
     max-width: 768px;
     padding: 0 32px;
   }
+
+  .sections-flex {
+    display: flex;
+    gap: 32px;
+  }
 }
 
 @media screen and (min-width: 1200px) {
   .container {
     max-width: 1080px;
   }
-}
 
-.sections-flex {
-  display: flex;
-  gap: 64px;
+  .sections-flex {
+    gap: 64px;
+  }
 }
 
 .base-btn {
-  margin: 20px;
   padding: 14px 28px;
   color: var(--btn-text-color);
   background-color: var(--accent-color);
@@ -96,4 +105,8 @@ html {
 .base-btn:hover,
 .base-btn:focus {
   color: var(--dark-color);
+}
+
+.error-el > p {
+  text-align: center;
 }
