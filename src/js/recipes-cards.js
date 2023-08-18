@@ -6,7 +6,8 @@ const recipesTable = document.querySelector('.js-card-items');
 
 const recipes = new FetchInfo();
 
-async function doRecipesCards() {
+export async function doRecipesCards() {
+  const recipes = new FetchInfo();
   try {
     const page = await recipes.fetchAllRecipesPerPage(9);
     cardsMarkUp(page.data.results);
@@ -18,7 +19,7 @@ async function doRecipesCards() {
 
 doRecipesCards();
 
-function cardsMarkUp(cardInfo) {
+export function cardsMarkUp(cardInfo) {
   const cardsO = cardInfo
     .map(({ _id, preview, title, description, rating }) => {
       return `<li class="recipe-card">
