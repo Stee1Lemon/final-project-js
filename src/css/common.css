@@ -106,3 +106,7 @@ body {
 .base-btn:focus {
   color: var(--dark-color);
 }
+
+.error-el > p {
+  text-align: center;
+}

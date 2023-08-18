@@ -1,5 +1,6 @@
 import { FetchInfo } from './fetch-requests';
 
+const errorEl = document.querySelector('.error-el');
 const recipesTable = document.querySelector('.js-card-items');
 
 async function doRecipesCards() {
@@ -8,6 +9,7 @@ async function doRecipesCards() {
     const page = await recipes.fetchAllRecipesPerPage(9);
     cardsMarkUp(page.data.results);
   } catch (error) {
+    errorEl.classList.remove('is-hidden');
     console.log(error.message);
   }
 }
@@ -39,4 +41,3 @@ function cardsMarkUp(cardInfo) {
     .join('');
   recipesTable.innerHTML = cardsO;
 }
-
