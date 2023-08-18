@@ -1,4 +1,3 @@
-import axios from 'axios'; //temporary
 import { FetchInfo } from './fetch-requests';
 
 const categoriesBtnEl = document.querySelector('.categories-btn');
@@ -11,7 +10,6 @@ function getCategories() {
   categories
     .fetchAllCategories()
     .then(resp => {
-      console.log(resp.data);
       categoriesListEl.insertAdjacentHTML(
         'afterbegin',
         createCategoriesMarkUp(resp.data)
@@ -54,15 +52,9 @@ function handlerAllCategoriesBtn() {
 }
 
 function getAllRecipes() {
-  axios
-    .get(
-      `https://tasty-treats-backend.p.goit.global/api/recipes?page=1
-        &limit=6`
-    )
-    // const recipes = new FetchInfo();
-    // recipes.fetchAllRecipes()
+    const allRecipes = new FetchInfo();
+    allRecipes.fetchAllRecipesPerPage(limit = 6)
     .then(resp => {
-      console.log(resp.data.results);
       //   функ що приймає масив resp.data.results і рендерить всі рецепти (innerHTML)
     })
     .catch(err => console.log(err));
@@ -86,15 +78,9 @@ function handlerCategoryBtn(ev) {
 }
 
 function getRecipesByCategory(category) {
-  axios
-    .get(
-      `https://tasty-treats-backend.p.goit.global/api/recipes?category=${category}&page=1
-        &limit=6`
-    )
-    // const recipesByCategory = new FetchInfo();
-    // recipesByCategory.fetchPopularRecipes()
+    const recipesByCategory = new FetchInfo();
+    recipesByCategory.fetchByCategory(category, page = 1, limit = 6)
     .then(resp => {
-      console.log(resp.data.results);
       if (resp.data.results.length === 0) {
         // функ що малює помилку при рендері рецептів рецептів по категорії на місці рецептів і приймає рядок повідомлення ('We are sorry. There are no recipes in this category.');
       }
