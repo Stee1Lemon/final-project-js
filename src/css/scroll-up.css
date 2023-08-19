@@ -1,6 +1,6 @@
 .btn-up {
     position: fixed;
-    background-color: #9bb537;
+    background-color: #6af500;
     left: 20px;
     bottom: 30px;
     border-radius: 25px;
@@ -33,6 +33,6 @@
 
   @media (hover: hover) and (pointer: fine) {
     .btn-up:hover {
-      background-color: #00ef00;
+      background-color: #00bfef;
     }
   }
