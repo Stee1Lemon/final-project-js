@@ -1,0 +1,161 @@
+.is-hidden {
+  display: none;
+}
+
+.tui-pagination {
+  margin-top: 40px;
+  margin-bottom: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (min-width: 768px) {
+  .tui-pagination {
+    margin-top: 64px;
+    margin-bottom: 64px;
+  }
+}
+
+.tui-page-btn {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.22;
+
+  border-radius: 40px;
+  border: 1px solid rgba(5, 5, 5, 0.3);
+}
+
+.tui-ico-prev,
+.tui-ico-next,
+.tui-ico-first,
+.tui-ico-last {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #050505;
+}
+
+.tui-ico-prev::before {
+  content: '«';
+}
+
+.tui-ico-next::before {
+  content: '»';
+}
+
+.tui-ico-first::before {
+  content: '««';
+}
+
+.tui-ico-last::before {
+  content: '»»';
+}
+
+.tui-ico-next,
+.tui-ico-last {
+  width: 40px;
+  height: 40px;
+
+  background-color: #9bb537;
+
+  border-radius: 40px;
+  border: 1px solid rgba(5, 5, 5, 0.3);
+}
+
+.tui-ico-prev,
+.tui-ico-first {
+  width: 40px;
+  height: 40px;
+
+  background: #050505;
+  color: #f8f8f8;
+
+  border-radius: 40px;
+}
+
+.tui-first,
+.tui-next {
+  margin-right: 4px;
+}
+
+.tui-next {
+  margin-left: 14px;
+}
+
+.tui-prev {
+  margin-right: 14px;
+}
+
+.tui-page-btn.tui-is-selected {
+  margin-right: 8px;
+
+  border: 1px solid #9bb537;
+  background-color: #9bb537;
+}
+
+.tui-page-btn.tui-page,
+.tui-page-btn.tui-first-child {
+  margin-right: 8px;
+}
+
+.tui-page-btn.tui-last-child {
+  margin-right: 0;
+}
+
+.tui-page-btn.tui-first-child.tui-last-child {
+  margin: 0;
+}
+
+.tui-page-btn.tui-is-selected.tui-last-child {
+  margin: 0;
+}
+
+.tui-page-btn.tui-page.tui-last-child {
+  margin: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .tui-first,
+  .tui-next {
+    margin-right: 8px;
+  }
+
+  .tui-next {
+    margin-left: 24px;
+  }
+
+  .tui-prev {
+    margin-right: 24px;
+  }
+
+  .tui-page-btn.tui-is-selected,
+  .tui-page-btn.tui-page,
+  .tui-page-btn.tui-first-child {
+    margin-right: 10px;
+  }
+}
+
+/* Dark mode */
+.dark .tui-page-btn.tui-page {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.dark .tui-page-btn.tui-first-child,
+.dark .tui-page-btn.tui-last-child {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.dark .tui-is-selected {
+  color: #ffffff;
+}
