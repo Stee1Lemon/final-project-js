@@ -134,7 +134,6 @@ function addToLocalStorage(recipe) {
 function showRating() {
   const ratings = document.querySelectorAll('.rating');
   if (ratings.length > 0) {
-    console.log('enter');
     initRatings();
   }
 
