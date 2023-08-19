@@ -17,12 +17,12 @@ function showNotifyWithHat() {
     categoriesSection.style.display = 'none';
     cardsContainer.style.display = 'none';
   } else {
-    notifWithHat.style.display = 'none';
+//    notifWithHat.style.display = 'none';
   }
 }
 showNotifyWithHat();
 
-categoriesSection.addEventListener('click', onClick);
+//categoriesSection.addEventListener('click', onClick);
 
 function onClick(evt) {
   if (!evt.target.name) {
@@ -63,7 +63,7 @@ function renderCategories(categories) {
     })
     .join('');
 
-  categoriesContainer.insertAdjacentHTML('beforeend', markup);
+//  categoriesContainer.insertAdjacentHTML('beforeend', markup);
 }
 
 function createCardsMarkup(recipiesArray) {
@@ -100,4 +100,4 @@ function cardsMarkup(recipies) {
   cardsContainer.innerHTML = createCardsMarkup(recipies);
 }
 
-cardsMarkup(recipies);
+//cardsMarkup(recipies);
