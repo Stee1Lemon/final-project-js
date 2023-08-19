@@ -27,7 +27,7 @@ function selectedIngredient(evt) {
 
 function timesMarkup() {
   let secondsStep = [];
-  for (let minutes = 5; minutes <= 120; minutes += 5) {
+  for (let minutes = 0; minutes <= 120; minutes += 5) {
     secondsStep.push(`${minutes}`);
   }
   let timeMarkup = secondsStep
@@ -45,6 +45,9 @@ timesMarkup();
 
 const filters = new FetchInfo();
 
+const defaultAreaOption =
+  '<option value="value" selected>Region</option>';
+
 filters
   .fetchAllAreas()
   .then(resp => {
@@ -53,7 +56,8 @@ filters
         return `<option value="${area._id}">${area.name}</option>`;
       })
       .join('');
-    selectArea.insertAdjacentHTML('beforeend', areasMarkup);
+      const selectAreaMarkup = defaultAreaOption + areasMarkup;
+    selectArea.insertAdjacentHTML('beforeend', selectAreaMarkup);
 
     new SlimSelect({
       select: selectArea,
@@ -63,6 +67,9 @@ filters
     Notify.failure(`Oops! Something went wrong! Try reloading the page!`);
   });
 
+  const defaultIngredientsOption =
+    '<option value="value" selected>Product</option>';
+
 filters
   .fetchAllIngredients()
   .then(resp => {
@@ -71,7 +78,9 @@ filters
         return `<option value="${ingredient._id}">${ingredient.name}</option>`;
       })
       .join('');
-    selectIngredients.insertAdjacentHTML('beforeend', ingredientsMarkup);
+      const selectIngredientsMarkup =
+        defaultIngredientsOption + ingredientsMarkup;
+    selectIngredients.insertAdjacentHTML('beforeend', selectIngredientsMarkup);
 
     new SlimSelect({
       select: selectIngredients,
