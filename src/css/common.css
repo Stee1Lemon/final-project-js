@@ -57,24 +57,31 @@ body {
   overflow: hidden;
   border-radius: 15px;
 }
+.section {
+  padding: 0 15px;
+}
 
 .container {
   margin: 0 auto;
-  padding: 0 15px;
+
   outline: 2px solid blue;
 }
 
 @media screen and (min-width: 375px) {
+  .section {
+    padding: 0 20px;
+  }
   .container {
     max-width: 375px;
-    padding: 0 20px;
   }
 }
 
 @media screen and (min-width: 768px) {
+  .section {
+    padding: 0 32px;
+  }
   .container {
     max-width: 768px;
-    padding: 0 32px;
   }
 
   .sections-flex {
@@ -84,12 +91,15 @@ body {
 }
 
 @media screen and (min-width: 1200px) {
+  .section {
+    padding: 0 100px;
+  }
   .container {
     max-width: 1080px;
   }
 
   .sections-flex {
-    gap: 64px;
+    gap: 63px;
   }
 }
 
