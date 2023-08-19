@@ -46,27 +46,62 @@ export async function doRecipesCards() {
 export function cardsMarkUp(cardInfo) {
   const cardsO = cardInfo
     .map(({ _id, preview, title, description, rating }) => {
-      return `<li class="recipe-card" id="${_id}>
-      <div class="rad-img card-thumb">
-        <img class="card-image" src="${preview}" alt="Image of ${title}" />
-      </div>
-      <div class="card-info">
-        <h3 class="card-title">${title}</h3>
-        <p class="card-description">
-          ${description}
-        </p>
-        <div class="card-rating-button">
-          <div>
-            <p class="card-rating">${rating}</p>
-            <span class="card-stars">★★★★★</span>
+      return `
+      <li class="recipe-card rad-img" id="${_id}">
+  <div class="card-thumb">
+    <img class="card-image" src="${preview}" alt="Image of " />
+  </div>
+  <div class="card-info">
+    <h3 class="card-title">${title}</h3>
+    <p class="card-description">${description}</p>
+    <div class="card-rating-button">
+      <div class="rating">
+        <div class="rating-value">${rating}</div>
+        <div class="rating-body">
+          <div class="rating-active"></div>
+          <div class="rating-items">
+            <input
+              type="radio"
+              class="rating-item"
+              name="recipe-rating"
+              value="1"
+            />
+            <input
+              type="radio"
+              class="rating-item"
+              name="recipe-rating"
+              value="2"
+            />
+            <input
+              type="radio"
+              class="rating-item"
+              name="recipe-rating"
+              value="3"
+            />
+            <input
+              type="radio"
+              class="rating-item"
+              name="recipe-rating"
+              value="4"
+            />
+            <input
+              type="radio"
+              class="rating-item"
+              name="recipe-rating"
+              value="5"
+            />
           </div>
-          <button class="base-btn btn-card" type="button">See recipe</button>
         </div>
       </div>
-      <span class="add-favorite"">♡</span>`;
+      <button class="base-btn btn-card" type="button">See recipe</button>
+    </div>
+  </div>
+  <span class="add-favorite">♡</span>
+</li>`;
     })
     .join('');
   recipesTable.innerHTML = cardsO;
+  showRating();
   addToFavoriteListener();
 }
 
@@ -92,4 +127,37 @@ function addToLocalStorage(recipe) {
     },
   ];
   localStorage.setItem('toFavorite', JSON.stringify(toFavorite));
+}
+
+// ----------------
+
+function showRating() {
+  const ratings = document.querySelectorAll('.rating');
+  if (ratings.length > 0) {
+    console.log('enter');
+    initRatings();
+  }
+
+  function initRatings() {
+    let ratingActive, ratingVale;
+    for (let index = 0; index < ratings.length; index += 1) {
+      const rating = ratings[index];
+      initRatings(rating);
+    }
+
+    function initRatings(rating) {
+      initRatingVars(rating);
+      setRatingActiveWidth();
+    }
+
+    function initRatingVars(rating) {
+      ratingActive = rating.querySelector('.rating-active');
+      ratingVale = rating.querySelector('.rating-value');
+    }
+
+    function setRatingActiveWidth(index = ratingVale.innerHTML) {
+      const ratingActiveWidth = index / 0.05;
+      ratingActive.style.width = `${ratingActiveWidth}%`;
+    }
+  }
 }
