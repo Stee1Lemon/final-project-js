@@ -1,3 +1,4 @@
+
 let mask = document.querySelector('.mask');
 
 window.addEventListener('load', () => {
