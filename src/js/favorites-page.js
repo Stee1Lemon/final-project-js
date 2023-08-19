@@ -2,13 +2,27 @@
 
 import recipies from './test-mock';
 
+const heroImgMob = document.querySelector('.fav-hero-img-mob');
 const categoriesContainer = document.querySelector('.fav-categories');
 const cardsContainer = document.querySelector('.fav-recipes');
-const categoriesBtn = document.querySelector('.fav-categories');
+const categoriesSection = document.querySelector('.fav-categories');
+const categoryBtn = document.querySelector('.fav-category-btn');
 const objRecipeCard = document.querySelector('.obj-recipe-card');
+const notifWithHat = document.querySelector('.fav-notification');
 const categories = [];
 
-categoriesBtn.addEventListener('click', onClick);
+function showNotifyWithHat() {
+  if (!recipies.length) {
+    heroImgMob.style.display = 'none';
+    categoriesSection.style.display = 'none';
+    cardsContainer.style.display = 'none';
+  } else {
+    notifWithHat.style.display = 'none';
+  }
+}
+showNotifyWithHat();
+
+categoriesSection.addEventListener('click', onClick);
 
 function onClick(evt) {
   if (!evt.target.name) {
@@ -31,6 +45,7 @@ function onClick(evt) {
 }
 
 function getCategories(recipies) {
+  console.log('recipies', recipies);
   recipies.forEach(({ category }) => {
     if (categories.includes(category)) {
       return;
@@ -54,10 +69,10 @@ function renderCategories(categories) {
 function createCardsMarkup(recipiesArray) {
   return recipiesArray
     .map(({ _id, category, preview, title, description, rating }) => {
-      return `<li class="recipe-card">
+      return `<li class="fav-recipe-card recipe-card">
                 <object class="obj-recipe-card" name="${category}">
-                  <div class="rad-img card-thumb">
-                    <img class="card-image" src="${preview}" alt="" />
+                  <div class="rad-img card-thumb fav-card-thumb">
+                    <img class="fav-card-image card-image" src="${preview}" alt="" />
                   </div>
                   <div class="card-info">
                     <h3 class="card-title" id="${_id}">${title}</h3>
