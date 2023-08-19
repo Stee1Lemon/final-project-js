@@ -79,19 +79,19 @@ const pagination = new Pagination(container, options);
 const page = pagination.getCurrentPage();
 
 const onRenderPage = async (page) => {
-  try {
-    const response = await fetchRecipes(page);
+    try {
+        const response = await fetchRecipes(page);
 
-    if (response.results.length === 0)
-      return container.classList.add('is-hidden');
+        if (response.results.length === 0)
+            return container.classList.add('is-hidden');
 
-    createMarkup(response.results);
-    container.classList.remove('is-hidden');
+        createMarkup(response.results);
+        container.classList.remove('is-hidden');
 
-    pagination.reset(response.totalPages * pageLimit);
-  } catch (error) {
-    console.log(error.message);
-  }
+        pagination.reset(response.totalPages * pageLimit);
+    } catch (error) {
+        console.log(error.message);
+    }
 }
 onRenderPage(page);
 
