@@ -25,6 +25,9 @@
 .popular-recipe {
   display: flex;
   gap: 16px;
+}
+
+.popular-recipe:not(:last-child) {
   margin-bottom: 24px;
 }
 
@@ -74,8 +77,11 @@
   }
 
   .popular-recipe {
-    margin-bottom: 16px;
     gap: 8px;
+  }
+
+  .popular-recipe:not(:last-child) {
+    margin-bottom: 16px;
   }
 
   .popular-img {
@@ -105,8 +111,11 @@
   }
 
   .popular-recipe {
-    margin-bottom: 32px;
     gap: 16px;
+  }
+
+  .popular-recipe:not(:last-child) {
+    margin-bottom: 32px;
   }
 
   .popular-img {
