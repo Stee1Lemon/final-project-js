@@ -6,32 +6,36 @@ const recipesTable = document.querySelector('.js-card-items');
 
 const recipes = new FetchInfo();
 
-function isPhone(event) {
-  if (event.matches) {
-    doRecipesCards(6);
-  } else {
-    isTablet(largeMedia);
+export function seeViewport() {
+  let number = '6';
+  const smallMedia = window.matchMedia('(max-width: 768px)');
+  const largeMedia = window.matchMedia('(max-width: 1200px)');
+  smallMedia.addEventListener('change', isPhone);
+  largeMedia.addEventListener('change', isTablet);
+  isPhone(smallMedia);
+
+  function isPhone(event) {
+    if (event.matches) {
+      number = 6;
+    } else {
+      isTablet(largeMedia);
+    }
   }
-}
 
-function isTablet(event) {
-  if (event.matches) {
-    doRecipesCards(8);
-  } else {
-    doRecipesCards(9);
+  function isTablet(event) {
+    if (event.matches) {
+      number = 8;
+      // doRecipesCards(8);
+    } else {
+      number = 9;
+    }
   }
+  return number;
 }
-
-const smallMedia = window.matchMedia('(max-width: 768px)');
-const largeMedia = window.matchMedia('(max-width: 1200px)');
-isPhone(smallMedia);
-smallMedia.addEventListener('change', isPhone);
-largeMedia.addEventListener('change', isTablet);
-
-
-export async function doRecipesCards(num) {
+doRecipesCards();
+export async function doRecipesCards() {
   try {
-    const page = await recipes.fetchAllRecipesPerPage(num);
+    const page = await recipes.fetchAllRecipesPerPage(seeViewport());
     cardsMarkUp(page.data.results);
   } catch (error) {
     errorEl.classList.remove('is-hidden');
@@ -42,7 +46,7 @@ export async function doRecipesCards(num) {
 export function cardsMarkUp(cardInfo) {
   const cardsO = cardInfo
     .map(({ _id, preview, title, description, rating }) => {
-      return `<li class="recipe-card">
+      return `<li class="recipe-card" id="${_id}>
       <div class="rad-img card-thumb">
         <img class="card-image" src="${preview}" alt="Image of ${title}" />
       </div>
@@ -59,7 +63,7 @@ export function cardsMarkUp(cardInfo) {
           <button class="base-btn btn-card" type="button">See recipe</button>
         </div>
       </div>
-      <span class="add-favorite" id="${_id}">♡</span>`;
+      <span class="add-favorite"">♡</span>`;
     })
     .join('');
   recipesTable.innerHTML = cardsO;
