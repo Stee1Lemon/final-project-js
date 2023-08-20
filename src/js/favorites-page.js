@@ -1,7 +1,7 @@
 // //console.log('10.Favorites page');
 
 import recipies from './test-mock';
-import cardsMarkUp from './recipes-cards';
+import { cardsMarkUp } from './recipes-cards';
 
 const heroImgMob = document.querySelector('.fav-hero-img-mob');
 const categoriesContainer = document.querySelector('.fav-categories');
