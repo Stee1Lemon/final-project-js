@@ -25,6 +25,7 @@
 .popular-recipe {
   display: flex;
   gap: 16px;
+  cursor: pointer;
 }
 
 .popular-recipe:not(:last-child) {
