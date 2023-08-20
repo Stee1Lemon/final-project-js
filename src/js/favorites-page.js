@@ -1,28 +1,30 @@
 //console.log('10.Favorites page');
 
 import recipies from './test-mock';
+import { cardsMarkUp } from './recipes-cards';
+console.log('cardsMarkUp', cardsMarkUp);
 
 const heroImgMob = document.querySelector('.fav-hero-img-mob');
 const categoriesContainer = document.querySelector('.fav-categories');
 const cardsContainer = document.querySelector('.fav-recipes');
-const categoriesSection = document.querySelector('.fav-categories');
 const categoryBtn = document.querySelector('.fav-category-btn');
 const objRecipeCard = document.querySelector('.obj-recipe-card');
 const notifWithHat = document.querySelector('.fav-notification');
 const categories = [];
 
+console.log('categoriesContainer', categoriesContainer);
+
 function showNotifyWithHat() {
   if (!recipies.length) {
-    heroImgMob.style.display = 'none';
-    categoriesSection.style.display = 'none';
-    cardsContainer.style.display = 'none';
-  } else {
-//    notifWithHat.style.display = 'none';
+    heroImgMob.classList.add('is-hidden');
+    categoriesContainer.classList.add('is-hidden');
+    cardsContainer.classList.add('is-hidden');
+    notifWithHat.classList.remove('is-hidden');
   }
 }
 showNotifyWithHat();
 
-//categoriesSection.addEventListener('click', onClick);
+categoriesContainer.addEventListener('click', onClick);
 
 function onClick(evt) {
   if (!evt.target.name) {
@@ -63,7 +65,7 @@ function renderCategories(categories) {
     })
     .join('');
 
-//  categoriesContainer.insertAdjacentHTML('beforeend', markup);
+  categoriesContainer.insertAdjacentHTML('beforeend', markup);
 }
 
 function createCardsMarkup(recipiesArray) {
@@ -99,5 +101,4 @@ getCategories(recipies); //() <- тут мають передатись дані
 function cardsMarkup(recipies) {
   cardsContainer.innerHTML = createCardsMarkup(recipies);
 }
-
-//cardsMarkup(recipies);
+cardsMarkUp(recipies);
