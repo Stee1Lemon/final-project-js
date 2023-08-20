@@ -101,9 +101,9 @@ function makeBtnNotActive() {
 }
 
 export function getNameOfActiveCategory() {
-    categoryBtns.map(btn => {
-      if (btn.classList.contains('category-btn-active')) {
-        return btn.textContent
-      }
-    });
-  } 
+  categoryBtns.map(btn => {
+    if (btn.classList.contains('category-btn-active')) {
+      return btn.textContent;
+    }
+  });
+}
