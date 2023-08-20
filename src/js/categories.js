@@ -1,15 +1,19 @@
 import { FetchInfo } from './fetch-requests';
 import { cardsMarkUp } from './recipes-cards';
+import { seeViewport } from './recipes-cards';
 
+const request = new FetchInfo();
 const categoriesBtnEl = document.querySelector('.categories-btn-js');
 const categoriesListEl = document.querySelector('.categories-list-js');
+const errorEl = document.querySelector('.error-el');
+const recipesTable = document.querySelector('.js-card-items');
 
 let categoryBtns = [];
+let totalPages;
 
 async function getCategories() {
-  const categories = new FetchInfo();
   try {
-    const resp = await categories.fetchAllCategories();
+    const resp = await request.fetchAllCategories();
     categoriesListEl.insertAdjacentHTML(
       'afterbegin',
       createCategoriesMarkUp(resp.data)
@@ -19,10 +23,10 @@ async function getCategories() {
   } catch (err) {
     console.log(err);
     categoriesListEl.innerHTML = `
-                <p class="categories-err">
-                We are sorry, something went wrong. Please, reload the page!
-                </p>
-                `;
+      <p class="categories-err">
+      We are sorry, something went wrong. Please, reload the page!
+      </p>
+      `;
   }
 }
 
@@ -33,7 +37,7 @@ function createCategoriesMarkUp(arr) {
     .map(
       ({ name }) => `
           <li class="category">
-          <button class="category-btn" type="button">${name}</button>
+            <button class="category-btn" type="button">${name}</button>
           </li>
           `
     )
@@ -48,15 +52,17 @@ function handlerAllCategoriesBtn() {
 }
 
 async function getAllRecipes() {
-  const allRecipes = new FetchInfo();
   try {
-    const resp = await allRecipes.fetchAllRecipesPerPage((limit = 9));
+    if (!errorEl.classList.contains('is-hidden')) {
+      errorEl.classList.add('is-hidden');
+    }
+    const resp = await request.fetchAllRecipesPerPage(seeViewport());
     cardsMarkUp(resp.data.results);
   } catch (err) {
     console.log(err);
-    //   функ що малює помилку при рендері всіх рецептів на місці рецептів і приймає рядок повідомлення ('We are sorry. Something went wrong. Please, try reload the page.')
+    recipesTable.innerHTML = '';
+    errorEl.classList.remove('is-hidden');
   }
-  //   функ що малює помилку при рендері всіх рецептів на місці рецептів і приймає рядок повідомлення ('We are sorry. Something went wrong. Please, try reload the page.')
 }
 
 categoriesListEl.addEventListener('click', handlerCategoryBtn);
@@ -75,20 +81,21 @@ function handlerCategoryBtn(ev) {
 }
 
 async function getRecipesByCategory(category) {
-  const recipesByCategory = new FetchInfo();
   try {
-    const resp = await recipesByCategory.fetchByCategory(
-      category,
-      (page = 1),
-      (limit = 9)
-    );
-    if (resp.data.results.length === 0) {
-      // функ що малює помилку при рендері рецептів рецептів по категорії на місці рецептів і приймає рядок повідомлення ('We are sorry. There are no recipes in this category.');
+    if (!errorEl.classList.contains('is-hidden')) {
+      errorEl.classList.add('is-hidden');
     }
+    const resp = await request.fetchByCategory(category, 1, seeViewport());
+    if (resp.data.results.length === 0) {
+      recipesTable.innerHTML =
+        'We are sorry. There are no recipes in this category.';
+    }
+    totalPages = resp.data.totalPages;
     cardsMarkUp(resp.data.results);
   } catch (err) {
     console.log(err);
-    //   функ що малює помилку при рендері рецептів по категорії на місці рецептів і приймає рядок повідомлення ('We are sorry. Something went wrong. Please, try reload the page.')
+    recipesTable.innerHTML = '';
+    errorEl.classList.remove('is-hidden');
   }
 }
 
@@ -103,7 +110,12 @@ function makeBtnNotActive() {
 export function getNameOfActiveCategory() {
   categoryBtns.map(btn => {
     if (btn.classList.contains('category-btn-active')) {
+      console.log(btn.textContent);
       return btn.textContent;
     }
   });
+}
+
+export function getTotalPages() {
+  return totalPages;
 }

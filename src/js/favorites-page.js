@@ -67,7 +67,6 @@ function renderCategories(categories) {
       return `<button type="button" name="${item}" class="fav-category-btn">${item}</button>`;
     })
     .join('');
-
   //categoriesContainer.insertAdjacentHTML('beforeend', markup);
 }
 
