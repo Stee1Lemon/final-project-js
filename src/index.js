@@ -7,7 +7,7 @@ import './js/popular-recipes.js';
 import './js/filter.js';
 import './js/recipes-cards.js';
 import './js/order-pop-up.js';
-import './js/rating-pop-up.js';
+import './js/open-any-modal.js';
 import './js/rating-pop-up-real.js';
 import './js/recipe-pop-up.js';
 import './js/favorites-page.js';
