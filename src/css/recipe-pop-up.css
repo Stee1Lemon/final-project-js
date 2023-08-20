@@ -18,7 +18,8 @@
     position: absolute;
     top: 50%;
     left: 50%; 
-    transform: translate(-50%, -50%) rotate(0);
+    transform: translate(-50%, -50%) rotate(0); 
+    overflow:scroll;
 }
 
 .recipe-modal-btn-wrap{
@@ -49,11 +50,11 @@
     position: absolute;
     right: 14px;
     top: 14px;
-    width: 20px;
-    height: 20px;
+    width: 35px;
+    height: 35px;
     display: flex;
     justify-content: center; 
-    align-items: end; 
+    align-items: center; 
     background: transparent;
     border: none;
     font-size: 18px; 
@@ -87,55 +88,53 @@
     text-align: left;
     color: var(--light-theme-semi-transparent-color);
     margin-bottom: 33px;
+    gap: 16px;
 }
 
-.recipe-modal-rating{
-    margin-right: 10px;
+.rating-recipe-modal{
+    background-color: transparent;
 }
 
-.recipe-modal-stars{
-    margin-right: 17px;
+.rating-value-modal{
+    color: var(--light-theme-semi-transparent-color);
 }
 
 .modal-ingredients-list-wrap{
     display: flex;
     align-items: start;
     justify-content: space-between;
-}
-
-.recipe-modal-name-item{
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 18px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: var(--dark-color);
-    margin-bottom: 14px;
-    position: relative;
-    padding-bottom: 8px;
-}
-
-.recipe-modal-name-item:last-child,
-.recipe-modal-measure-item:last-child{
+    margin-top: 33px;
     margin-bottom: 40px;
 }
 
-.recipe-modal-measure-item{
+.recipe-modal-ingredients-item{
     font-size: 14px;
     font-weight: 400;
     line-height: 18px;
     letter-spacing: 0em;
     text-align: left;
-    color: var(--light-theme-semi-transparent-color);
-    margin-bottom: 14px;
     position: relative;
     padding-bottom: 8px;
+    margin-bottom: 14px;
 }
+
+.recipe-modal-name-item{
+    color: var(--dark-color);
+}
+
+.recipe-modal-measure-item{
+    color: var(--light-theme-semi-transparent-color);
+}
+
+.recipe-modal-ingredients-item:last-child{
+    margin-bottom: 0;
+}
+
 
 .modal-tags-list{
     display: flex;
-    justify-content: space-around;
-    margin-bottom: 24px;
+    flex-wrap: wrap;
+    justify-content: start;
 }
 
 .recipe-modal-teg-span{
@@ -144,13 +143,19 @@
     padding: 8px 16px;
 }
 
+.recipe-modal-tag-item{
+    margin-right: 8px;
+    padding-bottom: 30px;
+}
+
 .recipe-modal-instructions-paragraph{
     font-size: 14px;
     font-weight: 400;
     line-height: 18px;
-    letter-spacing: 0em;
+    /* letter-spacing: 0em; */
     text-align: left;
-    color:  #050505CC;;
+    color: #050505CC;
+    /* color:  var(--light-modal-text-color); */
 }
 
 .recipe-modal-instructions-wrap{
@@ -163,9 +168,10 @@
     bottom: 0;
     left: -100%;
     width: 200%;
-    border-bottom: 1px solid #0505051A;
+    border-bottom: 1px solid #050505CC ;
+    /* var(--light-modal-underline-color) */
     height:  1px;
-    color: #0505051A;
+    color: var(--light-modal-underline-color);
 
 } 
 
@@ -175,7 +181,8 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    border-bottom: 1px solid #0505051A;
+    border-bottom: 1px solid #050505CC ;
+    /* var(--light-modal-underline-color) */
     /* height:  2px;
     color: #0505051A; */
 }
@@ -208,6 +215,61 @@
     .recipe-modal-video{
         width: 467px;
         height: 250px;
+    }
+
+    .recipe-modal-title{
+        order: 1;
+        margin-bottom: 16px;
+        margin-top: 0;
+    }
+
+    .recipe-modal-tag-item{
+        margin-right: 0;
+        padding-bottom: 0;
+    }
+
+    .modal-ingredients-list-wrap{
+        margin-top: 32px;
+        margin-bottom: 32px;
+        order: 4;
+    }
+
+    .modal-tags-list{
+        display: flex;
+        justify-content: start;
+        gap: 4px;
+    }
+
+    .recipe-modal-ingredients-item{
+        margin-bottom: 10px;
+    }
+
+    .recipe-modal-instructions-wrap{
+        margin-bottom: 32px;
+        order: 5;
+    }
+
+    .modal-recipe-content{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .video-or-image-wrap{
+        order: 2;
+    }
+
+    .raring-time-tags{
+        order: 2;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .recipe-modal-tags{
+        order: 2;
+    }
+
+    .rating-time-wrap{
+        order: 2;
     }
 
 }
