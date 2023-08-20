@@ -229,6 +229,10 @@ input:checked+.menu-slider:before {
         display: none;
     }
 
+    .menu {
+        display: none;
+    }
+
     /* ------------------------------------------------SWITCHER-----------------start----- */
     /* The switch - the box around the slider */
     .switch {
@@ -316,4 +320,11 @@ input:checked+.menu-slider:before {
     .header-container {
         padding-bottom: 100px;
     }
+}
+
+/* ----------------------------Change color theme-------------- */
+
+.dark {
+    background-color: var(--dark-color);
+    color: var(--light-color);
 }
