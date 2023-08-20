@@ -2,13 +2,6 @@ import { FetchInfo } from './fetch-requests';
 
 const errorEl = document.querySelector('.error-el');
 const recipesTable = document.querySelector('.js-card-items');
-const ratingOpenBtn = document.querySelector('.open-rating-btn');
-const ratingPopUpEl = document.querySelector('.container-rating');
-
-ratingOpenBtn.addEventListener('click', openRatingPopUp);
-function openRatingPopUp() {
-  ratingPopUpEl.classList.toggle('is-hidden');
-}
 
 const recipes = new FetchInfo();
 
