@@ -27,21 +27,19 @@ async function getPopular() {
 getPopular();
 
 function createPopularMarkUp(arr) {
-  if (seeViewportForPopular() === 2) {
-    arr.splice(0, 2);
+  const recipiesPerPageMobil = 2;
+  if (seeViewportForNumberOfRecipies() === recipiesPerPageMobil) {
+    arr.splice(2, arr.length);
   }
   return arr
     .map(({ title, description, preview, _id }) => {
-      title = seeViewportForTitle(title);
-
-      const numberOfLetters = seeViewportForDescription();
-
-      let newDescription;
-      if (description.length > numberOfLetters) {
-        newDescription = description.slice(0, numberOfLetters);
-        description = newDescription + '...';
-      }
-
+      // title = seeViewportForTitle(title);
+      // const numberOfLetters = seeViewportForDescription();
+      // let newDescription;
+      // if (description.length > numberOfLetters) {
+      //   newDescription = description.slice(0, numberOfLetters);
+      //   description = newDescription + '...';
+      // }
       const descriptionString = `
         <li class="popular-recipe">
           <img class="popular-img" src="${preview}" alt="${title}">
@@ -72,7 +70,7 @@ function handlerRecipeClick(ev) {
     // fetchWithMarkup(idNumber); ???
 }
 
-function seeViewportForPopular() {
+function seeViewportForNumberOfRecipies() {
   let number = '2';
   smallMedia?.addEventListener('change', isPhone);
   largeMedia?.addEventListener('change', isTablet);
@@ -96,53 +94,52 @@ function seeViewportForPopular() {
   return number;
 }
 
-function seeViewportForTitle(title) {
-  let string = title;
-  smallMedia?.addEventListener('change', isPhone);
-  largeMedia?.addEventListener('change', isTablet);
-  isPhone(smallMedia);
+// function seeViewportForTitle(title) {
+//   let string = title;
+//   smallMedia?.addEventListener('change', isPhone);
+//   largeMedia?.addEventListener('change', isTablet);
+//   isPhone(smallMedia);
+//   function isPhone(event) {
+//     if (event.matches) {
+//       string = title;
+//     } else {
+//       isTablet(largeMedia);
+//     }
+//   }
 
-  function isPhone(event) {
-    if (event.matches) {
-      string = title;
-    } else {
-      isTablet(largeMedia);
-    }
-  }
+//   function isTablet(event) {
+//     if (event.matches) {
+//       if (string.length > 11) {
+//         const newTitle = string.slice(0, 11);
+//         string = newTitle + '...';
+//       }
+//     } else {
+//       string = title;
+//     }
+//   }
+//   return string;
+// }
 
-  function isTablet(event) {
-    if (event.matches) {
-      if (string.length > 11) {
-        const newTitle = string.slice(0, 11);
-        string = newTitle + '...';
-      }
-    } else {
-      string = title;
-    }
-  }
-  return string;
-}
+// function seeViewportForDescription() {
+//   let number = '80';
+//   smallMedia?.addEventListener('change', isPhone);
+//   largeMedia?.addEventListener('change', isTablet);
+//   isPhone(smallMedia);
 
-function seeViewportForDescription() {
-  let number = '80';
-  smallMedia?.addEventListener('change', isPhone);
-  largeMedia?.addEventListener('change', isTablet);
-  isPhone(smallMedia);
+//   function isPhone(event) {
+//     if (event.matches) {
+//       number = 80;
+//     } else {
+//       isTablet(largeMedia);
+//     }
+//   }
 
-  function isPhone(event) {
-    if (event.matches) {
-      number = 80;
-    } else {
-      isTablet(largeMedia);
-    }
-  }
-
-  function isTablet(event) {
-    if (event.matches) {
-      number = 43;
-    } else {
-      number = 80;
-    }
-  }
-  return number;
-}
+//   function isTablet(event) {
+//     if (event.matches) {
+//       number = 43;
+//     } else {
+//       number = 80;
+//     }
+//   }
+//   return number;
+// }
