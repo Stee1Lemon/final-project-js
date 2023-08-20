@@ -1,12 +1,14 @@
 // LOCAL STORAGE ДЛЯ СВІТЧЕРА
-
+import {getRecipesByCategory} from './categories'
 const themeCheckbox = document.querySelector('.switch>input');
+const body = document.querySelector('body');
+// const categoryBtn = document.querySelector('.category-btn');
 themeCheckbox.addEventListener('change', switchThemeColor);
 reloadThemeAndFormData();
 
 function switchThemeColor() {
     if (themeCheckbox.checked) {
-        document.documentElement.setAttribute('theme', 'dark-theme');
+        body.classList.add('dark')
         localStorage.setItem('theme', 'dark-theme');
     } else {
         document.documentElement.removeAttribute('theme');
@@ -18,7 +20,7 @@ function reloadTheme() {
     // Встановлення стану теми
     if (localStorage.getItem('theme') === 'dark-theme') {
         themeCheckbox.checked = true;
-        document.documentElement.setAttribute('theme', 'dark-theme');
+        body.classList.add('dark')
     } else {
         themeCheckbox.checked = false;
         document.documentElement.removeAttribute('theme');
@@ -66,27 +68,35 @@ categoriesList.addEventListener('click', handleCategoryClick);
 
 function handleCategoryClick(event) {
     const categoryOption = event.target;
-    if (categoryOption.classList.contains('category-option')) {
+    if (categoryOption.classList.contains('category-btn-active')) {
         const selectedCategory = categoryOption.textContent;
         localStorage.setItem('selected-category', selectedCategory);
-        categoryOption.classList.add('selected')
+        categoryOption.classList.add('category-btn-active')
         console.log(`Selected category: ${selectedCategory}`);
     }
 }
-function reloadCategory() {
-    const selectedCategory = localStorage.getItem('selected-category');
-    if (selectedCategory) {
-        const categoryOptions = document.querySelectorAll('.category-option');
+
+function reloadCategory(selectedCategory) {
+        const categoryOptions = document.querySelectorAll('.category-btn');
         categoryOptions.forEach(option => {
             if (option.textContent === selectedCategory) {
-                option.classList.add('selected'); // Додати стиль для відображення вибраної категорії
+                option.classList.add('category-btn-active'); // Додати стиль для відображення вибраної категорії
                 console.log(`Reloaded selected category: ${selectedCategory}`);
+                // getRecipesByCategory(selectedCategory);
             } else {
-                option.classList.remove('selected'); // Видалити стиль для інших категорій
+                option.classList.remove('category-btn-active'); // Видалити стиль для інших категорій
             }
         });
     }
-};
+goToLocal();
+export function goToLocal() {
+    const selectedCategory = localStorage.getItem('selected-category');
+    console.log(selectedCategory);
+    if(selectedCategory) {
+        reloadCategory(selectedCategory)
+    }
+    return;
+}
 
 // LOCAL STORAGE ДЛЯ ФІЛЬТРІВ
 
