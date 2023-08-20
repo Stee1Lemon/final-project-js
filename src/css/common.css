@@ -18,6 +18,8 @@
   /* transparent 20% */
   --light-theme-transparent-color: #05050533;
   --light-theme-slider-semi-transparent-color: #f8f8f880;
+  --light-modal-text-color: #050505cc;
+  --light-modal-underline-color: #0505051a;
 
   --dark-theme-background-color: #1e1e1e;
 
@@ -51,6 +53,8 @@ body {
   --light-theme-semi-transparent-color: #ffffff80;
   --light-theme-almost-transparent-color: #ffffff4d;
   --light-theme-transparent-color: #ffffff33;
+  --light-modal-text-color: #ffffffcc;
+  --light-modal-underline-color: #ffffff80;
 }
 
 .is-hidden {
