@@ -1,14 +1,8 @@
 import { FetchInfo } from './fetch-requests';
+import { showRating } from './rating-pop-up-real.js';
 
 const errorEl = document.querySelector('.error-el');
 const recipesTable = document.querySelector('.js-card-items');
-const ratingOpenBtn = document.querySelector('.open-rating-btn');
-const ratingPopUpEl = document.querySelector('.container-rating');
-
-ratingOpenBtn.addEventListener('click', openRatingPopUp);
-function openRatingPopUp() {
-  ratingPopUpEl.classList.toggle('is-hidden');
-}
 
 const recipes = new FetchInfo();
 
@@ -133,36 +127,4 @@ function addToLocalStorage(recipe) {
     },
   ];
   localStorage.setItem('toFavorite', JSON.stringify(toFavorite));
-}
-
-// ----------------
-
-function showRating() {
-  const ratings = document.querySelectorAll('.rating');
-  if (ratings.length > 0) {
-    initRatings();
-  }
-
-  function initRatings() {
-    let ratingActive, ratingVale;
-    for (let index = 0; index < ratings.length; index += 1) {
-      const rating = ratings[index];
-      initRatings(rating);
-    }
-
-    function initRatings(rating) {
-      initRatingVars(rating);
-      setRatingActiveWidth();
-    }
-
-    function initRatingVars(rating) {
-      ratingActive = rating.querySelector('.rating-active');
-      ratingVale = rating.querySelector('.rating-value');
-    }
-
-    function setRatingActiveWidth(index = ratingVale.innerHTML) {
-      const ratingActiveWidth = index / 0.05;
-      ratingActive.style.width = `${ratingActiveWidth}%`;
-    }
-  }
 }
