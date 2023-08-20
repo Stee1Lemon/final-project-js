@@ -1,7 +1,7 @@
 import { all } from "axios";
 import { join } from "lodash";
 import { FetchInfo } from "./fetch-requests";
-import { showRating } from './rating-pop-up-real.js';
+// import { showRating } from './rating-pop-up-real.js';
 
 const recipes = new FetchInfo();
 
@@ -9,13 +9,11 @@ const recipes = new FetchInfo();
 const recipeContainer = document.querySelector('.modal-recipe-content');
 
 const btnOpenReciipe = document.querySelector('.open-modal-recipe');
+const btnCLoseRecipe = document.querySelector('.btn-recipe-close');
 const backdropRecipe = document.querySelector('.backdrop');
 
-btnOpenReciipe?.addEventListener('click', openModalRecipe);
-
-function openModalRecipe(){
-    backdropRecipe.classList.remove('is-hidden');
-}
+btnOpenReciipe?.addEventListener('click', () => {backdropRecipe.classList.remove('is-hidden');});
+btnCLoseRecipe?.addEventListener('click', () => {backdropRecipe.classList.add('is-hidden');});
 
 
 const id = "6462a8f74c3d0ddd28897fdf";
@@ -105,6 +103,6 @@ export function recipeModalMarkup(resipeData){
         </div>
         `;
         recipeContainer.innerHTML = recipeMarkup;
-        showRating();
+        // showRating();
     
 }
