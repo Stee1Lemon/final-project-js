@@ -16,7 +16,7 @@
 }
 
 .popular-err {
-  color: var(--light-theme-almost-transparent-color);
+  color: var(--light-theme-semi-transparent-color);
   font-size: 14px;
   font-weight: 500;
   line-height: 1.28;
@@ -54,7 +54,7 @@
 }
 
 .popular-recipe-descr {
-  color: var(--light-theme-text-color);
+  color: var(--light-modal-text-color);
   font-size: 12px;
   line-height: 1.33;
 }
