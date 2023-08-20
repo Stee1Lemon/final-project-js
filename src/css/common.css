@@ -26,6 +26,8 @@
   --dark-theme-transparent: #ffffff33;
 
   --animation: 250ms cubic-bezier(0.23, 0.86, 0.79, 0.77);
+  --ss-content-height: 176px !important;
+  --ss-border-radius: 15px !important;
 }
 
 html {
@@ -115,6 +117,7 @@ body {
 .base-btn:hover,
 .base-btn:focus {
   color: var(--dark-color);
+  outline: none;
 }
 
 .error-el > p {
