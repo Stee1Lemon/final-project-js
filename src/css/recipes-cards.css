@@ -121,7 +121,7 @@
   display: flex;
   align-items: flex-end;
   font-size: 18px;
-  background-color: rgba(0, 0, 0, 0.39);
+  background-color: var(--cards-background-color-for-stars);
   border-radius: 3px;
   padding: 0 3px;
 }
@@ -134,8 +134,7 @@
 }
 .rating-body {
   position: relative;
-  /* color: rgb(10, 26, 204); */
-  color: #d9d9d9;
+  color: var(--stars-uncolored);
 }
 .rating-body::before {
   content: '★★★★★';
@@ -148,6 +147,7 @@
   top: 0;
   left: 0;
   overflow: hidden;
+  color: var(--stars-uncolored);
 }
 .rating-active::before {
   content: '★★★★★';
@@ -157,7 +157,7 @@
   height: 100%;
   top: 0;
   left: 0;
-  color: #eea10c;
+  color: var(--stars-color);
 }
 .rating-items {
   display: flex;
