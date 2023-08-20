@@ -1,8 +1,8 @@
 import { FetchInfo } from './fetch-requests';
+import { showRating } from './rating-pop-up-real.js';
 
 const errorEl = document.querySelector('.error-el');
 const recipesTable = document.querySelector('.js-card-items');
-// const sectionEl = document.querySelector('.card-section');
 
 const recipes = new FetchInfo();
 
@@ -54,7 +54,7 @@ export function cardsMarkUp(cardInfo) {
   <div class="card-info">
     <h3 class="card-title">${title}</h3>
     <p class="card-description">${description}</p>
-    <div class="card-rating-button">
+    <div class="card-rating-and-button">
       <div class="rating">
         <div class="rating-value">${rating}</div>
         <div class="rating-body">
@@ -127,37 +127,4 @@ function addToLocalStorage(recipe) {
     },
   ];
   localStorage.setItem('toFavorite', JSON.stringify(toFavorite));
-}
-
-// ----------------
-
-function showRating() {
-  const ratings = document.querySelectorAll('.rating');
-  if (ratings.length > 0) {
-    console.log('enter');
-    initRatings();
-  }
-
-  function initRatings() {
-    let ratingActive, ratingVale;
-    for (let index = 0; index < ratings.length; index += 1) {
-      const rating = ratings[index];
-      initRatings(rating);
-    }
-
-    function initRatings(rating) {
-      initRatingVars(rating);
-      setRatingActiveWidth();
-    }
-
-    function initRatingVars(rating) {
-      ratingActive = rating.querySelector('.rating-active');
-      ratingVale = rating.querySelector('.rating-value');
-    }
-
-    function setRatingActiveWidth(index = ratingVale.innerHTML) {
-      const ratingActiveWidth = index / 0.05;
-      ratingActive.style.width = `${ratingActiveWidth}%`;
-    }
-  }
 }

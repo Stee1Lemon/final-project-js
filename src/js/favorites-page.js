@@ -1,57 +1,51 @@
 //console.log('10.Favorites page');
 
 import recipies from './test-mock';
+// import { cardsMarkUp } from './recipes-cards';
 
 const heroImgMob = document.querySelector('.fav-hero-img-mob');
-const categoriesContainer = document.querySelector('.fav-categories');
 const cardsContainer = document.querySelector('.fav-recipes');
-const categoriesSection = document.querySelector('.fav-categories');
-const categoryBtn = document.querySelector('.fav-category-btn');
-const objRecipeCard = document.querySelector('.obj-recipe-card');
 const notifWithHat = document.querySelector('.fav-notification');
 const categories = [];
 
+const categoriesContainer = document.querySelector('.fav-categories');
+
 function showNotifyWithHat() {
   if (!recipies.length) {
-    heroImgMob.style.display = 'none';
-    categoriesSection.style.display = 'none';
-    cardsContainer.style.display = 'none';
-  } else {
-//    notifWithHat.style.display = 'none';
+    heroImgMob.classList.add('is-hidden');
+    categoriesContainer.classList.add('is-hidden');
+    cardsContainer.classList.add('is-hidden');
+    notifWithHat.classList.remove('is-hidden');
   }
 }
 showNotifyWithHat();
 
-//categoriesSection.addEventListener('click', onClick);
+if (categoriesContainer) {
+  categoriesContainer?.addEventListener('click', onClick);
+}
 
 function onClick(evt) {
   if (!evt.target.name) {
     return;
   }
-  console.log('click', evt.target.name);
 
-  const recipiesArray = recipies.filter(
-    ({ _id, category, preview, title, description, rating }) => {
-      return evt.target.name === category;
-    }
-  );
+  const recipiesArray = recipies.filter(({ category }) => {
+    return evt.target.name === category;
+  });
 
-  console.log('recipiesArray', recipiesArray);
   cardsContainer.innerHTML = createCardsMarkup(recipiesArray);
 
   if (evt.target.name === 'all') {
-    cardsMarkup(recipies);
+    cardsMarkUp(recipies);
   }
 }
 
 function getCategories(recipies) {
-  console.log('recipies', recipies);
   recipies.forEach(({ category }) => {
     if (categories.includes(category)) {
       return;
     }
     categories.push(category);
-    console.log('categories', categories);
   });
   renderCategories(categories);
 }
@@ -63,7 +57,7 @@ function renderCategories(categories) {
     })
     .join('');
 
-//  categoriesContainer.insertAdjacentHTML('beforeend', markup);
+  //categoriesContainer.insertAdjacentHTML('beforeend', markup);
 }
 
 function createCardsMarkup(recipiesArray) {
@@ -96,8 +90,7 @@ function createCardsMarkup(recipiesArray) {
 
 getCategories(recipies); //() <- тут мають передатись дані з localStorage
 
-function cardsMarkup(recipies) {
+function cardsMarkUp(recipies) {
   cardsContainer.innerHTML = createCardsMarkup(recipies);
 }
-
-//cardsMarkup(recipies);
+//cardsMarkUp(recipies);
