@@ -16,7 +16,7 @@
 }
 
 .popular-err {
-  color: var(--light-theme-almost-transparent-color);
+  color: var(--light-theme-semi-transparent-color);
   font-size: 14px;
   font-weight: 500;
   line-height: 1.28;
