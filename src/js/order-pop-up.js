@@ -1,34 +1,25 @@
 import { Notify } from "notiflix";
-import { throttle } from "lodash";
 
-const localStorageKey = 'order-form-state';
 const form = document.querySelector('.form-oder');
 
-form.addEventListener('input', throttle(onInputData, 500));
-form.addEventListener('submit', submitForm);
+const openBtn = document.querySelector('.btn-open-order');
+const closeBtn = document.querySelector('.order-btn-close');
 
-let dataForm = JSON.parse(localStorage.getItem(localStorageKey)) || {};
+const backdrop = document.querySelector('.backdrop')
+
+form?.addEventListener('submit', submitForm);
+form?.addEventListener('input', () => {dataForm = {
+  name: name.value, 
+  phone: phone.value, 
+  email: email.value, 
+  comment: comment.value 
+};});
+
+openBtn?.addEventListener('click', () => {backdrop.classList.remove('is-hidden')});
+closeBtn?.addEventListener('click', () => {backdrop.classList.add('is-hidden')});
+
 const {name, phone, email, comment} = form.elements;
-reloadPage();
 
-function onInputData() {
-    dataForm = {
-        name: name.value, 
-        phone: phone.value, 
-        email: email.value, 
-        comment: comment.value 
-    };
-    localStorage.setItem(localStorageKey, JSON.stringify(dataForm));
-  }
-  
-  function reloadPage() {
-    if (dataForm) {
-        name.value = dataForm.name || '';
-        phone.value = dataForm.phone || '';
-        email.value = dataForm.email || '';
-        comment.value = dataForm.comment || '';
-    }
-  }
   
   function submitForm(e) {
     e.preventDefault();
@@ -37,8 +28,12 @@ function onInputData() {
     return Notify.info('Please, fill name, phone and email!');
 
     // відсилання на бек
+    getBack();
 
-    localStorage.removeItem(localStorageKey);
     e.currentTarget.reset();
-    dataForm = {};
+    // dataForm = {};
   }
+
+function getBack() {
+    console.log(dataForm);
+}
