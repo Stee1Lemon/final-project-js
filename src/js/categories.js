@@ -44,7 +44,7 @@ function createCategoriesMarkUp(arr) {
     .join('');
 }
 
-categoriesBtnEl.addEventListener('click', handlerAllCategoriesBtn);
+categoriesBtnEl?.addEventListener('click', handlerAllCategoriesBtn);
 
 function handlerAllCategoriesBtn() {
   makeBtnNotActive();
@@ -65,7 +65,7 @@ async function getAllRecipes() {
   }
 }
 
-categoriesListEl.addEventListener('click', handlerCategoryBtn);
+categoriesListEl?.addEventListener('click', handlerCategoryBtn);
 
 function handlerCategoryBtn(ev) {
   if (ev.target.nodeName !== 'BUTTON') {
