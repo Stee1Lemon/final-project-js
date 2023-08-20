@@ -1,41 +1,36 @@
 import * as basicLightbox from 'basiclightbox';
+import 'basiclightbox/dist/basicLightbox.min.css';
 
-export function createModal(htmlContent) {
-  const instance = basicLightbox.create(htmlContent);
+export function createModal(content) {
+  const instance = basicLightbox.create(
+    `
+    <div class="modal">
+      ${content}
+      <button class="close-button" aria-label="Close">&#10006;</button>
+    </div>
+    `,
+    {
+      onShow: (instance) => {
+        instance.element().addEventListener('click', (e) => {
+          if (e.target === instance.element() || e.target.classList.contains('close-button')) {
+            instance.close();
+          }
+        });
 
-  function closeModal() {
-    instance.close();
-    removeEventListeners();
-  }
+        const escListener = (e) => {
+          if (e.key === 'Escape') {
+            instance.close();
+          }
+        };
+        document.addEventListener('keydown', escListener);
 
-  function addEventListeners() {
-    instance.element().addEventListener('click', (e) => {
-      if (e.target === instance.element()) {
-        closeModal();
-      }
-    });
-
-    const closeButton = instance.element().querySelector('.close-button');
-    if (closeButton) {
-      closeButton.addEventListener('click', closeModal);
+        instance.on('close', () => {
+          instance.element().removeEventListener('click', escListener);
+          document.removeEventListener('keydown', escListener);
+        });
+      },
     }
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeModal();
-      }
-    });
-  }
-
-  function removeEventListeners() {
-    instance.element().removeEventListener('click', closeModal);
-    const closeButton = instance.element().querySelector('.close-button');
-    if (closeButton) {
-      closeButton.removeEventListener('click', closeModal);
-    }
-    document.removeEventListener('keydown', closeModal);
-  }
+  );
 
   instance.show();
-  addEventListeners();
 }
