@@ -31,6 +31,7 @@
 }
 
 .category-btn {
+  padding: 0 10 0 0;
   background-color: inherit;
   border: transparent;
   color: var(--light-theme-almost-transparent-color);
