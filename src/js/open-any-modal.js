@@ -1,7 +1,7 @@
 import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';
 
-export function createModal(content) {
+function createModal(content) {
   const instance = basicLightbox.create(
     `
     <div class="modal">
@@ -40,7 +40,8 @@ export function createModal(content) {
     }
     document.removeEventListener('keydown', escListener);
   }
-  
 
   instance.show();
 }
+
+export { createModal };

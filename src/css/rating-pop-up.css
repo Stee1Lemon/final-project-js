@@ -3,7 +3,7 @@
   max-width: 335px;
   margin: 0 auto;
   padding: 20px;
-  outline: 2px solid blue;
+  background-color: var(--light-modal-background-color);
 }
 .rating-btn-close {
   position: absolute;

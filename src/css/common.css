@@ -11,14 +11,15 @@
 
   /* Colors that will change for Dark Theme */
   --light-theme-text-color: #050505;
+  --light-modal-text-color: #050505cc;
+  --light-modal-background-color: #fff;
   /* transparent 50% */
   --light-theme-semi-transparent-color: #05050580;
+  --light-theme-slider-semi-transparent-color: #f8f8f880;
   /* transparent 30% */
   --light-theme-almost-transparent-color: #0505054d;
   /* transparent 20% */
   --light-theme-transparent-color: #05050533;
-  --light-theme-slider-semi-transparent-color: #f8f8f880;
-  --light-modal-text-color: #050505cc;
   --light-modal-underline-color: #0505051a;
   --light-modal-scroll-color: #0505052e;
 
@@ -57,6 +58,7 @@ body {
   --light-modal-text-color: #ffffffcc;
   --light-modal-underline-color: #ffffff80;
   --light-modal-scroll-color: #ffffff2e;
+  --light-modal-background-color: #050505;
 }
 
 .is-hidden {

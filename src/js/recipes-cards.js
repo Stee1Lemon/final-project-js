@@ -1,12 +1,8 @@
-import { FetchInfo } from './fetch-requests';
-import { showRating } from './rating-pop-up-real.js';
+import { showRating } from './rating-pop-up.js';
 
-const errorEl = document.querySelector('.error-el');
 const recipesTable = document.querySelector('.js-card-items');
 
-const recipes = new FetchInfo();
-
-export function seeViewport() {
+function seeViewport() {
   let number = '6';
   const smallMedia = window.matchMedia('(max-width: 768px)');
   const largeMedia = window.matchMedia('(max-width: 1200px)');
@@ -32,18 +28,8 @@ export function seeViewport() {
   }
   return number;
 }
-doRecipesCards();
-export async function doRecipesCards() {
-  try {
-    const page = await recipes.fetchAllRecipesPerPage(seeViewport());
-    cardsMarkUp(page.data.results);
-  } catch (error) {
-    errorEl.classList.remove('is-hidden');
-    console.log(error.message);
-  }
-}
 
-export function cardsMarkUp(cardInfo) {
+function cardsMarkUp(cardInfo) {
   const cardsO = cardInfo
     .map(({ _id, preview, title, description, rating }) => {
       return `
@@ -114,17 +100,20 @@ function addToFavoriteListener() {
 
 function addToFavoriteItem(event) {
   const recipeId = event.currentTarget.id;
-  recipes.fetchRecipeById(recipeId).then(resp => {
-    addToLocalStorage(resp.data);
-  });
+  console.log(recipeId);
+  // recipes.fetchRecipeById(recipeId).then(resp => {
+  //   addToLocalStorage(resp.data);
+  // });
 }
 
-function addToLocalStorage(recipe) {
-  const toFavorite = [
-    {
-      ...recipe,
-      favorite: true,
-    },
-  ];
-  localStorage.setItem('toFavorite', JSON.stringify(toFavorite));
-}
+// function addToLocalStorage(recipe) {
+//   const toFavorite = [
+//     {
+//       ...recipe,
+//       favorite: true,
+//     },
+//   ];
+//   localStorage.setItem('toFavorite', JSON.stringify(toFavorite));
+// }
+
+export { seeViewport, cardsMarkUp };
