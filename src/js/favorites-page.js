@@ -57,7 +57,7 @@ function renderCategories(categories) {
     })
     .join('');
 
-  categoriesContainer.insertAdjacentHTML('beforeend', markup);
+  //categoriesContainer.insertAdjacentHTML('beforeend', markup);
 }
 
 function createCardsMarkup(recipiesArray) {
@@ -93,4 +93,4 @@ getCategories(recipies); //() <- тут мають передатись дані
 function cardsMarkUp(recipies) {
   cardsContainer.innerHTML = createCardsMarkup(recipies);
 }
-cardsMarkUp(recipies);
+//cardsMarkUp(recipies);
