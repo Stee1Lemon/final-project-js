@@ -71,24 +71,39 @@
 
 /* ------------------------MOBILE MENU--------------start------ */
 .menu {
+    width: 100vw;
+    height: 100vh;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 49;
+    background-color: transparent;
+    transition: opacity var(--animation), visibility var(--animation), left var(--animation);
+}
+
+.menu-content {
     width: 50vw;
     height: 100vh;
 
     position: fixed;
     left: 0;
     top: 0;
-    z-index: 2;
+    z-index: 50;
     background-color: var(--accent-color);
     padding: 20px;
 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
     transition: opacity var(--animation), visibility var(--animation), left var(--animation);
 }
 
 .menu.is-hidden {
+    left: -100%;
+}
+
+.menu.is-hidden .menu-content {
     left: -100%;
 }
 
@@ -99,11 +114,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* border-radius: 50%; */
     background: var(--accent-color);
-    border: 1px solid #2E2F42;
+    border: none;
     margin-left: auto;
-    /* margin-bottom: 150px; */
+
 }
 
 .menu-block {
@@ -323,8 +337,3 @@ input:checked+.menu-slider:before {
 }
 
 /* ----------------------------Change color theme-------------- */
-
-.dark {
-    background-color: var(--dark-color);
-    color: var(--light-color);
-}
