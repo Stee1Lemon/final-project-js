@@ -20,6 +20,7 @@
   --light-theme-slider-semi-transparent-color: #f8f8f880;
   --light-modal-text-color: #050505cc;
   --light-modal-underline-color: #0505051a;
+  --light-modal-scroll-color: #0505052e;
 
   --dark-theme-background-color: #1e1e1e;
 
@@ -55,6 +56,7 @@ body {
   --light-theme-transparent-color: #ffffff33;
   --light-modal-text-color: #ffffffcc;
   --light-modal-underline-color: #ffffff80;
+  --light-modal-scroll-color: #ffffff2e;
 }
 
 .is-hidden {
