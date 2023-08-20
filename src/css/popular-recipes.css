@@ -54,7 +54,7 @@
 }
 
 .popular-recipe-descr {
-  color: var(--light-theme-text-color);
+  color: var(--light-modal-text-color);
   font-size: 12px;
   line-height: 1.33;
 }

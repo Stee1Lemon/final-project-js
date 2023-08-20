@@ -13,7 +13,7 @@ async function getPopular() {
       'afterbegin',
       createPopularMarkUp(resp.data)
     );
-    popularListEl.addEventListener('click', handlerRecipeClick);
+    popularListEl?.addEventListener('click', handlerRecipeClick);
   } catch (err) {
     console.log(err);
     popularListEl.innerHTML = `
@@ -74,8 +74,8 @@ function handlerRecipeClick(ev) {
 
 function seeViewportForPopular() {
   let number = '2';
-  smallMedia.addEventListener('change', isPhone);
-  largeMedia.addEventListener('change', isTablet);
+  smallMedia?.addEventListener('change', isPhone);
+  largeMedia?.addEventListener('change', isTablet);
   isPhone(smallMedia);
 
   function isPhone(event) {
@@ -98,8 +98,8 @@ function seeViewportForPopular() {
 
 function seeViewportForTitle(title) {
   let string = title;
-  smallMedia.addEventListener('change', isPhone);
-  largeMedia.addEventListener('change', isTablet);
+  smallMedia?.addEventListener('change', isPhone);
+  largeMedia?.addEventListener('change', isTablet);
   isPhone(smallMedia);
 
   function isPhone(event) {
@@ -125,8 +125,8 @@ function seeViewportForTitle(title) {
 
 function seeViewportForDescription() {
   let number = '80';
-  smallMedia.addEventListener('change', isPhone);
-  largeMedia.addEventListener('change', isTablet);
+  smallMedia?.addEventListener('change', isPhone);
+  largeMedia?.addEventListener('change', isTablet);
   isPhone(smallMedia);
 
   function isPhone(event) {
