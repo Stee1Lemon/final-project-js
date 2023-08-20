@@ -58,6 +58,13 @@
   color: var(--light-modal-text-color);
   font-size: 12px;
   line-height: 1.33;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 /* MEDIA MOBILE */
@@ -99,9 +106,21 @@
     max-width: 120px;
   }
 
+  .popular-recipe-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;  
+  }
+
   .popular-recipe-descr {
     font-size: 10px;
     line-height: 1.4;
+
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
   }
 }
 
