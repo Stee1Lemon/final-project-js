@@ -10,15 +10,12 @@ ratingOpenBtn?.addEventListener('click', openRatingModal);
 
 function openRatingModal() {
   createModal(ratingMarkUp());
+  showRating();
 }
 
 function ratingMarkUp() {
   return `<div class="container-rating rad-img">
-  <button class="rating-btn-close">
-    <svg class="rating-close-btn" width="20" height="20">
-      <use href="./images/icons-svg.svg#icon-close" ></use>
-    </svg>
-  </button>
+  <button class="rating-btn-close close-button">&#10006;</button>
   <div>
     <div class="rating-pop-up">
       <p class="rating-text">Rating</p>

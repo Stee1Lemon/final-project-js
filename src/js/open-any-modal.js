@@ -1,12 +1,12 @@
 import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';
 
+// До кнопки закриття потрібно додати клас "close-button"
 function createModal(content) {
   const instance = basicLightbox.create(
     `
     <div class="modal">
       ${content}
-      <button class="close-button" aria-label="Close">&#10006;</button>
     </div>
     `,
     {
