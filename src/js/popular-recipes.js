@@ -13,6 +13,7 @@ async function getPopular() {
       'afterbegin',
       createPopularMarkUp(resp.data)
     );
+    popularListEl.addEventListener('click', handlerRecipeClick);
   } catch (err) {
     console.log(err);
     popularListEl.innerHTML = `
@@ -42,9 +43,9 @@ function createPopularMarkUp(arr) {
       }
 
       const descriptionString = `
-        <li class="popular-recipe" id="${_id}">
+        <li class="popular-recipe">
           <img class="popular-img" src="${preview}" alt="${title}">
-          <div class="popular-desc-container">
+          <div class="popular-desc-container" id="${_id}">
             <h3 class="popular-recipe-title">${title}</h3>
             <p class="popular-recipe-descr">${description}</p>
           </div>
@@ -53,6 +54,22 @@ function createPopularMarkUp(arr) {
       return descriptionString;
     })
     .join('');
+}
+
+function handlerRecipeClick(ev) {
+  let idNumber;
+  if (ev.target.nodeName === 'IMG') {
+    idNumber = ev.target.nextElementSibling.id;
+  } else if (ev.target.nodeName === 'H3' || ev.target.nodeName === 'P') {
+    idNumber = ev.target.parentNode.id;
+  } else if (ev.target.nodeName === 'DIV') {
+    idNumber = ev.target.id;
+  } else {
+    idNumber = ev.target.children[1].id;
+  }
+    // console.log(idNumber)
+    // modalOpen(); ???
+    // fetchWithMarkup(idNumber); ???
 }
 
 function seeViewportForPopular() {
