@@ -7,8 +7,10 @@
 }
 .rating-btn-close {
   position: absolute;
+  display: block;
   top: 14px;
   right: 14px;
+  cursor: pointer;
 }
 
 .rating-pop-up {
@@ -51,4 +53,24 @@
 .btn-rating {
   padding: 15px auto;
   width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .container-rating {
+    max-width: 424px;
+    padding: 32px;
+  }
+  .rating-btn-close {
+    top: 16px;
+    right: 16px;
+  }
+  .stars-pop-up {
+    margin-bottom: 32px;
+  }
+  .rating-input {
+    margin-bottom: 16px;
+  }
+  .btn-rating {
+    padding: 16px auto;
+  }
 }
