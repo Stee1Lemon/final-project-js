@@ -1,6 +1,10 @@
+import { FetchInfo } from './fetch-requests';
 import { showRating } from './rating-pop-up.js';
+import { addToLocalFavoritesCards } from './local-storage';
 
 const recipesTable = document.querySelector('.js-card-items');
+
+const recipes = new FetchInfo();
 
 function seeViewport() {
   let number = '6';
@@ -33,9 +37,9 @@ function cardsMarkUp(cardInfo) {
   const cardsO = cardInfo
     .map(({ _id, preview, title, description, rating }) => {
       return `
-      <li class="recipe-card rad-img" id="${_id}">
+      <li class="recipe-card rad-img">
   <div class="card-thumb">
-    <img class="card-image" src="${preview}" alt="Image of " />
+    <img class="card-image" src="${preview}" alt="Image of ${preview}" />
   </div>
   <div class="card-info">
     <h3 class="card-title">${title}</h3>
@@ -82,7 +86,7 @@ function cardsMarkUp(cardInfo) {
       <button class="base-btn btn-card" type="button">See recipe</button>
     </div>
   </div>
-  <span class="add-favorite">♡</span>
+  <span class="add-favorite" id="${_id}">♡</span>
 </li>`;
     })
     .join('');
@@ -100,10 +104,9 @@ function addToFavoriteListener() {
 
 function addToFavoriteItem(event) {
   const recipeId = event.currentTarget.id;
-  console.log(recipeId);
-  // recipes.fetchRecipeById(recipeId).then(resp => {
-  //   addToLocalStorage(resp.data);
-  // });
+  recipes.fetchRecipeById(recipeId).then(resp => {
+    addToLocalFavoritesCards(resp.data);
+  });
 }
 
 // function addToLocalStorage(recipe) {
