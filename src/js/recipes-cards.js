@@ -1,12 +1,12 @@
 import { FetchInfo } from './fetch-requests';
-import { showRating } from './rating-pop-up-real.js';
+import { showRating } from './rating-pop-up.js';
+import { addToLocalFavoritesCards } from './local-storage';
 
-const errorEl = document.querySelector('.error-el');
 const recipesTable = document.querySelector('.js-card-items');
 
 const recipes = new FetchInfo();
 
-export function seeViewport() {
+function seeViewport() {
   let number = '6';
   const smallMedia = window.matchMedia('(max-width: 768px)');
   const largeMedia = window.matchMedia('(max-width: 1200px)');
@@ -32,24 +32,14 @@ export function seeViewport() {
   }
   return number;
 }
-doRecipesCards();
-export async function doRecipesCards() {
-  try {
-    const page = await recipes.fetchAllRecipesPerPage(seeViewport());
-    cardsMarkUp(page.data.results);
-  } catch (error) {
-    errorEl.classList.remove('is-hidden');
-    console.log(error.message);
-  }
-}
 
-export function cardsMarkUp(cardInfo) {
+function cardsMarkUp(cardInfo) {
   const cardsO = cardInfo
     .map(({ _id, preview, title, description, rating }) => {
       return `
-      <li class="recipe-card rad-img" id="${_id}">
+      <li class="recipe-card rad-img">
   <div class="card-thumb">
-    <img class="card-image" src="${preview}" alt="Image of " />
+    <img class="card-image" src="${preview}" alt="Image of ${preview}" />
   </div>
   <div class="card-info">
     <h3 class="card-title">${title}</h3>
@@ -96,7 +86,7 @@ export function cardsMarkUp(cardInfo) {
       <button class="base-btn btn-card" type="button">See recipe</button>
     </div>
   </div>
-  <span class="add-favorite">♡</span>
+  <span class="add-favorite" id="${_id}">♡</span>
 </li>`;
     })
     .join('');
@@ -115,16 +105,18 @@ function addToFavoriteListener() {
 function addToFavoriteItem(event) {
   const recipeId = event.currentTarget.id;
   recipes.fetchRecipeById(recipeId).then(resp => {
-    addToLocalStorage(resp.data);
+    addToLocalFavoritesCards(resp.data);
   });
 }
 
-function addToLocalStorage(recipe) {
-  const toFavorite = [
-    {
-      ...recipe,
-      favorite: true,
-    },
-  ];
-  localStorage.setItem('toFavorite', JSON.stringify(toFavorite));
-}
+// function addToLocalStorage(recipe) {
+//   const toFavorite = [
+//     {
+//       ...recipe,
+//       favorite: true,
+//     },
+//   ];
+//   localStorage.setItem('toFavorite', JSON.stringify(toFavorite));
+// }
+
+export { seeViewport, cardsMarkUp };
