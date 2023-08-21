@@ -48,7 +48,7 @@
   border-radius: 12px;
   border: 1px solid var(--accent-color);
   margin-top: 28px;
-  margin-bottom: 48px;
+  /* margin-bottom: 48px; */
 
   color: var(--dark-color);
   font-family: Inter;
@@ -169,6 +169,7 @@
 .my-swiper-wrap {
   width: 100%;
   position: relative;
+  margin-top: 48px;
 }
 
 .hero-slide-wrap {
@@ -209,13 +210,17 @@
 }
 
 
+.swiper-pagination-bullet {
+  position: relative;
+  top: 0px;
+  left: -11%;
+}
 
 
 
 
 
-
-
+/* ========== adaptive ================= */
 
 
 
@@ -247,7 +252,7 @@
 
     .hero-btn {
       margin-top: 32px;
-      margin-bottom: 64px;
+      
     }
 
     
@@ -322,6 +327,7 @@
 
     .my-swiper-wrap {
       padding-left: 12px;
+     
     }
     
   .dish-description {
@@ -338,7 +344,10 @@
     bottom: 32px;
     font-size: 12px;
     line-height: 1.16;
-  }      
+  }
+  .swiper-pagination-bullet {
+    left: -15%;
+  }
 }
 
 
@@ -385,15 +394,20 @@
     padding-left: 0px;
   }
 
-.hero-name {
-  width: 446px;
-}
+  .hero-name {
+    width: 446px;
+  }
 
-.swiper {
-  height: 488px;
-  left: 0px;
-  } 
+  .swiper {
+    height: 488px;
+    left: 0px;
+    } 
 
+  .my-swiper-wrap {
+    padding-top: 0px;
+    margin-top: 0;
+  }
+ 
 
 }
 

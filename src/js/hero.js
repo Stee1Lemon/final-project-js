@@ -40,6 +40,8 @@ fetchListItems()
    
       modules: [Pagination, Navigation],
       pagination: {
+        clickable: true,
+        bulletClass: `swiper-pagination-bullet`,
         el: '.swiper-pagination',
       },
       
@@ -59,7 +61,7 @@ fetchListItems()
   })
   .catch(err => {
     console.log(err);
-    errorSwiperRendering();
+    // errorSwiperRendering();
     
 
   })
