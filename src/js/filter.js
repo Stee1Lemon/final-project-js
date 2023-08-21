@@ -10,20 +10,26 @@ import { FetchInfo } from './fetch-requests.js';
 
 const filters = new FetchInfo();
 
+const inputSubmit = document.querySelector('.search-input');
+const selectTime = document.querySelector('.time-select');
 const selectArea = document.querySelector('.area-select');
 const selectIngredients = document.querySelector('.ingredients-select');
-const selectTime = document.querySelector('.time-select');
-const inputSubmit = document.querySelector('.search-input');
+const resetFilter = document.querySelector('.filter-reset');
 
+inputSubmit?.addEventListener('input', debounce(handlerInput, 300));
+selectTime?.addEventListener('change', selectedTime);
 selectArea?.addEventListener('change', selectedArea);
 selectIngredients?.addEventListener('change', selectedIngredient);
-selectTime?.addEventListener('change', selectedTime);
-inputSubmit?.addEventListener('input', debounce(handlerInput, 300));
+resetFilter?.addEventListener('click', resetAllFilters)
 
 let searchArea = '';
 let searchIngredient = ''; 
 let searchTime = ''; 
 let searchText = '';
+
+let slimSelectTime;
+let slimSelectArea;
+let slimSelectIngredients;
 
 export const fullFilter = {
   search: searchText,
@@ -33,7 +39,7 @@ export const fullFilter = {
 };
 
 const defaultTimeOption = 
-  '<option class="" value="" selected>0 min</option>';
+  '<option value="" selected>0 min</option>';
 
 function timesMarkup() {
   let secondsStep = [];
@@ -48,29 +54,29 @@ function timesMarkup() {
     const selectTimeMarkup = defaultTimeOption + timeMarkup;
   selectTime.insertAdjacentHTML('beforeend', selectTimeMarkup);
 
-  new SlimSelect({
-    select: selectTime,
+  slimSelectTime = new SlimSelect({
+    select: '.time-select',
   });
 }
 
 timesMarkup();
 
 const defaultAreaOption =
-  '<option class="" value="" selected>Region</option>';
+  '<option value="" selected>Region</option>';
 
 filters
   .fetchAllAreas()
   .then(resp => {
     const areasMarkup = resp.data
       .map(area => {
-        return `<option class="sisi dodo" value="${area.name}">${area.name}</option>`;
+        return `<option value="${area.name}">${area.name}</option>`;
       })
       .join('');
       const selectAreaMarkup = defaultAreaOption + areasMarkup;
       selectArea.insertAdjacentHTML('beforeend', selectAreaMarkup);
       
-      new SlimSelect({
-        select: selectArea,
+      slimSelectArea = new SlimSelect({
+        select: '.area-select',
       });
   })
   .catch(() => {
@@ -92,8 +98,8 @@ filters
         defaultIngredientsOption + ingredientsMarkup;
     selectIngredients.insertAdjacentHTML('beforeend', selectIngredientsMarkup);
 
-    new SlimSelect({
-      select: selectIngredients,
+    slimSelectIngredients = new SlimSelect({
+      select: '.ingredients-select',
     });
   })
   .catch(() => {
@@ -126,4 +132,19 @@ function updateFullFilter() {
   fullFilter.area = searchArea;
   fullFilter.ingredients = searchIngredient;
   console.log(fullFilter);
+}
+
+function resetAllFilters() {
+  inputSubmit.value = '';
+  
+  slimSelectTime.setSelected(selectTime.options[0].value);
+  slimSelectArea.setSelected(selectArea.options[0].value);
+  slimSelectIngredients.setSelected(selectIngredients.options[0].value);
+
+  searchArea = '';
+  searchIngredient = '';
+  searchTime = '';
+  searchText = '';
+  
+  updateFullFilter();
 }

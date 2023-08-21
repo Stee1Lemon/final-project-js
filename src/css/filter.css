@@ -46,21 +46,24 @@
 }
 
 .time-select {
-    width: 160px !important;
+    max-width: 160px;
+    min-width: 160px;
     height: 46px;
-    outline: none !important;
+    outline: none;
 }
 
 .area-select {
-    width: 161px !important;
+    max-width: 161px;
+    min-width: 161px;
     height: 46px;
-    outline: none !important;
+    outline: none;
 }
 
 .ingredients-select {
-    width: 188px !important;
+    max-width: 188px;
+    min-width: 188px;
     height: 46px;
-    outline: none !important;
+    outline: none;
 }
 
 .filter-reset {
@@ -70,7 +73,6 @@
     border: none;
     width: 105px;
     height: 16px;
-    padding: 0 0;
     margin-left: auto;
     background-color: var(--btn-text-color);
 }
@@ -101,29 +103,35 @@
     --ss-border-radius: 15px !important;
 } */
 
-.ss-main .ss-values .ss-single{
-    margin: auto 0px auto 18px !important;
+.ss-main .ss-values div.ss-single{
+    margin: auto 0px auto 18px;
 }
 
-.ss-main .ss-arrow{
-    margin: auto 18px !important;
+.ss-main svg.ss-arrow{
+    margin-right: 21px;
 }
 
-.ss-content .ss-list .ss-option{
-    padding-left: 18px !important;
+.ss-main svg.ss-arrow path{
+    min-width: 9px;
+    min-height: 4.5px;
+}
+
+
+.ss-content .ss-list div.ss-option{
+    padding-left: 18px;
 }
 
 .ss-list::-webkit-scrollbar {
-    width: 14px !important;
-    margin-right: 4px !important;
+    width: 14px;
+    margin-right: 4px;
 }
 
-.ss-main {
-    background-color: var(--btn-text-color) !important;
+div.ss-main {
+    background-color: var(--btn-text-color);
 }
 
-.ss-main:focus {
-    box-shadow: none !important
+div.ss-main:focus {
+    box-shadow: none;
 }
 
 /* ---------Скрол---------- */
@@ -163,17 +171,3 @@
 @media screen and (min-width: 1200px) {
 
 }
-
-/* .sisi {
-    background-color: #2530ab;
-    color: var(--light-theme-almost-transparent-color);
-}
-
-.sisi:hover {
-    color: var(--light-theme-text-color);
-    background-color: none;
-}
-
-.sisi.dodo {
-  color: #1ec6c9;
-} */
