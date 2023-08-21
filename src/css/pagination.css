@@ -30,10 +30,10 @@
   font-weight: 600;
   line-height: calc(22 / 18);
 
-  &.tui-is-selected {
+  /* &.tui-is-selected {
     border-color: var(--green);
     background-color: var(--green);
-  }
+  } */
 }
 
 @media screen and (min-width: 768px) {
@@ -135,10 +135,10 @@
 }
 
 .tui-page-btn {
-  &.tui-is-selected.tui-last-child,
+  /* &.tui-is-selected.tui-last-child,
   &.current-page.tui-last-child {
     margin: 0;
-  }
+  } */
 }
 
 .current-page,
@@ -160,7 +160,7 @@
 .show {
   display: flex;
 }
-// DARK MODE
+/* // DARK MODE */
 .page-dark-mode {
   border-color: var(--gray-ul-d);
   color: var(--white-d);
