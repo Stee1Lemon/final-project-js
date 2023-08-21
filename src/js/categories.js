@@ -33,7 +33,10 @@ async function getCategories() {
 }
 
 getCategories();
-getAllRecipes();
+
+if(!localStorage.getItem('selected-category')) {
+  getAllRecipes();
+}
 
 function createCategoriesMarkUp(arr) {
   return arr
