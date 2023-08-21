@@ -23,6 +23,8 @@
   --light-theme-transparent-color: #05050533;
   --light-modal-underline-color: #0505051a;
   --light-modal-scroll-color: #0505052e;
+  --lightn-theme-hero-text-slider: #f8f8f899;
+  --lightn-theme-hero-dish-desc: #f8f8f833;
 
   --dark-theme-background-color: #1e1e1e;
 
@@ -60,6 +62,8 @@ body {
   --light-modal-underline-color: #ffffff80;
   --light-modal-scroll-color: #ffffff2e;
   --light-modal-background-color: #050505;
+  --light-theme-hero-text-slider: #ffffff99;
+  --lightn-theme-hero-dish-desc: #ffffff33;
 }
 
 .is-hidden {
