@@ -1,12 +1,14 @@
 // LOCAL STORAGE ДЛЯ СВІТЧЕРА
-
+import {getRecipesByCategory} from './categories'
 const themeCheckbox = document.querySelector('.switch>input');
-themeCheckbox.addEventListener('change', switchThemeColor);
+const body = document.querySelector('body');
+// const categoryBtn = document.querySelector('.category-btn');
+themeCheckbox?.addEventListener('change', switchThemeColor);
 reloadThemeAndFormData();
 
 function switchThemeColor() {
     if (themeCheckbox.checked) {
-        document.documentElement.setAttribute('theme', 'dark-theme');
+        body.classList.add('dark')
         localStorage.setItem('theme', 'dark-theme');
     } else {
         document.documentElement.removeAttribute('theme');
@@ -18,7 +20,7 @@ function reloadTheme() {
     // Встановлення стану теми
     if (localStorage.getItem('theme') === 'dark-theme') {
         themeCheckbox.checked = true;
-        document.documentElement.setAttribute('theme', 'dark-theme');
+        body.classList.add('dark')
     } else {
         themeCheckbox.checked = false;
         document.documentElement.removeAttribute('theme');
@@ -28,8 +30,8 @@ function reloadTheme() {
 // LOCAL STORAGE ДЛЯ МОДАЛКИ ЗАМОВЛЕННЯ
 
 const form = document.querySelector('.form-oder');
-form.addEventListener('input', saveInLocalStorage);
-form.addEventListener('submit', resetLocalStorage);
+form?.addEventListener('input', saveInLocalStorage);
+form?.addEventListener('submit', resetLocalStorage);
 
 
 function saveInLocalStorage() {
@@ -62,31 +64,67 @@ function reloadThemeAndFormData() {
 // LOCAL STORAGE ДЛЯ КАТЕГОРІЙ
 // const localStorageKey = 'selected-category';
 const categoriesList = document.querySelector('.categories-list-js');
-categoriesList.addEventListener('click', handleCategoryClick);
+// categoriesList.addEventListener('click', handleCategoryClick);
 
-function handleCategoryClick(event) {
-    const categoryOption = event.target;
-    if (categoryOption.classList.contains('category-option')) {
-        const selectedCategory = categoryOption.textContent;
-        localStorage.setItem('selected-category', selectedCategory);
-        categoryOption.classList.add('selected')
-        console.log(`Selected category: ${selectedCategory}`);
-    }
+export function handleCategoryClick(categoryOption) {
+    localStorage.setItem('selected-category', categoryOption);
 }
-function reloadCategory() {
-    const selectedCategory = localStorage.getItem('selected-category');
-    if (selectedCategory) {
-        const categoryOptions = document.querySelectorAll('.category-option');
+
+function reloadCategory(selectedCategory) {
+        const categoryOptions = document.querySelectorAll('.category-btn');
         categoryOptions.forEach(option => {
             if (option.textContent === selectedCategory) {
-                option.classList.add('selected'); // Додати стиль для відображення вибраної категорії
+                option.classList.add('category-btn-active'); // Додати стиль для відображення вибраної категорії
                 console.log(`Reloaded selected category: ${selectedCategory}`);
+                getRecipesByCategory(selectedCategory);
             } else {
-                option.classList.remove('selected'); // Видалити стиль для інших категорій
+                option.classList.remove('category-btn-active'); // Видалити стиль для інших категорій
             }
         });
     }
-};
+goToLocal();
+export function goToLocal() {
+    const selectedCategory = localStorage.getItem('selected-category');
+    console.log(selectedCategory);
+    if(selectedCategory) {
+        reloadCategory(selectedCategory)
+    }
+    return;
+}
 
 // LOCAL STORAGE ДЛЯ ФІЛЬТРІВ
 
+
+
+// LOCAL STORAGE ДЛЯ FAVORITES
+
+const keyLocalStorageFavorites = 'keyOfFavoritesCards';
+
+function loadFromLocalStorage() {
+    const dataString = localStorage.getItem(keyLocalStorageFavorites);
+    if (dataString) {
+        return JSON.parse(dataString);
+    } else {
+        return [];
+    }
+};
+
+let myArray = loadFromLocalStorage();
+
+export function addToLocalFavoritesCards(newObject) {
+    const existingIndex = myArray.findIndex(obj => obj._id === newObject._id);
+
+    if (existingIndex !== -1) {
+        myArray.splice(existingIndex, 1);
+    } else {
+        myArray.push(newObject);
+    }
+
+    localStorage.setItem(keyLocalStorageFavorites, JSON.stringify(myArray));
+};
+
+export function takeFavoritesCardsFromLS() {
+    if(keyLocalStorageFavorites) {
+        return JSON.parse(localStorage.getItem(keyLocalStorageFavorites));
+    }
+};
