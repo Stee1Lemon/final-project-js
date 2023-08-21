@@ -1,6 +1,7 @@
 import { FetchInfo } from './fetch-requests';
 import { cardsMarkUp } from './recipes-cards';
 import { seeViewport } from './recipes-cards';
+import { goToLocal, handleCategoryClick, removeCategoriesFromLS} from './local-storage';
 
 const request = new FetchInfo();
 const categoriesBtnEl = document.querySelector('.categories-btn-js');
@@ -20,6 +21,7 @@ async function getCategories() {
     );
     const btns = document.querySelectorAll('.category-btn');
     categoryBtns = [...btns];
+    goToLocal();
   } catch (err) {
     console.log(err);
     categoriesListEl.innerHTML = `
@@ -49,6 +51,7 @@ categoriesBtnEl?.addEventListener('click', handlerAllCategoriesBtn);
 
 function handlerAllCategoriesBtn() {
   makeBtnNotActive();
+  removeCategoriesFromLS()
   getAllRecipes();
 }
 
@@ -78,10 +81,11 @@ function handlerCategoryBtn(ev) {
   makeBtnNotActive();
   ev.target.classList.add('category-btn-active');
   const nameOfCategory = ev.target.textContent;
+  handleCategoryClick(nameOfCategory);
   getRecipesByCategory(nameOfCategory);
 }
 
-async function getRecipesByCategory(category) {
+export async function getRecipesByCategory(category) {
   try {
     if (!errorEl.classList.contains('is-hidden')) {
       errorEl.classList.add('is-hidden');

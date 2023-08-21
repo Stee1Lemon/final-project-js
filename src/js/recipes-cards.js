@@ -34,7 +34,13 @@ function seeViewport() {
 }
 
 function cardsMarkUp(cardInfo) {
-  const cardsO = cardInfo
+  recipesTable.innerHTML = makeCardsMarkUp(cardInfo);
+  showRating();
+  addToFavoriteListener();
+}
+
+function makeCardsMarkUp(cardInfo) {
+  return cardInfo
     .map(({ _id, preview, title, description, rating }) => {
       return `
       <li class="recipe-card rad-img">
@@ -90,9 +96,6 @@ function cardsMarkUp(cardInfo) {
 </li>`;
     })
     .join('');
-  recipesTable.innerHTML = cardsO;
-  showRating();
-  addToFavoriteListener();
 }
 
 function addToFavoriteListener() {
@@ -109,14 +112,4 @@ function addToFavoriteItem(event) {
   });
 }
 
-// function addToLocalStorage(recipe) {
-//   const toFavorite = [
-//     {
-//       ...recipe,
-//       favorite: true,
-//     },
-//   ];
-//   localStorage.setItem('toFavorite', JSON.stringify(toFavorite));
-// }
-
-export { seeViewport, cardsMarkUp };
+export { seeViewport, cardsMarkUp, makeCardsMarkUp, addToFavoriteListener };
