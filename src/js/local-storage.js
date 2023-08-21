@@ -100,11 +100,31 @@ export function goToLocal() {
 
 const keyLocalStorageFavorites = 'keyOfFavoritesCards';
 
-export function addToLocalFavoritesCards(obj) {
-    if(keyLocalStorageFavorites) {
-        let allObj = JSON.parse(localStorage.getItem(keyLocalStorageFavorites));
-        if (allObj.forEach(oneObj !== obj)) {
-        localStorage.setItem.JSON.stringify((keyLocalStorageFavorites, obj));
-        }
+function loadFromLocalStorage() {
+    const dataString = localStorage.getItem(keyLocalStorageFavorites);
+    if (dataString) {
+        return JSON.parse(dataString);
+    } else {
+        return [];
     }
-}
+};
+
+let myArray = loadFromLocalStorage();
+
+export function addToLocalFavoritesCards(newObject) {
+    const existingIndex = myArray.findIndex(obj => obj._id === newObject._id);
+
+    if (existingIndex !== -1) {
+        myArray.splice(existingIndex, 1);
+    } else {
+        myArray.push(newObject);
+    }
+
+    localStorage.setItem(keyLocalStorageFavorites, JSON.stringify(myArray));
+};
+
+export function takeFavoritesCardsFromLS() {
+    if(keyLocalStorageFavorites) {
+        return JSON.parse(localStorage.getItem(keyLocalStorageFavorites));
+    }
+};
