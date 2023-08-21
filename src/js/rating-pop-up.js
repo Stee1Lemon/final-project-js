@@ -1,16 +1,33 @@
 import { createModal } from './open-any-modal';
+import { debounce } from 'lodash';
 
 const ratingOpenBtn = document.querySelector('.open-rating-btn');
-// const ratingPopUpEl = document.querySelector('.container-rating');
+
 ratingOpenBtn?.addEventListener('click', openRatingModal);
 
-// function toggleRatingPopUp() {
-//   ratingPopUpEl.classList.toggle('is-hidden');
-// }
+let objToSend = {
+  rate: '',
+  email: '',
+  _id: '',
+  dishName: '',
+};
+
+function seeEmail(evt) {
+  email = evt.target.value.trim().toLowerCase();
+}
 
 function openRatingModal() {
   createModal(ratingMarkUp());
   showRating();
+  const ratingEmailEl = document.querySelector('.rating-input');
+  const ratingSendRateBtnEl = document.querySelector('.btn-rating');
+
+  ratingEmailEl?.addEventListener('input', debounce(seeEmail, 300));
+  ratingSendRateBtnEl?.addEventListener('click', sendRate);
+}
+
+function sendRate(evt) {
+  console.log(objToSend);
 }
 
 function ratingMarkUp() {
@@ -77,7 +94,7 @@ function showRating() {
   }
 
   function initRatings() {
-    let ratingActive, ratingVale;
+    let ratingActive, ratingValue;
     for (let index = 0; index < ratings.length; index += 1) {
       const rating = ratings[index];
       initRatings(rating);
@@ -86,16 +103,43 @@ function showRating() {
     function initRatings(rating) {
       initRatingVars(rating);
       setRatingActiveWidth();
+      if (rating.classList.contains('stars-pop-up')) {
+        setRating(rating);
+      }
     }
 
     function initRatingVars(rating) {
       ratingActive = rating.querySelector('.rating-active');
-      ratingVale = rating.querySelector('.rating-value');
+      ratingValue = rating.querySelector('.rating-value');
     }
 
-    function setRatingActiveWidth(index = ratingVale.innerHTML) {
+    function setRatingActiveWidth(index = ratingValue.innerHTML) {
       const ratingActiveWidth = index / 0.05;
       ratingActive.style.width = `${ratingActiveWidth}%`;
+    }
+
+    function setRating(rating) {
+      const ratingItems = rating.querySelectorAll('.rating-item');
+      for (let index = 0; index < ratingItems.length; index += 1) {
+        const ratingItem = ratingItems[index];
+        ratingItem.addEventListener('mouseenter', function (e) {
+          initRatingVars(rating);
+          setRatingActiveWidth(ratingItem.value);
+        });
+        ratingItem.addEventListener('mouseleave', function (e) {
+          setRatingActiveWidth();
+        });
+        ratingItem.addEventListener('click', function (e) {
+          initRatingVars(rating);
+
+          if (rating.dataset.ajax) {
+            console.log('send to server');
+          }
+          ratingValue.innerHTML = index + 1;
+          rate = ratingValue.textContent;
+          setRatingActiveWidth();
+        });
+      }
     }
   }
 }
