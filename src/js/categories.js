@@ -1,7 +1,7 @@
 import { FetchInfo } from './fetch-requests';
 import { cardsMarkUp } from './recipes-cards';
 import { seeViewport } from './recipes-cards';
-import { goToLocal, handleCategoryClick } from './local-storage';
+import { goToLocal, handleCategoryClick, removeCategoriesFromLS} from './local-storage';
 
 const request = new FetchInfo();
 const categoriesBtnEl = document.querySelector('.categories-btn-js');
@@ -51,6 +51,7 @@ categoriesBtnEl?.addEventListener('click', handlerAllCategoriesBtn);
 
 function handlerAllCategoriesBtn() {
   makeBtnNotActive();
+  removeCategoriesFromLS()
   getAllRecipes();
 }
 
