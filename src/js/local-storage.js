@@ -82,7 +82,11 @@ function reloadCategory(selectedCategory) {
             }
         });
     }
-goToLocal();
+// goToLocal();
+export function removeCategoriesFromLS() {
+    localStorage.removeItem('selected-category');
+};
+
 export function goToLocal() {
     const selectedCategory = localStorage.getItem('selected-category');
     console.log(selectedCategory);
@@ -91,10 +95,6 @@ export function goToLocal() {
     }
     return;
 }
-
-// LOCAL STORAGE ДЛЯ ФІЛЬТРІВ
-
-
 
 // LOCAL STORAGE ДЛЯ FAVORITES
 
@@ -128,3 +128,5 @@ export function takeFavoritesCardsFromLS() {
         return JSON.parse(localStorage.getItem(keyLocalStorageFavorites));
     }
 };
+
+// LOCAL STORAGE ДЛЯ ФІЛЬТРІВ
