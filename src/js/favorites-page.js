@@ -1,14 +1,18 @@
 //console.log('10.Favorites page');
 
 import recipies from './test-mock';
-// import { cardsMarkUp } from './recipes-cards';
+import {
+  seeViewport,
+  makeCardsMarkUp,
+  addToFavoriteListener,
+} from './recipes-cards';
+import { showRating } from './rating-pop-up.js';
 
 const heroImgMob = document.querySelector('.fav-hero-img-mob');
+const categoriesContainer = document.querySelector('.fav-categories');
 const cardsContainer = document.querySelector('.fav-recipes');
 const notifWithHat = document.querySelector('.fav-notification');
 const categories = [];
-
-const categoriesContainer = document.querySelector('.fav-categories');
 
 function showNotifyWithHat() {
   if (!recipies.length) {
@@ -29,15 +33,22 @@ function onClick(evt) {
     return;
   }
 
+  showCards(evt.target.name);
+}
+
+function showCards(categoryName) {
   const recipiesArray = recipies.filter(({ category }) => {
-    return evt.target.name === category;
+    return categoryName === category;
   });
 
-  cardsContainer.innerHTML = createCardsMarkup(recipiesArray);
+  //cardsContainer.innerHTML = makeCardsMarkUp(recipiesArray);
 
-  if (evt.target.name === 'all') {
-    cardsMarkUp(recipies);
+  if (categoryName === 'all') {
+    cardsMarkup(recipies);
   }
+
+  showRating();
+  addToFavoriteListener();
 }
 
 function getCategories(recipies) {
@@ -86,11 +97,16 @@ function createCardsMarkup(recipiesArray) {
     .join('');
 }
 
-//const recipies = JSON.parse(localStorage.getItem(''));
+getCategories(recipies);
 
-getCategories(recipies); //() <- тут мають передатись дані з localStorage
-
-function cardsMarkUp(recipies) {
-  cardsContainer.innerHTML = createCardsMarkup(recipies);
+function cardsMarkup(recipies) {
+  //cardsContainer.innerHTML = makeCardsMarkUp(recipies);
+  showRating();
+  addToFavoriteListener();
 }
-//cardsMarkUp(recipies);
+cardsMarkup(recipies);
+
+seeViewport();
+
+//Отримання рецептів з localStorage
+//const recipies = JSON.parse(localStorage.getItem('keyOfFavoritesCards'));
