@@ -60,3 +60,12 @@ if (activeTheme === null || activeTheme === 'light') {
 
 }
 
+// Іконка корзина
+const basketEl = document.querySelector('.header-basket')
+console.log(basketEl);
+basketEl.addEventListener('click', onBasketIconClick);
+
+function onBasketIconClick() {
+    console.log('НАТИСНУТА ІКОНКА КОРЗИНА - функціонал не визначений');
+    
+}
