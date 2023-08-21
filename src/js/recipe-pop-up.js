@@ -24,10 +24,10 @@ function openRecipeModal(){
       });
     showRating();
     const btnFav = document.querySelector('.btn-favorite');
-    btnFav.addEventListener('click', addOrRemoveFav);
+    btnFav?.addEventListener('click', addOrRemoveFav);
     const btnRating = document.querySelector('.btn-give-rating');
     // btnRating.addEventListener('click', openRatingModal);
-    btnRating.addEventListener('click', giveRating);
+    btnRating?.addEventListener('click', giveRating);
 }
 
 
