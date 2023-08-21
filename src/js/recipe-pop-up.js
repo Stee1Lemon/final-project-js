@@ -1,20 +1,20 @@
-import { all } from 'axios';
-import { join } from 'lodash';
-import { FetchInfo } from './fetch-requests';
-import { showRating } from './rating-pop-up.js';
-import { createModal } from './open-any-modal.js';
+// import { all } from 'axios';
+// import { join } from 'lodash';
+// import { FetchInfo } from './fetch-requests';
+// import { showRating } from './rating-pop-up.js';
+// import { createModal } from './open-any-modal.js';
 
-const recipes = new FetchInfo();
+// const recipes = new FetchInfo();
 
-const recipeContainer = document.querySelector('.modal-recipe-content');
-const btnOpenRecipe = document.querySelector('.open-modal-recipe');
+// const recipeContainer = document.querySelector('.modal-recipe-content');
+// const btnOpenRecipe = document.querySelector('.open-modal-recipe');
 
-btnOpenRecipe?.addEventListener('click', createModal);
+// btnOpenRecipe?.addEventListener('click', createModal);
 
-recipes.fetchRecipeById(id).then(recipeObj => {
-  console.log(recipeObj.data);
-  recipeModalMarkup(recipeObj.data);
-});
+// recipes.fetchRecipeById(id).then(recipeObj => {
+//   console.log(recipeObj.data);
+//   recipeModalMarkup(recipeObj.data);
+// });
 
 export function recipeModalMarkup(resipeData) {
   const {
@@ -101,5 +101,5 @@ export function recipeModalMarkup(resipeData) {
         </div>
         `;
   recipeContainer.innerHTML = recipeMarkup;
-  showRating();
+  // showRating();
 }
