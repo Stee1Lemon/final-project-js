@@ -9,6 +9,9 @@ const largeMedia = window.matchMedia('(max-width: 1200px)');
 async function getPopular() {
   try {
     const resp = await popularRecipes.fetchPopularRecipes();
+    if (resp.data.length > 4) {
+      popularListEl.classList.add('popular-scroll');
+    }
     popularListEl.insertAdjacentHTML(
       'afterbegin',
       createPopularMarkUp(resp.data)
@@ -65,9 +68,9 @@ function handlerRecipeClick(ev) {
   } else {
     idNumber = ev.target.children[1].id;
   }
-    // console.log(idNumber)
-    // modalOpen(); ???
-    // fetchWithMarkup(idNumber); ???
+  // console.log(idNumber)
+  // modalOpen(); ???
+  // fetchWithMarkup(idNumber); ???
 }
 
 function seeViewportForNumberOfRecipies() {
