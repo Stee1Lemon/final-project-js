@@ -27,7 +27,7 @@
 }
 
 .part-logo {
-    color: var(--dark-color);
+    color: var(--light-theme-text-color);
 }
 
 .header-buttons {
@@ -49,6 +49,16 @@
     border: none;
 }
 
+.header-icon-basket {
+    transition: fill var(--animation);
+}
+
+.header-icon-basket:hover,
+.header-icon-basket:focus {
+
+    fill: #9BB537
+}
+
 .header-switch {
     display: none;
 }
@@ -63,6 +73,16 @@
 
     background-color: var(--light-color);
     border: none;
+}
+
+.header-icon-burger {
+    stroke: #050505;
+    transition: stroke var(--animation);
+}
+
+.header-icon-burger:focus,
+.header-icon-burger:hover {
+    stroke: #9BB537;
 }
 
 .switch {
@@ -218,8 +238,10 @@ input:checked+.menu-slider:before {
 
     }
 
-    .header-item {
-        color: var(--dark-color);
+    .header-item {}
+
+    .header-link {
+        color: var(--light-theme-text-color);
         font-family: Inter;
         font-size: 12px;
         font-style: normal;
