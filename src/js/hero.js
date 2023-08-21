@@ -29,9 +29,9 @@ const fetchListItems = async () => {
 
 fetchListItems()
   .then(response => {
-     console.log(response);
+    console.log(response);
     swiperRendering(response);
-   const swiper = new Swiper('.swiper', {
+    const swiper = new Swiper('.swiper', {
       slidesPerView: 1,
       slidesPerGroup: 1,
       spaceBetween: 10,
@@ -53,11 +53,16 @@ fetchListItems()
         onlyInViewport: false,
       }
    });
-    // console.log(aaa);
+    
     return swiper;
     
   })
-  .catch(err => console.log(err))
+  .catch(err => {
+    console.log(err);
+    errorSwiperRendering();
+    
+
+  })
 
 
 
@@ -86,6 +91,13 @@ function swiperRendering(elements) {
   swiperWrapper.insertAdjacentHTML("beforeend", markup);
 
 };
+
+
+
+
+
+console.log(window.screen.width);
+
 
   // return `
   //   <div class="swiper-slide"><img class="cook" src="${element.cook.imgWebpUrl}" /></div>

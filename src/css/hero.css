@@ -10,7 +10,7 @@
 }
 
 .hero-name{
-  color: #050505;
+  color: var(--dark-color);
   font-family: Inter;
   font-size: 26px;
   font-style: normal;
@@ -20,7 +20,7 @@
 }
 
 .tasty-green {
-  color: #9BB537;
+  color: var(--accent-color);
   font-family: Inter;
   font-size: 26px;
   font-style: italic;
@@ -31,7 +31,7 @@
 
 .hero-text {
   margin-top: 14px;
-  color: #050505;
+  color: var(--dark-color);
   font-family: Inter;
   font-size: 14px;
   font-style: normal;
@@ -46,11 +46,11 @@
   align-items: center;
 
   border-radius: 12px;
-  border: 1px solid #9BB537;
+  border: 1px solid var(--accent-color);
   margin-top: 28px;
   margin-bottom: 48px;
 
-  color: #050505;
+  color: var(--dark-color);
   font-family: Inter;
   font-size: 14px;
   font-style: normal;
@@ -66,9 +66,9 @@
   align-items: center;
   gap: 10px;
   border-radius: 15px;
-  background: #9BB537;
+  background: var(--accent-color);
 
-  color: #F8F8F8;
+  color: var(--btn-text-color);
   font-family: Inter;
   font-size: 14px;
   font-style: normal;
@@ -90,7 +90,7 @@
 .cook {
   object-fit: cover;
   border-radius: 12px;
-  border: 1px solid #9BB537;
+  border: 1px solid var(--accent-color);
   height: 280px;
   max-width: 80px;
 }
@@ -102,7 +102,7 @@
 
 .zoom-dish {
   border-radius: 12px;
-  border: 1px solid #050505;
+  border: 1px solid var(--dark-color);
   height: 280px;
   max-width: 197px;
   object-fit: cover;
@@ -131,14 +131,14 @@
    justify-content: center;
    width: 200px;
    max-height: 302px;
-   background-color: #050505;
+   background-color: var(--dark-color);
 
    border-radius: 12px;
-   border: 1px solid #050505;
+   border: 1px solid var(--dark-color);
    margin-right: 8px;
 
-  background: rgb(155, 181, 55);
-    background: radial-gradient(circle, rgba(155, 181, 55, 1) -90%, rgba(5, 5, 5, 1) 70%);
+  background: var(--accent-color);
+    background: radial-gradient(circle, var(--accent-color) -100%, var(--dark-color) 70%);
  }
 
   .third-pic {
@@ -146,10 +146,10 @@
     display: flex;
     width: 200px;
     max-height: 302px;
-    background-color: #050505;
+    background-color: var(--dark-color);
     /* object-fit: cover; */
     border-radius: 12px;
-    border: 1px solid #050505;
+    border: 1px solid var(--dark-color);
     margin-right: 16px;
     overflow: hidden;
   }
@@ -184,7 +184,7 @@
   display: block;
   position: absolute;
   bottom: 24px;
-  color: rgba(248, 248, 248, 0.60);
+  color: #f8f8f899;
   text-align: center;
   font-family: Inter;
   font-size: 10px;
@@ -199,7 +199,7 @@
   display: block;
   position: absolute;
   bottom: 14px;
-  color: rgba(248, 248, 248, 0.20);;
+  color: #f8f8f833;
   text-align: center;
   font-family: Inter;
   font-size: 8px;
@@ -263,12 +263,10 @@
       height: 500px;
     }
 
-   
-
     .cook {
       object-fit: cover;
       border-radius: 12px;
-      border: 1px solid #9BB537;
+      border: 1px solid var(--accent-color);
       height: 442px;
       max-width: 121px;
     }
@@ -277,7 +275,6 @@
       
       height: 378px;
       max-width: 276px;
- 
     }
 
     .zoom-two {
@@ -295,10 +292,10 @@
       display: flex;
       width: 351px;
       max-height: 442px;
-      background-color: #050505;
+      background-color: var(--dark-color);
       /* object-fit: cover; */
       border-radius: 12px;
-      border: 1px solid #050505;
+      border: 1px solid var(--dark-color);
       margin-right: 16px;
     }
   
@@ -306,9 +303,9 @@
       display: flex;
       width: 351px;
       max-height: 442px;
-      background-color: #050505;
+      background-color: var(--dark-color);
       border-radius: 12px;
-      border: 1px solid #050505;
+      border: 1px solid var(--dark-color);
       margin-right: 16px;
       overflow: hidden;
     }
@@ -326,8 +323,7 @@
     .my-swiper-wrap {
       padding-left: 12px;
     }
-
-
+    
   .dish-description {
     width: 276px;
     bottom: 54px;
@@ -369,11 +365,8 @@
     display: flex;
     width: 351px;
     max-height: 442px;
-    background: rgb(155, 181, 55);
-    background: radial-gradient(circle, rgba(155, 181, 55, 1) -90%, rgba(5, 5, 5, 1) 70%);
-
     border-radius: 12px;
-    border: 1px solid #050505;
+    border: 1px solid var(--dark-color);
     margin-right: 16px;
   }
 
@@ -381,10 +374,10 @@
     display: flex;
     width: 351px;
     max-height: 442px;
-    background-color: #050505;
+    background-color: var(--dark-color);
     /* object-fit: cover; */
     border-radius: 12px;
-    border: 1px solid #050505;
+    border: 1px solid var(--dark-color);
     margin-right: 16px;
     }
 
