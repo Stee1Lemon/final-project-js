@@ -80,13 +80,6 @@ function showRating() {
     ratingEmailEl?.addEventListener('input', debounce(observeEmailField, 300));
     ratingSendRateBtnEl?.addEventListener('click', sendRating);
 
-    // let objToSend = {
-    //   rate: '',
-    //   email: '',
-    //   _id: '',
-    //   dishName: '',
-    // };
-
     let ratingActive, ratingValue;
     for (let index = 0; index < ratings.length; index += 1) {
       const rating = ratings[index];
@@ -137,7 +130,7 @@ function showRating() {
     function sendRating(evt) {
       const objToSend = {
         rate: ratingValue.innerHTML,
-        email: observeEmailField(evt),
+        email: ratingEmailEl.value,
         _id: '',
         dishName: '',
       };
