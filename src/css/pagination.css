@@ -156,12 +156,12 @@
 }
 /* // DARK MODE */
 .page-dark-mode {
-  border-color: var(--gray-ul-d);
-  color: var(--white-d);
+  border-color: gray;
+  color: #ffffff;
 }
 .selected-dark-mode {
-  color: var(--white-d);
+  color: #ffffff;
 }
 .ico-ellip-dark-mode {
-  color: var(--white-d);
+  color: #ffffff;
 }

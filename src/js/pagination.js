@@ -43,6 +43,8 @@ function someFn(clickedButton) {
     return { number: currentPage };
 }
 
+
+
 export { pagination };
     
 // const pageButtons = container.querySelectorAll('.tui-page-btn');
