@@ -7,7 +7,7 @@
 }
 
 .modal-recipe{
-    width: 90%;
+    width: 320px;
     height: auto;
     padding: 40px 20px;
     flex-direction: column;
@@ -15,9 +15,10 @@
     background: var(--light-color);
     margin: 0;
     position: absolute;
-    top: 70%;
-    left: 50%; 
-    transform: translate(-50%, -50%) rotate(0); 
+    top: -350px;
+    left: -160px; 
+    /* transform: translate(-50%, -50%) rotate(0);  */
+    overflow-y: auto;
 }
 
 .recipe-modal-btn-wrap{
@@ -56,8 +57,8 @@
     position: absolute;
     right: 14px;
     top: 14px;
-    width: 35px;
-    height: 35px;
+    width: 20px;
+    height: 20px;
     display: flex;
     justify-content: center; 
     align-items: center; 
