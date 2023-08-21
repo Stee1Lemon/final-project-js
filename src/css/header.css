@@ -1,9 +1,5 @@
-.js-active {
-    color: red;
-}
-
-.header-section {
-    padding: 20px 0 20px 0;
+.current {
+    color: var(--accent-color);
 }
 
 .header-container {
@@ -13,7 +9,12 @@
 
     width: 100%;
 
-    padding-bottom: 85px;
+    padding-top: 20px;
+    padding-bottom: 45px;
+}
+
+.header-navigation {
+    display: none;
 }
 
 .header-list {
@@ -21,8 +22,9 @@
 }
 
 .header-logo {
-    margin-top: 30px;
-    margin-left: 20px;
+    display: inline-block;
+    /* margin-top: 30px; */
+    /* margin-left: 20px; */
 
     color: var(--accent-color);
     text-align: center;
@@ -42,7 +44,7 @@
     display: flex;
     align-items: center;
     gap: 12;
-    margin-right: 20px;
+    /* margin-right: 20px; */
     background-color: transparent;
 }
 
@@ -59,13 +61,14 @@
 }
 
 .header-icon-basket {
+    fill: var(--light-theme-text-color);
     transition: fill var(--animation);
 }
 
 .header-icon-basket:hover,
 .header-icon-basket:focus {
 
-    fill: #9BB537
+    fill: var(--accent-color);
 }
 
 .header-switch {
@@ -91,7 +94,7 @@
 
 .header-icon-burger:focus,
 .header-icon-burger:hover {
-    stroke: #9BB537;
+    stroke: var(--accent-color);
 }
 
 .switch {
@@ -174,6 +177,7 @@
     text-align: center;
 }
 
+
 /* Switcher menu */
 .menu-switch {
     position: relative;
@@ -242,12 +246,10 @@ input:checked+.menu-slider:before {
         display: flex;
         gap: 16px;
         align-items: center;
-        margin-left: 30px;
+        /* margin-left: 30px; */
 
 
     }
-
-    .header-item {}
 
     .header-link {
         color: var(--light-theme-text-color);
@@ -259,12 +261,12 @@ input:checked+.menu-slider:before {
     }
 
     .header-navigation {
-        display: flex;
+        display: block;
     }
 
     .header-logo {
-        margin-top: auto;
-        padding-left: 200px;
+        /* margin-top: auto; */
+        /* padding-left: 200px; */
         font-size: 18px;
         line-height: 1.111;
         letter-spacing: -0.72px;
@@ -343,27 +345,18 @@ input:checked+.menu-slider:before {
 
     /* ------------------------------------------------SWITCHER-----------------end----- */
 
-    .header-buttons {
-        margin-right: 30px;
-    }
+
 }
 
 @media screen and (min-width: 1200px) {
 
-    .header-buttons {
-        margin-right: 100px;
-    }
-
-    .header-navigation {
-        margin-left: 100px;
-    }
-
-    .header-list {
+    /* .header-list {
         margin-left: 0;
-    }
+    } */
 
     .header-container {
-        padding-bottom: 100px;
+        padding-top: 40px;
+        padding-bottom: 40px;
     }
 }
 
