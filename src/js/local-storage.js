@@ -98,4 +98,13 @@ export function goToLocal() {
 
 // LOCAL STORAGE ДЛЯ FAVORITES
 
+const keyLocalStorageFavorites = 'keyOfFavoritesCards';
 
+export function addToLocalFavoritesCards(obj) {
+    if(keyLocalStorageFavorites) {
+        let allObj = JSON.parse(localStorage.getItem(keyLocalStorageFavorites));
+        if (allObj.forEach(oneObj !== obj)) {
+        localStorage.setItem.JSON.stringify((keyLocalStorageFavorites, obj));
+        }
+    }
+}
