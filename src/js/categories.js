@@ -31,6 +31,7 @@ async function getCategories() {
 }
 
 getCategories();
+getAllRecipes();
 
 function createCategoriesMarkUp(arr) {
   return arr

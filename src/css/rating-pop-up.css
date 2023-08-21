@@ -3,15 +3,17 @@
   max-width: 335px;
   margin: 0 auto;
   padding: 20px;
-  outline: 2px solid blue;
+  background-color: var(--light-modal-background-color);
 }
 .rating-btn-close {
+  font-size: 20px;
   position: absolute;
   display: block;
   top: 14px;
   right: 14px;
-  cursor: pointer;
-  fill: var(--light-theme-text-color);
+  border: none;
+  background-color: transparent;
+  color: var(--light-theme-text-color);
 }
 
 .rating-text {
