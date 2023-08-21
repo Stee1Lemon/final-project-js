@@ -11,6 +11,7 @@
   --green-color: #2cef00;
 
   /* Colors that will change for Dark Theme */
+  --light-theme-background-color: #f8f8f8;
   --light-theme-text-color: #050505;
   --light-modal-text-color: #050505cc;
   --light-modal-background-color: #fff;
@@ -26,9 +27,9 @@
   --lightn-theme-hero-text-slider: #f8f8f899;
   --lightn-theme-hero-dish-desc: #f8f8f833;
 
-  --dark-theme-background-color: #1e1e1e;
-
   --cards-background-color-for-stars: #00000042;
+
+  /* --dark-theme-background-color: #1e1e1e; */
   /* --dark-theme-text-color: #fff; */
   /* transparent 50% */
   /* --dark-theme-semi-transparent-color: #ffffff80; */
@@ -49,10 +50,11 @@ html {
 
 body {
   font-family: 'Inter', sans-serif;
+  background-color: var(--light-theme-background-color);
 }
 
 .dark {
-  background-color: var(--dark-theme-background-color);
+  --light-theme-background-color: #1e1e1e;
   --stars-uncolored: #3c3b3b;
   --light-theme-text-color: #fff;
   --light-theme-semi-transparent-color: #ffffff80;
