@@ -81,7 +81,7 @@ function handlerCategoryBtn(ev) {
   getRecipesByCategory(nameOfCategory);
 }
 
-async function getRecipesByCategory(category) {
+export async function getRecipesByCategory(category) {
   try {
     if (!errorEl.classList.contains('is-hidden')) {
       errorEl.classList.add('is-hidden');

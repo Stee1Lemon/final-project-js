@@ -1,5 +1,5 @@
 // LOCAL STORAGE ДЛЯ СВІТЧЕРА
-import {getRecipesByCategory} from './categories'
+import { getRecipesByCategory } from './categories'
 const themeCheckbox = document.querySelector('.switch>input');
 const body = document.querySelector('body');
 // const categoryBtn = document.querySelector('.category-btn');
