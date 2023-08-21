@@ -14,3 +14,4 @@ import './js/favorites-page.js';
 import './js/scroll-up.js';
 import './js/loader.js';
 import './js/local-storage.js';
+import './js/footer.js';
