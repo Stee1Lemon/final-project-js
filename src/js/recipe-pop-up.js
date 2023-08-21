@@ -3,12 +3,14 @@ import { join } from 'lodash';
 import { FetchInfo } from './fetch-requests';
 import { showRating } from './rating-pop-up.js';
 import { createModal } from './open-any-modal.js';
+import { openRatingModal } from './rating-pop-up.js'
 
 const recipes = new FetchInfo();
 
 const btnOpenRecipe = document.querySelector('.open-modal-recipe');
 
 btnOpenRecipe?.addEventListener('click', openRecipeModal);
+
 
 const id = "6462a8f74c3d0ddd28897fbc";
 
@@ -21,7 +23,13 @@ function openRecipeModal(){
         recipeModalMarkup(recipeObj.data);
       });
     showRating();
+    const btnFav = document.querySelector('.btn-favorite');
+    btnFav.addEventListener('click', addOrRemoveFav);
+    const btnRating = document.querySelector('.btn-give-rating');
+    // btnRating.addEventListener('click', openRatingModal);
+    btnRating.addEventListener('click', giveRating);
 }
+
 
 function recipeModalContentMurkup() {
     return `<div class="modal-recipe">
@@ -39,7 +47,6 @@ function recipeModalContentMurkup() {
 
 function recipeModalMarkup(recipeData){
     const recipeContainer = document.querySelector('.modal-recipe-content');
-    console.log(recipeContainer);
     const videoOrImage = () => {
             if (recipeData.youtube) {
               const videoId = recipeData.youtube.split('v=')[1];
@@ -111,3 +118,12 @@ function recipeModalMarkup(recipeData){
       recipeContainer.innerHTML = recipeMarkup;
 }
 
+
+function addOrRemoveFav(){
+    console.log('click on add to fav');
+}
+
+function giveRating(){
+    // openRatingModal();
+    console.log('click on give a rating');
+}
