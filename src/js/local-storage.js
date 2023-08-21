@@ -30,12 +30,12 @@ function reloadTheme() {
 
 // LOCAL STORAGE ДЛЯ МОДАЛКИ ЗАМОВЛЕННЯ
 
-const form = document.querySelector('.form-oder');
-form?.addEventListener('input', saveInLocalStorageModal);
-form?.addEventListener('submit', resetLocalStorageModal);
+// const form = document.querySelector('.form-oder');
+// form?.addEventListener('input', saveInLocalStorageModal);
+// form?.addEventListener('submit', resetLocalStorageModal);
 
 
-function saveInLocalStorageModal() {
+export function saveInLocalStorageModal() {
     let dataForm = JSON.stringify({
         name: form.name.value,
         number: form.number.value,
@@ -44,7 +44,7 @@ function saveInLocalStorageModal() {
     localStorage.setItem("key_form", dataForm);
 };
 
-function resetLocalStorageModal() {
+export function resetLocalStorageModal() {
     localStorage.removeItem("key_form")
 };
 
@@ -70,7 +70,7 @@ function reloadCategory(selectedCategory) {
         categoryOptions.forEach(option => {
             if (option.textContent === selectedCategory) {
                 option.classList.add('category-btn-active'); // Додати стиль для відображення вибраної категорії
-                console.log(`Reloaded selected category: ${selectedCategory}`);
+                // console.log(`Reloaded selected category: ${selectedCategory}`);
                 getRecipesByCategory(selectedCategory);
             } else {
                 option.classList.remove('category-btn-active'); // Видалити стиль для інших категорій
