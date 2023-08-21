@@ -15,6 +15,7 @@
   --light-theme-text-color: #050505;
   --light-modal-text-color: #050505cc;
   --light-modal-background-color: #fff;
+  --light-mobile-bg-color: #9bb537;
   /* transparent 50% */
   --light-theme-semi-transparent-color: #05050580;
   --light-theme-slider-semi-transparent-color: #f8f8f880;
@@ -66,6 +67,7 @@ body {
   --light-modal-background-color: #050505;
   --light-theme-hero-text-slider: #ffffff99;
   --lightn-theme-hero-dish-desc: #ffffff33;
+  --light-mobile-bg-color: #050505;
 }
 
 .is-hidden {
