@@ -3,7 +3,7 @@ import {getRecipesByCategory} from './categories'
 const themeCheckbox = document.querySelector('.switch>input');
 const body = document.querySelector('body');
 // const categoryBtn = document.querySelector('.category-btn');
-themeCheckbox.addEventListener('change', switchThemeColor);
+themeCheckbox?.addEventListener('change', switchThemeColor);
 reloadThemeAndFormData();
 
 function switchThemeColor() {
@@ -30,8 +30,8 @@ function reloadTheme() {
 // LOCAL STORAGE ДЛЯ МОДАЛКИ ЗАМОВЛЕННЯ
 
 const form = document.querySelector('.form-oder');
-form.addEventListener('input', saveInLocalStorage);
-form.addEventListener('submit', resetLocalStorage);
+form?.addEventListener('input', saveInLocalStorage);
+form?.addEventListener('submit', resetLocalStorage);
 
 
 function saveInLocalStorage() {
@@ -64,16 +64,10 @@ function reloadThemeAndFormData() {
 // LOCAL STORAGE ДЛЯ КАТЕГОРІЙ
 // const localStorageKey = 'selected-category';
 const categoriesList = document.querySelector('.categories-list-js');
-categoriesList.addEventListener('click', handleCategoryClick);
+// categoriesList.addEventListener('click', handleCategoryClick);
 
-function handleCategoryClick(event) {
-    const categoryOption = event.target;
-    if (categoryOption.classList.contains('category-btn-active')) {
-        const selectedCategory = categoryOption.textContent;
-        localStorage.setItem('selected-category', selectedCategory);
-        categoryOption.classList.add('category-btn-active')
-        console.log(`Selected category: ${selectedCategory}`);
-    }
+export function handleCategoryClick(categoryOption) {
+    localStorage.setItem('selected-category', categoryOption);
 }
 
 function reloadCategory(selectedCategory) {
@@ -82,7 +76,7 @@ function reloadCategory(selectedCategory) {
             if (option.textContent === selectedCategory) {
                 option.classList.add('category-btn-active'); // Додати стиль для відображення вибраної категорії
                 console.log(`Reloaded selected category: ${selectedCategory}`);
-                // getRecipesByCategory(selectedCategory);
+                getRecipesByCategory(selectedCategory);
             } else {
                 option.classList.remove('category-btn-active'); // Видалити стиль для інших категорій
             }
@@ -99,4 +93,9 @@ export function goToLocal() {
 }
 
 // LOCAL STORAGE ДЛЯ ФІЛЬТРІВ
+
+
+
+// LOCAL STORAGE ДЛЯ FAVORITES
+
 
