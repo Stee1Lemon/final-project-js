@@ -59,3 +59,13 @@ if (activeTheme === null || activeTheme === 'light') {
     })
 
 }
+
+// Header активна сторінка
+const linkHome = document.querySelector('.js-home')
+console.log(linkHome);
+linkHome.addEventListener('click', onLinkClick)
+
+function onLinkClick(params) {
+    linkHome.classList.add('.js-active')
+    
+}

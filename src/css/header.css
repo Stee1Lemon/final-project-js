@@ -1,3 +1,11 @@
+.js-active {
+    color: red;
+}
+
+.header-section {
+    padding: 20px 0 20px 0;
+}
+
 .header-container {
     display: flex;
     justify-content: space-between;
@@ -35,6 +43,7 @@
     align-items: center;
     gap: 12;
     margin-right: 20px;
+    background-color: transparent;
 }
 
 .header-basket {
@@ -45,7 +54,7 @@
     justify-content: center;
     align-items: center;
 
-    background-color: var(--light-color);
+    background-color: transparent;
     border: none;
 }
 
@@ -71,12 +80,12 @@
     justify-content: center;
     align-items: center;
 
-    background-color: var(--light-color);
+    background-color: transparent;
     border: none;
 }
 
 .header-icon-burger {
-    stroke: #050505;
+    stroke: var(--light-theme-text-color);
     transition: stroke var(--animation);
 }
 
