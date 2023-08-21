@@ -3,15 +3,15 @@
     background-color: var(--accent-color);
     right: 50px;
     bottom: 50px;
-    border-radius: 25px;
+    border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: opacity 0.15s ease-in-out, transform 0.3s ease-in-out;
     color: var(--btn-text-color);
-    width: 50px;
-    height: 50px;
+    width: 120px;
+    height: 120px;
     opacity: 1;
     transform: translateY(0);
   }
@@ -26,8 +26,8 @@
   }
 
   .btn-up-icon {
-    width: 40px;
-    height: 40px;
+    width: 50%;
+    height: 50%;
     fill: currentcolor;
   }
 
