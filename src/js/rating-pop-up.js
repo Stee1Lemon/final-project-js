@@ -5,29 +5,9 @@ const ratingOpenBtn = document.querySelector('.open-rating-btn');
 
 ratingOpenBtn?.addEventListener('click', openRatingModal);
 
-let objToSend = {
-  rate: '',
-  email: '',
-  _id: '',
-  dishName: '',
-};
-
-function seeEmail(evt) {
-  email = evt.target.value.trim().toLowerCase();
-}
-
 function openRatingModal() {
   createModal(ratingMarkUp());
   showRating();
-  const ratingEmailEl = document.querySelector('.rating-input');
-  const ratingSendRateBtnEl = document.querySelector('.btn-rating');
-
-  ratingEmailEl?.addEventListener('input', debounce(seeEmail, 300));
-  ratingSendRateBtnEl?.addEventListener('click', sendRate);
-}
-
-function sendRate(evt) {
-  console.log(objToSend);
 }
 
 function ratingMarkUp() {
@@ -94,6 +74,19 @@ function showRating() {
   }
 
   function initRatings() {
+    const ratingEmailEl = document.querySelector('.rating-input');
+    const ratingSendRateBtnEl = document.querySelector('.btn-rating');
+
+    ratingEmailEl?.addEventListener('input', debounce(observeEmailField, 300));
+    ratingSendRateBtnEl?.addEventListener('click', sendRating);
+
+    // let objToSend = {
+    //   rate: '',
+    //   email: '',
+    //   _id: '',
+    //   dishName: '',
+    // };
+
     let ratingActive, ratingValue;
     for (let index = 0; index < ratings.length; index += 1) {
       const rating = ratings[index];
@@ -140,6 +133,19 @@ function showRating() {
           setRatingActiveWidth();
         });
       }
+    }
+    function sendRating(evt) {
+      const objToSend = {
+        rate: ratingValue.innerHTML,
+        email: observeEmailField(evt),
+        _id: '',
+        dishName: '',
+      };
+      console.log(objToSend);
+    }
+    function observeEmailField(evt) {
+      email = evt.target.value.trim().toLowerCase();
+      console.log('from observe', email);
     }
   }
 }
