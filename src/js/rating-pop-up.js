@@ -1,5 +1,4 @@
 import { createModal } from './open-any-modal';
-import { debounce } from 'lodash';
 import { FetchInfo } from './fetch-requests';
 import { Notify } from 'notiflix';
 
@@ -9,7 +8,7 @@ ratingOpenBtn?.addEventListener('click', openRatingModal);
 
 const fetchUse = new FetchInfo();
 
-function openRatingModal() {
+export function openRatingModal() {
   createModal(ratingMarkUp());
   showRating();
 }
@@ -113,13 +112,16 @@ function showRating() {
       const ratingItems = rating.querySelectorAll('.rating-item');
       for (let index = 0; index < ratingItems.length; index += 1) {
         const ratingItem = ratingItems[index];
+
         ratingItem.addEventListener('mouseenter', function (e) {
           initRatingVars(rating);
           setRatingActiveWidth(ratingItem.value);
         });
+
         ratingItem.addEventListener('mouseleave', function (e) {
           setRatingActiveWidth();
         });
+
         ratingItem.addEventListener('click', function (e) {
           initRatingVars(rating);
           ratingValue.innerHTML = index + 1;
@@ -129,6 +131,7 @@ function showRating() {
         });
       }
     }
+
     function sendRating(evt) {
       const objToSendLocal = {
         rate: Number(ratingValue.innerHTML),
@@ -145,10 +148,14 @@ function showRating() {
         return Notify.warning('Choose rating to set');
       }
       console.log('змінити ID заглушку');
-      console.log('info in local storage', objToSendLocal);
+      console.log('info in local storage (148)', objToSendLocal);
       fetchUse
         .patchRatingRecipe(ratingValue.id, objToSendBack)
-        .then(res => console.log(res.statusText))
+        .then(res => {
+          ratingSendRateBtnEl.classList.add('close');
+          Notify.success('Thank you for your feedback');
+          console.log(res.statusText);
+        })
         .catch(err => {
           Notify.warning(err.response.data.message);
           console.log(err.response.data.message);
