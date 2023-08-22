@@ -4,11 +4,11 @@ import { Notify } from 'notiflix';
 
 const ratingOpenBtn = document.querySelector('.open-rating-btn');
 
-ratingOpenBtn?.addEventListener('click', openRatingModal);
+// ratingOpenBtn?.addEventListener('click', openRatingModal);
 
 const fetchUse = new FetchInfo();
 
-export function openRatingModal(id, name, rating) {
+function openRatingModal(id, name, rating) {
   createModal(ratingMarkUp(id, name, rating));
   showRating();
 }
