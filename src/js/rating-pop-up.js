@@ -17,7 +17,7 @@ function ratingMarkUp() {
     <div class="rating-pop-up">
       <p class="rating-text">Rating</p>
       <div class="rating stars-pop-up">
-        <div class="rating-value number-text">3.5</div>
+        <div class="rating-value number-text" id="testID" name="testName">3.5</div>
         <div class="rating-body">
           <div class="rating-active"></div>
           <div class="rating-items">
@@ -131,8 +131,8 @@ function showRating() {
       const objToSend = {
         rate: ratingValue.innerHTML,
         email: ratingEmailEl.value,
-        _id: '',
-        dishName: '',
+        _id: ratingValue.id,
+        dishName: ratingValue.name,
       };
       console.log(objToSend);
     }

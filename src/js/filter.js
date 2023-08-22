@@ -15,12 +15,14 @@ const selectTime = document.querySelector('.time-select');
 const selectArea = document.querySelector('.area-select');
 const selectIngredients = document.querySelector('.ingredients-select');
 const resetFilter = document.querySelector('.filter-reset');
+const resetInput = document.querySelector('.filter-input-reset-icon');
 
 inputSubmit?.addEventListener('input', debounce(handlerInput, 300));
 selectTime?.addEventListener('change', selectedTime);
 selectArea?.addEventListener('change', selectedArea);
 selectIngredients?.addEventListener('change', selectedIngredient);
 resetFilter?.addEventListener('click', resetAllFilters)
+resetInput?.addEventListener('click', resetInputValue);
 
 let searchArea = '';
 let searchIngredient = ''; 
@@ -38,8 +40,9 @@ export const fullFilter = {
   ingredients: searchIngredient,
 };
 
-const defaultTimeOption = 
-  '<option value="" selected>0 min</option>';
+const defaultTimeOption =
+  '<option data-placeholder="true" value="">0 min</option>';
+  const fullTimeOption = '<option value="">0 min</option>';
 
 function timesMarkup() {
   let secondsStep = [];
@@ -51,7 +54,7 @@ function timesMarkup() {
       return `<option value="${minute}">${minute} min</option>`;
     })
     .join('');
-    const selectTimeMarkup = defaultTimeOption + timeMarkup;
+    const selectTimeMarkup = defaultTimeOption + fullTimeOption + timeMarkup;
   selectTime.insertAdjacentHTML('beforeend', selectTimeMarkup);
 
   slimSelectTime = new SlimSelect({
@@ -62,6 +65,8 @@ function timesMarkup() {
 timesMarkup();
 
 const defaultAreaOption =
+  '<option data-placeholder="true" value="">Region</option>';
+  const fullAreaOption = 
   '<option value="" selected>Region</option>';
 
 filters
@@ -72,7 +77,7 @@ filters
         return `<option value="${area.name}">${area.name}</option>`;
       })
       .join('');
-      const selectAreaMarkup = defaultAreaOption + areasMarkup;
+      const selectAreaMarkup = defaultAreaOption + fullAreaOption + areasMarkup;
       selectArea.insertAdjacentHTML('beforeend', selectAreaMarkup);
       
       slimSelectArea = new SlimSelect({
@@ -84,6 +89,8 @@ filters
   });
 
   const defaultIngredientsOption =
+    '<option data-placeholder="true" value="">Product</option>';
+  const fullIngredientsOption =
     '<option value="" selected>Product</option>';
 
 filters
@@ -95,7 +102,7 @@ filters
       })
       .join('');
       const selectIngredientsMarkup =
-        defaultIngredientsOption + ingredientsMarkup;
+        defaultIngredientsOption + fullIngredientsOption + ingredientsMarkup;
     selectIngredients.insertAdjacentHTML('beforeend', selectIngredientsMarkup);
 
     slimSelectIngredients = new SlimSelect({
@@ -107,7 +114,14 @@ filters
   });
 
 function handlerInput(evt) {
+  evt.preventDefault();
   searchText = evt.target.value.trim().toLowerCase();
+  if (searchText.length >= 1) {
+    resetInput.classList.remove('is-hidden');
+  }
+  if (searchText.length === 0) {
+    resetInput.classList.add('is-hidden');
+  }
   updateFullFilter();
 }
 
@@ -126,6 +140,13 @@ function selectedIngredient(evt) {
   updateFullFilter();
 }
 
+function resetInputValue() {
+  inputSubmit.value = '';
+  searchText = '';
+  resetInput.classList.add('is-hidden');
+  updateFullFilter();
+}
+
 function updateFullFilter() {
   fullFilter.search = searchText;
   fullFilter.time = searchTime;
@@ -135,16 +156,18 @@ function updateFullFilter() {
 }
 
 function resetAllFilters() {
+  resetInput.classList.add('is-hidden');
+  
   inputSubmit.value = '';
   
   slimSelectTime.setSelected(selectTime.options[0].value);
   slimSelectArea.setSelected(selectArea.options[0].value);
   slimSelectIngredients.setSelected(selectIngredients.options[0].value);
 
+  searchText = '';
+  searchTime = '';
   searchArea = '';
   searchIngredient = '';
-  searchTime = '';
-  searchText = '';
   
   updateFullFilter();
 }

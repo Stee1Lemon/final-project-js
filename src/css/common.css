@@ -15,6 +15,7 @@
   --light-theme-text-color: #050505;
   --light-modal-text-color: #050505cc;
   --light-modal-background-color: #fff;
+  --light-mobile-bg-color: #9bb537;
   /* transparent 50% */
   --light-theme-semi-transparent-color: #05050580;
   --light-theme-slider-semi-transparent-color: #f8f8f880;
@@ -66,6 +67,7 @@ body {
   --light-modal-background-color: #050505;
   --light-theme-hero-text-slider: #ffffff99;
   --lightn-theme-hero-dish-desc: #ffffff33;
+  --light-mobile-bg-color: #050505;
 }
 
 .is-hidden {
@@ -89,31 +91,24 @@ body {
   overflow: hidden;
   border-radius: 15px;
 }
-.section {
-  padding: 0 15px;
-}
 
 .container {
   margin: 0 auto;
-
+  padding: 0 15px;
   outline: 2px solid blue;
 }
 
 @media screen and (min-width: 375px) {
-  .section {
-    padding: 0 20px;
-  }
   .container {
     max-width: 375px;
+    padding: 0 20px;
   }
 }
 
 @media screen and (min-width: 768px) {
-  .section {
-    padding: 0 32px;
-  }
   .container {
     max-width: 768px;
+    padding: 0 32px;
   }
 
   .sections-flex {
@@ -122,12 +117,10 @@ body {
   }
 }
 
-@media screen and (min-width: 1200px) {
-  .section {
-    padding: 0 100px;
-  }
+@media screen and (min-width: 1280px) {
   .container {
-    max-width: 1080px;
+    max-width: 1280px;
+    padding: 0 100px;
   }
 
   .sections-flex {
