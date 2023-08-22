@@ -1,9 +1,12 @@
 import { createModal } from './open-any-modal';
 import { debounce } from 'lodash';
+import { FetchInfo } from './fetch-requests';
 
 const ratingOpenBtn = document.querySelector('.open-rating-btn');
 
 ratingOpenBtn?.addEventListener('click', openRatingModal);
+
+const fetchUse = new FetchInfo();
 
 function openRatingModal() {
   createModal(ratingMarkUp());
@@ -17,7 +20,7 @@ function ratingMarkUp() {
     <div class="rating-pop-up">
       <p class="rating-text">Rating</p>
       <div class="rating stars-pop-up">
-        <div class="rating-value number-text" id="testID" name="testName">3.5</div>
+        <div class="rating-value number-text" id="6462a8f74c3d0ddd28897fde" name="testName">3.5</div>
         <div class="rating-body">
           <div class="rating-active"></div>
           <div class="rating-items">
@@ -128,13 +131,23 @@ function showRating() {
       }
     }
     function sendRating(evt) {
-      const objToSend = {
-        rate: ratingValue.innerHTML,
+      const objToSendLocal = {
+        rate: Number(ratingValue.innerHTML),
         email: ratingEmailEl.value,
         _id: ratingValue.id,
         dishName: ratingValue.name,
       };
-      console.log(objToSend);
+      const objToSendBack = {
+        rate: Number(ratingValue.innerHTML),
+        email: ratingEmailEl.value,
+      };
+      console.log('objToSendLocal', objToSendLocal);
+      console.log('objToSendBack', objToSendBack);
+      console.log(ratingValue.id);
+      fetchUse
+        .patchRatingRecipe(ratingValue.id, objToSendBack)
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
     }
     function observeEmailField(evt) {
       email = evt.target.value.trim().toLowerCase();
@@ -142,5 +155,6 @@ function showRating() {
     }
   }
 }
+
 
 export { showRating };
