@@ -39,9 +39,20 @@ export class FetchInfo {
     return axios.get(`${this.BASE_URL}recipes/${id}`);
   }
 
-  //   postOrder() {
-  //     return axios.get(`${this.BASE_URL}orders`);
-  //   }
+  patchRatingRecipe(id, ratingToSend) {
+    return axios({
+      url: `${this.BASE_URL}recipes/${id}/rating`,
+      method: 'PATCH',
+      data: {
+        rate: ratingToSend.rate,
+        email: ratingToSend.email,
+      },
+    });
+  }
+
+  // postOrder() {
+  //   return axios.get(`${this.BASE_URL}orders`);
+  // }
 }
 
 export class FetchInfoByFilter {

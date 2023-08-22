@@ -76,6 +76,12 @@ ul{
 	background-color: #ffffff;
 }
 
+.social-link-wrap {
+	display: flex; /* Добавляем flex-контейнер */
+	justify-content: center; /* Выравниваем по горизонтали по центру */
+	align-items: center; /* Выравниваем по вертикали по центру */
+  }
+  
 /*responsive*/
 @media(max-width: 767px){
   .footer-col{
@@ -88,3 +94,4 @@ ul{
     width: 100%;
 }
 }
+

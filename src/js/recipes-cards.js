@@ -1,6 +1,9 @@
 import { FetchInfo } from './fetch-requests';
 import { showRating } from './rating-pop-up.js';
-import { addToLocalFavoritesCards } from './local-storage';
+import {
+  addToLocalFavoritesCards,
+  takeFavoritesCardsFromLS,
+} from './local-storage';
 
 const recipesTable = document.querySelector('.js-card-items');
 
@@ -36,6 +39,7 @@ function seeViewport() {
 function cardsMarkUp(cardInfo) {
   recipesTable.innerHTML = makeCardsMarkUp(cardInfo);
   showRating();
+  isAlreadyOnFavorite();
   addToFavoriteListener();
 }
 
@@ -92,7 +96,7 @@ function makeCardsMarkUp(cardInfo) {
       <button class="base-btn btn-card" type="button">See recipe</button>
     </div>
   </div>
-  <span class="add-favorite" id="${_id}">♡</span>
+  <span class="add-favorite " id="${_id}">&#9825;</span>
 </li>`;
     })
     .join('');
@@ -101,13 +105,53 @@ function makeCardsMarkUp(cardInfo) {
 function addToFavoriteListener() {
   const btnAddToFavoriteEl = document.querySelectorAll('.add-favorite');
   btnAddToFavoriteEl.forEach(el => {
-    el.addEventListener('click', addToFavoriteItem);
+    el.addEventListener('click', addOrRemoveFromFavorite);
+    if (el.classList.contains('on-favorites')) {
+      el.textContent = '♥️';
+      return;
+    }
+    el.textContent = '♡';
   });
 }
 
-function addToFavoriteItem(event) {
+function isAlreadyOnFavorite() {
+  const btnAddToFavoriteEl = document.querySelectorAll('.add-favorite');
+  btnAddToFavoriteEl.forEach(el => {
+    const favorite = takeFavoritesCardsFromLS();
+    console.log(favorite);
+    if (el.id) {
+      // console.log(el.id);
+      // el.classList.add('on-favorites');
+    }
+    // el.classList.remove('on-favorites');
+  });
+}
+
+function addOrRemoveFromFavorite(event) {
   const recipeId = event.currentTarget.id;
+  const recipeHeart = event.currentTarget;
+
+  if (recipeHeart.classList.contains('on-favorites')) {
+    removeFromFavoriteItem(recipeId, recipeHeart);
+    return;
+  }
+  addToFavoriteItem(recipeId, recipeHeart);
+}
+
+function addToFavoriteItem(recipeId, recipeHeart) {
   recipes.fetchRecipeById(recipeId).then(resp => {
+    recipeHeart.classList.add('on-favorites');
+    recipeHeart.textContent = '♥️';
+    console.log('add');
+    addToLocalFavoritesCards(resp.data);
+  });
+}
+
+function removeFromFavoriteItem(recipeId, recipeHeart) {
+  recipes.fetchRecipeById(recipeId).then(resp => {
+    recipeHeart.classList.remove('on-favorites');
+    recipeHeart.textContent = '♡';
+    console.log('remove');
     addToLocalFavoritesCards(resp.data);
   });
 }

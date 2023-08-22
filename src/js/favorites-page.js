@@ -1,14 +1,23 @@
 //console.log('10.Favorites page');
-
-import recipies from './test-mock';
-// import { cardsMarkUp } from './recipes-cards';
+import {
+  seeViewport,
+  makeCardsMarkUp,
+  addToFavoriteListener,
+} from './recipes-cards';
+import { showRating } from './rating-pop-up.js';
+import './header.js';
 
 const heroImgMob = document.querySelector('.fav-hero-img-mob');
+const categoriesContainer = document.querySelector('.fav-categories');
 const cardsContainer = document.querySelector('.fav-recipes');
 const notifWithHat = document.querySelector('.fav-notification');
-const categories = [];
+let categories = [];
+let recipies;
 
-const categoriesContainer = document.querySelector('.fav-categories');
+function getRecipies() {
+  recipies = JSON.parse(localStorage.getItem('keyOfFavoritesCards'));
+}
+getRecipies();
 
 function showNotifyWithHat() {
   if (!recipies.length) {
@@ -16,6 +25,7 @@ function showNotifyWithHat() {
     categoriesContainer.classList.add('is-hidden');
     cardsContainer.classList.add('is-hidden');
     notifWithHat.classList.remove('is-hidden');
+    return;
   }
 }
 showNotifyWithHat();
@@ -29,15 +39,22 @@ function onClick(evt) {
     return;
   }
 
+  showCards(evt.target.name);
+}
+
+function showCards(categoryName) {
   const recipiesArray = recipies.filter(({ category }) => {
-    return evt.target.name === category;
+    return categoryName === category;
   });
 
-  cardsContainer.innerHTML = createCardsMarkup(recipiesArray);
+  cardsContainer.innerHTML = makeCardsMarkUp(recipiesArray);
 
-  if (evt.target.name === 'all') {
-    cardsMarkUp(recipies);
+  if (categoryName === 'all') {
+    cardsMarkup(recipies);
   }
+
+  showRating();
+  addToFavoriteListener();
 }
 
 function getCategories(recipies) {
@@ -49,6 +66,7 @@ function getCategories(recipies) {
   });
   renderCategories(categories);
 }
+getCategories(recipies);
 
 function renderCategories(categories) {
   const markup = categories
@@ -57,40 +75,12 @@ function renderCategories(categories) {
     })
     .join('');
 
-  //categoriesContainer.insertAdjacentHTML('beforeend', markup);
+  categoriesContainer.insertAdjacentHTML('beforeend', markup);
 }
 
-function createCardsMarkup(recipiesArray) {
-  return recipiesArray
-    .map(({ _id, category, preview, title, description, rating }) => {
-      return `<li class="fav-recipe-card recipe-card">
-                <object class="obj-recipe-card" name="${category}">
-                  <div class="rad-img card-thumb fav-card-thumb">
-                    <img class="fav-card-image card-image" src="${preview}" alt="" />
-                  </div>
-                  <div class="card-info">
-                    <h3 class="card-title" id="${_id}">${title}</h3>
-                    <p class="card-description">${description}</p>
-                    <div class="card-rating-button">
-                      <div>
-                        <p class="card-rating">${rating}</p>
-                        <span class="card-stars">★★★★★</span>
-                      </div>
-                      <button class="base-btn btn-card" type="button">See recipe</button>
-                    </div>
-                  </div>
-                  <span class="add-favorite">♡</span>
-                </object>
-              </li>`;
-    })
-    .join('');
+function cardsMarkup(recipies) {
+  cardsContainer.innerHTML = makeCardsMarkUp(recipies);
+  showRating();
+  addToFavoriteListener();
 }
-
-//const recipies = JSON.parse(localStorage.getItem(''));
-
-getCategories(recipies); //() <- тут мають передатись дані з localStorage
-
-function cardsMarkUp(recipies) {
-  cardsContainer.innerHTML = createCardsMarkup(recipies);
-}
-//cardsMarkUp(recipies);
+cardsMarkup(recipies);

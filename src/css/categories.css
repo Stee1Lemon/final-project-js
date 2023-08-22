@@ -7,7 +7,7 @@
   background-color: inherit;
   border: 1px var(--light-theme-transparent-color) solid;
   color: var(--light-theme-semi-transparent-color);
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 500;
   transition: color var(--animation), background-color var(--animation),
     border var(--animation);
@@ -15,6 +15,12 @@
 
 .categories-btn:hover,
 .categories-btn:focus {
+  color: var(--btn-text-color);
+  background-color: var(--accent-color);
+  border: 1px var(--accent-color) solid;
+}
+
+.categories-btn-active {
   color: var(--btn-text-color);
   background-color: var(--accent-color);
   border: 1px var(--accent-color) solid;
@@ -112,7 +118,7 @@
 }
 
 /* MEDIA DESKTOP */
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1280px) {
   .categories-section {
     padding: 63px 0 32px 0;
   }

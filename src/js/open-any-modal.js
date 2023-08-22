@@ -13,9 +13,28 @@ function createModal(content) {
       onShow: instance => {
         instance.element().addEventListener('click', adListenerToCloseBtn);
         document.addEventListener('keydown', escListener);
+        const btnToCloseAuto = instance.element().querySelector('.btn-rating');
+        if (btnToCloseAuto) mutationObserver(btnToCloseAuto, instance);
       },
     }
   );
+
+  function mutationObserver(mutations, instance) {
+    const config = { attributes: true };
+
+    function fnCallback(mutations, observer) {
+      for (const mutation of mutations) {
+        if (mutation.target.classList.contains('close')) {
+          closeAuto(instance, observer);
+          return;
+        }
+        console.log('ne v if');
+      }
+    }
+
+    const observer = new MutationObserver(fnCallback);
+    observer.observe(mutations, config);
+  }
 
   function adListenerToCloseBtn(e) {
     if (
@@ -33,12 +52,21 @@ function createModal(content) {
     }
   }
 
-  function removeListeners(instance, escListener) {
+  function removeListeners(instance) {
     const element = instance.element();
     if (element) {
       element.removeEventListener('click', adListenerToCloseBtn);
     }
     document.removeEventListener('keydown', escListener);
+  }
+
+  function closeAuto(instance, observer) {
+    const element = instance.element();
+    element.removeEventListener('click', adListenerToCloseBtn);
+    document.removeEventListener('keydown', escListener);
+    observer.disconnect();
+
+    instance.close();
   }
 
   instance.show();
