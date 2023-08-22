@@ -1,7 +1,11 @@
 import { FetchInfo } from './fetch-requests';
 import { cardsMarkUp } from './recipes-cards';
 import { seeViewport } from './recipes-cards';
-import { goToLocal, handleCategoryClick, removeCategoriesFromLS} from './local-storage';
+import {
+  goToLocal,
+  handleCategoryClick,
+  removeCategoriesFromLS,
+} from './local-storage';
 import { paginationSetUp } from './pagination';
 
 const request = new FetchInfo();
@@ -36,7 +40,7 @@ async function getCategories() {
 
 getCategories();
 
-if(!localStorage.getItem('selected-category')) {
+if (!localStorage.getItem('selected-category')) {
   getAllRecipes();
   // resetLocalStorageFilters();
   categoriesBtnEl.classList.add('categories-btn-active');
@@ -59,17 +63,18 @@ categoriesBtnEl?.addEventListener('click', handlerAllCategoriesBtn);
 function handlerAllCategoriesBtn() {
   makeBtnNotActive();
   categoriesBtnEl.classList.add('categories-btn-active');
-  removeCategoriesFromLS()
+  removeCategoriesFromLS();
   getAllRecipes();
-   // resetLocalStorageFilters();
+  // resetLocalStorageFilters();
 }
 
-async function getAllRecipes() {
+export async function getAllRecipes(selectedPage) {
   try {
     if (!errorEl.classList.contains('is-hidden')) {
       errorEl.classList.add('is-hidden');
     }
-    const resp = await request.fetchAllRecipesPerPage(seeViewport());
+    const pageToShow = selectedPage || 1;
+    const resp = await request.fetchAllRecipesPerPage(seeViewport(), pageToShow);
     totalPages = resp.data.totalPages;
     currentPage = resp.data.page;
     cardsMarkUp(resp.data.results);
@@ -98,15 +103,22 @@ function handlerCategoryBtn(ev) {
   getRecipesByCategory(nameOfCategory);
 }
 
-export async function getRecipesByCategory(category) {
+export async function getRecipesByCategory(category, selectedPage) {
   try {
     if (!errorEl.classList.contains('is-hidden')) {
       errorEl.classList.add('is-hidden');
     }
-    const resp = await request.fetchByCategory(category, 1, seeViewport());
+    const pageToShow = selectedPage || 1;
+    const resp = await request.fetchByCategory(
+      category,
+      pageToShow,
+      seeViewport()
+    );
     if (resp.data.results.length === 0) {
-      recipesTable.innerHTML =
-        'We are sorry. There are no recipes in this category.';
+      recipesTable.insertAdjacentHTML(
+        'afterend',
+        `<div><p class="categories-err" style="text-align: center">We are sorry. There are no recipes in this category.</p></div>`
+      );
     }
     totalPages = resp.data.totalPages;
     currentPage = resp.data.page;
