@@ -2,6 +2,7 @@ import { FetchInfo } from './fetch-requests';
 import { cardsMarkUp } from './recipes-cards';
 import { seeViewport } from './recipes-cards';
 import { goToLocal, handleCategoryClick, removeCategoriesFromLS} from './local-storage';
+import { paginationSetUp } from './pagination';
 
 const request = new FetchInfo();
 const categoriesBtnEl = document.querySelector('.categories-btn-js');
@@ -11,6 +12,7 @@ const recipesTable = document.querySelector('.js-card-items');
 
 let categoryBtns = [];
 let totalPages;
+let currentPage;
 
 async function getCategories() {
   try {
@@ -36,6 +38,8 @@ getCategories();
 
 if(!localStorage.getItem('selected-category')) {
   getAllRecipes();
+  // resetLocalStorageFilters();
+  categoriesBtnEl.classList.add('categories-btn-active');
 }
 
 function createCategoriesMarkUp(arr) {
@@ -54,8 +58,10 @@ categoriesBtnEl?.addEventListener('click', handlerAllCategoriesBtn);
 
 function handlerAllCategoriesBtn() {
   makeBtnNotActive();
+  categoriesBtnEl.classList.add('categories-btn-active');
   removeCategoriesFromLS()
   getAllRecipes();
+   // resetLocalStorageFilters();
 }
 
 async function getAllRecipes() {
@@ -64,7 +70,10 @@ async function getAllRecipes() {
       errorEl.classList.add('is-hidden');
     }
     const resp = await request.fetchAllRecipesPerPage(seeViewport());
+    totalPages = resp.data.totalPages;
+    currentPage = resp.data.page;
     cardsMarkUp(resp.data.results);
+    paginationSetUp(currentPage, totalPages);
   } catch (err) {
     console.log(err);
     recipesTable.innerHTML = '';
@@ -81,6 +90,7 @@ function handlerCategoryBtn(ev) {
   if (ev.target.classList.contains('category-btn-active')) {
     return;
   }
+  categoriesBtnEl.classList.remove('categories-btn-active');
   makeBtnNotActive();
   ev.target.classList.add('category-btn-active');
   const nameOfCategory = ev.target.textContent;
@@ -99,6 +109,8 @@ export async function getRecipesByCategory(category) {
         'We are sorry. There are no recipes in this category.';
     }
     totalPages = resp.data.totalPages;
+    currentPage = resp.data.page;
+    paginationSetUp(currentPage, totalPages);
     cardsMarkUp(resp.data.results);
   } catch (err) {
     console.log(err);
@@ -118,7 +130,6 @@ function makeBtnNotActive() {
 export function getNameOfActiveCategory() {
   categoryBtns.map(btn => {
     if (btn.classList.contains('category-btn-active')) {
-      console.log(btn.textContent);
       return btn.textContent;
     }
   });
