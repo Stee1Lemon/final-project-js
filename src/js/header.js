@@ -1,5 +1,7 @@
 // console.log('3. Header');
 
+// import {openOrderModal } from "/order-pop-up";
+
 // ----------------------------------------------Мобільне меню
 (() => {
     const refs = {
@@ -41,8 +43,6 @@ switcherEl.forEach(input => {
 })
 // Функція зміни теми
 function changeTheme(themeName) {
-    
-    // bodyEl.classList.toggle('dark');
     bodyEl.classList.toggle('dark');
 }
 
@@ -60,26 +60,31 @@ if (activeTheme === null || activeTheme === 'light') {
 
 }
 
-// Іконка корзина
+// ----------------------------------------------------Іконка корзина
+
 const basketEl = document.querySelector('.header-basket')
-basketEl.addEventListener('click', onBasketIconClick);
+// basketEl.addEventListener('click', openOrderModal);
 
-function onBasketIconClick() {
-    console.log('НАТИСНУТА ІКОНКА КОРЗИНА - функціонал не визначений');
-    
-}
 
-// Відстеження активної сторінки
-const linksEl = document.querySelectorAll('.header-link');
-console.log(linksEl);
-console.log(linksEl[0]);
-linksEl[0].addEventListener('click', onLinkClick)
+//-------------------------------------------- Зміна кольору посилань
 
-function onLinkClick(evt) {
-    evt.preventDefault();
-    
-    linksEl[0].classList.add('active-link');
-    console.log('11111');
-    console.log(evt.target)
-    console.log(evt.currentTarget)
-}
+// const header = document.querySelector('.header-item');
+// console.log(header);
+// const seeFavorites = document.querySelector('.fav-section');
+// console.log(seeFavorites);
+// if (header) {
+//     header.firstElementChild.classList.add('js-link');
+// } else if(null) {
+//     header.lastElementChild.classList.add('js-link');
+// }
+
+// if (seeFavorites ===null) {
+//     header.lastElementChild.classList.add('js-link');
+// }
+
+
+// const seeFavorites = document.querySelector('.fav-section');
+// const header = document.querySelector('.header-container')
+// if (seeFavorites) {
+//     header.classList.add('favorite-page');
+// }

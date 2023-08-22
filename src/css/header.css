@@ -1,12 +1,7 @@
-.header-link:active {
-    color: yellow;
-    background-color: transparent;
-    text-decoration: underline;
+.header-link.js-link {
+    color: var(--accent-color);
 }
 
-/* .header-link.current {
-    color: var(--accent-color);
-} */
 
 .header-container {
     display: flex;
