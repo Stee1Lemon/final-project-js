@@ -8,7 +8,7 @@ ratingOpenBtn?.addEventListener('click', openRatingModal);
 
 const fetchUse = new FetchInfo();
 
-function openRatingModal() {
+export function openRatingModal() {
   createModal(ratingMarkUp());
   showRating();
 }
@@ -131,7 +131,7 @@ function showRating() {
         });
       }
     }
-    
+
     function sendRating(evt) {
       const objToSendLocal = {
         rate: Number(ratingValue.innerHTML),

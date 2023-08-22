@@ -1,6 +1,9 @@
 import { FetchInfo } from './fetch-requests';
 import { showRating } from './rating-pop-up.js';
-import { addToLocalFavoritesCards, takeRatingFromLS } from './local-storage';
+import {
+  addToLocalFavoritesCards,
+  takeFavoritesCardsFromLS,
+} from './local-storage';
 
 const recipesTable = document.querySelector('.js-card-items');
 
@@ -113,12 +116,15 @@ function addToFavoriteListener() {
 
 function isAlreadyOnFavorite() {
   const btnAddToFavoriteEl = document.querySelectorAll('.add-favorite');
-  // btnAddToFavoriteEl.forEach(el => {
-  //   if () {
-  //     el.classList.add('on-favorites');
-  //   }
-  //     el.classList.remove('on-favorites');
-  // });
+  btnAddToFavoriteEl.forEach(el => {
+    const favorite = takeFavoritesCardsFromLS();
+    console.log(favorite);
+    if (el.id) {
+      // console.log(el.id);
+      // el.classList.add('on-favorites');
+    }
+    // el.classList.remove('on-favorites');
+  });
 }
 
 function addOrRemoveFromFavorite(event) {
