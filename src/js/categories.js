@@ -36,6 +36,8 @@ getCategories();
 
 if(!localStorage.getItem('selected-category')) {
   getAllRecipes();
+  // resetLocalStorageFilters();
+  categoriesBtnEl.classList.add('categories-btn-active');
 }
 
 function createCategoriesMarkUp(arr) {
@@ -54,8 +56,10 @@ categoriesBtnEl?.addEventListener('click', handlerAllCategoriesBtn);
 
 function handlerAllCategoriesBtn() {
   makeBtnNotActive();
+  categoriesBtnEl.classList.add('categories-btn-active');
   removeCategoriesFromLS()
   getAllRecipes();
+   // resetLocalStorageFilters();
 }
 
 async function getAllRecipes() {
@@ -81,6 +85,7 @@ function handlerCategoryBtn(ev) {
   if (ev.target.classList.contains('category-btn-active')) {
     return;
   }
+  categoriesBtnEl.classList.remove('categories-btn-active');
   makeBtnNotActive();
   ev.target.classList.add('category-btn-active');
   const nameOfCategory = ev.target.textContent;
