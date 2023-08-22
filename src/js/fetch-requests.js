@@ -50,9 +50,18 @@ export class FetchInfo {
     });
   }
 
-  // postOrder() {
-  //   return axios.get(`${this.BASE_URL}orders`);
-  // }
+  postOrderApi(name, phone, email, comment) {
+    return axios({
+      url: `${this.BASE_URL}orders/add`,
+      method: 'POST',
+      data: {
+        name: name,
+        phone: phone,
+        email: email,
+        comment: comment,
+      },
+    });
+  }
 }
 
 export class FetchInfoByFilter {
