@@ -1,12 +1,9 @@
 import { createModal } from './open-any-modal';
+import { debounce } from 'lodash';
 
 const ratingOpenBtn = document.querySelector('.open-rating-btn');
-// const ratingPopUpEl = document.querySelector('.container-rating');
-ratingOpenBtn?.addEventListener('click', openRatingModal);
 
-// function toggleRatingPopUp() {
-//   ratingPopUpEl.classList.toggle('is-hidden');
-// }
+ratingOpenBtn?.addEventListener('click', openRatingModal);
 
 function openRatingModal() {
   createModal(ratingMarkUp());
@@ -20,7 +17,7 @@ function ratingMarkUp() {
     <div class="rating-pop-up">
       <p class="rating-text">Rating</p>
       <div class="rating stars-pop-up">
-        <div class="rating-value number-text">3.5</div>
+        <div class="rating-value number-text" id="testID" name="testName">3.5</div>
         <div class="rating-body">
           <div class="rating-active"></div>
           <div class="rating-items">
@@ -77,7 +74,13 @@ function showRating() {
   }
 
   function initRatings() {
-    let ratingActive, ratingVale;
+    const ratingEmailEl = document.querySelector('.rating-input');
+    const ratingSendRateBtnEl = document.querySelector('.btn-rating');
+
+    ratingEmailEl?.addEventListener('input', debounce(observeEmailField, 300));
+    ratingSendRateBtnEl?.addEventListener('click', sendRating);
+
+    let ratingActive, ratingValue;
     for (let index = 0; index < ratings.length; index += 1) {
       const rating = ratings[index];
       initRatings(rating);
@@ -86,16 +89,56 @@ function showRating() {
     function initRatings(rating) {
       initRatingVars(rating);
       setRatingActiveWidth();
+      if (rating.classList.contains('stars-pop-up')) {
+        setRating(rating);
+      }
     }
 
     function initRatingVars(rating) {
       ratingActive = rating.querySelector('.rating-active');
-      ratingVale = rating.querySelector('.rating-value');
+      ratingValue = rating.querySelector('.rating-value');
     }
 
-    function setRatingActiveWidth(index = ratingVale.innerHTML) {
+    function setRatingActiveWidth(index = ratingValue.innerHTML) {
       const ratingActiveWidth = index / 0.05;
       ratingActive.style.width = `${ratingActiveWidth}%`;
+    }
+
+    function setRating(rating) {
+      const ratingItems = rating.querySelectorAll('.rating-item');
+      for (let index = 0; index < ratingItems.length; index += 1) {
+        const ratingItem = ratingItems[index];
+        ratingItem.addEventListener('mouseenter', function (e) {
+          initRatingVars(rating);
+          setRatingActiveWidth(ratingItem.value);
+        });
+        ratingItem.addEventListener('mouseleave', function (e) {
+          setRatingActiveWidth();
+        });
+        ratingItem.addEventListener('click', function (e) {
+          initRatingVars(rating);
+
+          if (rating.dataset.ajax) {
+            console.log('send to server');
+          }
+          ratingValue.innerHTML = index + 1;
+          rate = ratingValue.textContent;
+          setRatingActiveWidth();
+        });
+      }
+    }
+    function sendRating(evt) {
+      const objToSend = {
+        rate: ratingValue.innerHTML,
+        email: ratingEmailEl.value,
+        _id: ratingValue.id,
+        dishName: ratingValue.name,
+      };
+      console.log(objToSend);
+    }
+    function observeEmailField(evt) {
+      email = evt.target.value.trim().toLowerCase();
+      console.log('from observe', email);
     }
   }
 }

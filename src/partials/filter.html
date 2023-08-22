@@ -9,10 +9,14 @@
           type="text"
           autocomplete="off"
           placeholder="Enter Text"
-          pattern="[a-zA-Z]"
+          pattern="[A-Za-z]{1,}"
+          title = "Only latin letters."
           />
           <svg class="filter-input-icon" width="18" height="18">
             <use href="./images/filter.svg#search"></use>
+          </svg>
+          <svg class="filter-input-reset-icon is-hidden" width="10" height="10">
+            <use href="./images/filter.svg#icon-x"></use>
           </svg>
         </span>
       </label>
