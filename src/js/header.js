@@ -62,10 +62,24 @@ if (activeTheme === null || activeTheme === 'light') {
 
 // Іконка корзина
 const basketEl = document.querySelector('.header-basket')
-console.log(basketEl);
 basketEl.addEventListener('click', onBasketIconClick);
 
 function onBasketIconClick() {
     console.log('НАТИСНУТА ІКОНКА КОРЗИНА - функціонал не визначений');
     
+}
+
+// Відстеження активної сторінки
+const linksEl = document.querySelectorAll('.header-link');
+console.log(linksEl);
+console.log(linksEl[0]);
+linksEl[0].addEventListener('click', onLinkClick)
+
+function onLinkClick(evt) {
+    evt.preventDefault();
+    
+    linksEl[0].classList.add('active-link');
+    console.log('11111');
+    console.log(evt.target)
+    console.log(evt.currentTarget)
 }
