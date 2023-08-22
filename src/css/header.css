@@ -348,7 +348,7 @@ input:checked+.menu-slider:before {
 
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1280px) {
 
     /* .header-list {
         margin-left: 0;

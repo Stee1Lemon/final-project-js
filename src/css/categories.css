@@ -112,7 +112,7 @@
 }
 
 /* MEDIA DESKTOP */
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1280px) {
   .categories-section {
     padding: 63px 0 32px 0;
   }
