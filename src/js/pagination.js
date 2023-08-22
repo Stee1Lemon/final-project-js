@@ -1,4 +1,6 @@
 import Pagination from 'tui-pagination';
+import { getAllRecipes, getRecipesByCategory } from './categories.js';
+import { getCategoryFromLS } from './local-storage.js';
 
 function paginationSetUp(currentPage, totalPages) {
   const container = document.getElementById('pagination');
@@ -37,8 +39,13 @@ function paginationSetUp(currentPage, totalPages) {
 
   function someFn(clickedButton) {
     const currentPage = pagination.getCurrentPage();
-    console.log(`Обраний номер сторінки: ${currentPage}`);
-    return { number: currentPage };
+    const currentCategory = getCategoryFromLS();
+
+    if (!currentCategory) {
+      getAllRecipes(currentPage);
+      return;
+    }
+    getRecipesByCategory(currentCategory, currentPage);
   }
 }
 
