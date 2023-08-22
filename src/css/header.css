@@ -1,6 +1,6 @@
-/* .current {
+.header-link.current {
     color: var(--accent-color);
-} */
+}
 
 .header-container {
     display: flex;
