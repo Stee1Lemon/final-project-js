@@ -5,8 +5,10 @@ import {
   goToLocal,
   handleCategoryClick,
   removeCategoriesFromLS,
+  resetLocalStorageFilters,
 } from './local-storage';
 import { paginationSetUp } from './pagination';
+import { errorElementCategoryAndFilters } from './error-msg';
 
 const request = new FetchInfo();
 const categoriesBtnEl = document.querySelector('.categories-btn-js');
@@ -42,7 +44,7 @@ getCategories();
 
 if (!localStorage.getItem('selected-category')) {
   getAllRecipes();
-  // resetLocalStorageFilters();
+  resetLocalStorageFilters();
   categoriesBtnEl.classList.add('categories-btn-active');
 }
 
@@ -65,7 +67,7 @@ function handlerAllCategoriesBtn() {
   categoriesBtnEl.classList.add('categories-btn-active');
   removeCategoriesFromLS();
   getAllRecipes();
-  // resetLocalStorageFilters();
+  resetLocalStorageFilters();
 }
 
 export async function getAllRecipes(selectedPage) {
@@ -74,7 +76,10 @@ export async function getAllRecipes(selectedPage) {
       errorEl.classList.add('is-hidden');
     }
     const pageToShow = selectedPage || 1;
-    const resp = await request.fetchAllRecipesPerPage(seeViewport(), pageToShow);
+    const resp = await request.fetchAllRecipesPerPage(
+      seeViewport(),
+      pageToShow
+    );
     totalPages = resp.data.totalPages;
     currentPage = resp.data.page;
     cardsMarkUp(resp.data.results);
@@ -115,10 +120,7 @@ export async function getRecipesByCategory(category, selectedPage) {
       seeViewport()
     );
     if (resp.data.results.length === 0) {
-      recipesTable.insertAdjacentHTML(
-        'afterend',
-        `<div><p class="categories-err" style="text-align: center">We are sorry. There are no recipes in this category.</p></div>`
-      );
+      errorElementCategoryAndFilters('We are sorry. There are no recipes in this category.')
     }
     totalPages = resp.data.totalPages;
     currentPage = resp.data.page;
