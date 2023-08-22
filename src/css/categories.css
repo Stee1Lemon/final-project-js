@@ -7,7 +7,7 @@
   background-color: inherit;
   border: 1px var(--light-theme-transparent-color) solid;
   color: var(--light-theme-semi-transparent-color);
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 500;
   transition: color var(--animation), background-color var(--animation),
     border var(--animation);
