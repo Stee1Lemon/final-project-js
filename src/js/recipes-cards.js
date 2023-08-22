@@ -9,6 +9,9 @@ const recipesTable = document.querySelector('.js-card-items');
 
 const recipes = new FetchInfo();
 
+let favorites = takeFavoritesCardsFromLS();
+if (!favorites) favorites = [];
+
 function seeViewport() {
   let number = '6';
   const smallMedia = window.matchMedia('(max-width: 768px)');
@@ -39,7 +42,7 @@ function seeViewport() {
 function cardsMarkUp(cardInfo) {
   recipesTable.innerHTML = makeCardsMarkUp(cardInfo);
   showRating();
-  isAlreadyOnFavorite();
+  isAlreadyOnFavorite(favorites);
   addToFavoriteListener();
 }
 
@@ -114,16 +117,16 @@ function addToFavoriteListener() {
   });
 }
 
-function isAlreadyOnFavorite() {
+function isAlreadyOnFavorite(favorites) {
   const btnAddToFavoriteEl = document.querySelectorAll('.add-favorite');
   btnAddToFavoriteEl.forEach(el => {
-    const favorite = takeFavoritesCardsFromLS();
-    console.log(favorite);
-    if (el.id) {
-      // console.log(el.id);
-      // el.classList.add('on-favorites');
+    const findMatch = favorites.find(function (obj) {
+      return obj._id === el.id;
+    });
+    if (!findMatch) {
+      return;
     }
-    // el.classList.remove('on-favorites');
+    el.classList.add('on-favorites');
   });
 }
 

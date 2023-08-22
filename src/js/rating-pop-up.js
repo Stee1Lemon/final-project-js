@@ -125,7 +125,6 @@ function showRating() {
         ratingItem.addEventListener('click', function (e) {
           initRatingVars(rating);
           ratingValue.innerHTML = index + 1;
-          rate = ratingValue.textContent;
           setRatingActiveWidth();
           informCheck(ratingItem.checked);
         });
