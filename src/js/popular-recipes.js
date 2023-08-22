@@ -1,4 +1,5 @@
 import { FetchInfo } from './fetch-requests';
+import { openRecipeModal } from './recipe-pop-up';
 
 const popularRecipes = new FetchInfo();
 const popularListEl = document.querySelector('.popular-list-js');
@@ -20,7 +21,7 @@ async function getPopular() {
     const recipies = popularListEl.querySelectorAll('.popular-recipe');
     recipies.forEach((recipe) => {
       recipe.addEventListener('click', () => {
-        console.log(recipe.id); //modalOpen
+        openRecipeModal(recipe.id);
       })
     })
 

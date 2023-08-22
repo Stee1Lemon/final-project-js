@@ -4,23 +4,23 @@ import { Notify } from 'notiflix';
 
 const ratingOpenBtn = document.querySelector('.open-rating-btn');
 
-ratingOpenBtn?.addEventListener('click', openRatingModal);
+// ratingOpenBtn?.addEventListener('click', openRatingModal);
 
 const fetchUse = new FetchInfo();
 
-function openRatingModal() {
-  createModal(ratingMarkUp());
+function openRatingModal(id, name, rating) {
+  createModal(ratingMarkUp(id, name, rating));
   showRating();
 }
 
-function ratingMarkUp() {
+function ratingMarkUp(id, name, rating) {
   return `<div class="container-rating rad-img">
   <button class="rating-btn-close close-button">&#10006;</button>
   <div>
     <div class="rating-pop-up">
       <p class="rating-text">Rating</p>
       <div class="rating stars-pop-up">
-        <div class="rating-value number-text" id="6462a8f74c3d0ddd28897fde" name="testName">3.5</div>
+        <div class="rating-value number-text" id="${id}" name="${name}">${rating}</div>
         <div class="rating-body">
           <div class="rating-active"></div>
           <div class="rating-items">
@@ -112,22 +112,25 @@ function showRating() {
       const ratingItems = rating.querySelectorAll('.rating-item');
       for (let index = 0; index < ratingItems.length; index += 1) {
         const ratingItem = ratingItems[index];
+
         ratingItem.addEventListener('mouseenter', function (e) {
           initRatingVars(rating);
           setRatingActiveWidth(ratingItem.value);
         });
+
         ratingItem.addEventListener('mouseleave', function (e) {
           setRatingActiveWidth();
         });
+
         ratingItem.addEventListener('click', function (e) {
           initRatingVars(rating);
           ratingValue.innerHTML = index + 1;
-          rate = ratingValue.textContent;
           setRatingActiveWidth();
           informCheck(ratingItem.checked);
         });
       }
     }
+
     function sendRating(evt) {
       const objToSendLocal = {
         rate: Number(ratingValue.innerHTML),
@@ -164,4 +167,4 @@ function showRating() {
   }
 }
 
-export { showRating };
+export { showRating, openRatingModal };

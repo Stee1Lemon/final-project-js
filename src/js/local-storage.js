@@ -30,12 +30,7 @@ function reloadTheme() {
 
 // LOCAL STORAGE ДЛЯ МОДАЛКИ ЗАМОВЛЕННЯ
 
-const form = document.querySelector('.form-oder');
-form?.addEventListener('input', saveInLocalStorageModal);
-form?.addEventListener('submit', resetLocalStorageModal);
-
-
-function saveInLocalStorageModal() {
+export function saveInLocalStorageModal() {
     let dataForm = JSON.stringify({
         name: form.name.value,
         number: form.number.value,
@@ -44,8 +39,13 @@ function saveInLocalStorageModal() {
     localStorage.setItem("key_form", dataForm);
 };
 
-function resetLocalStorageModal() {
-    localStorage.removeItem("key_form")
+export function returnObjectOfModal() {
+    return JSON.parse(localStorage.getItem("key_form"));
+}
+
+export function resetLocalStorageModal() {
+    // return localStorage.getItem("key_form");
+    localStorage.removeItem("key_form");
 };
 
 function reloadForm() {
@@ -59,7 +59,7 @@ function reloadForm() {
 
 
 // LOCAL STORAGE ДЛЯ КАТЕГОРІЙ
-const categoriesList = document.querySelector('.categories-list-js');
+// const categoriesList = document.querySelector('.categories-list-js');
 
 export function handleCategoryClick(categoryOption) {
     localStorage.setItem('selected-category', categoryOption);
@@ -70,21 +70,23 @@ function reloadCategory(selectedCategory) {
         categoryOptions.forEach(option => {
             if (option.textContent === selectedCategory) {
                 option.classList.add('category-btn-active'); // Додати стиль для відображення вибраної категорії
-                console.log(`Reloaded selected category: ${selectedCategory}`);
                 getRecipesByCategory(selectedCategory);
             } else {
                 option.classList.remove('category-btn-active'); // Видалити стиль для інших категорій
             }
         });
     }
-// goToLocal();
+
+export function getCategoryFromLS() {
+    return localStorage.getItem('selected-category');
+}
+
 export function removeCategoriesFromLS() {
     localStorage.removeItem('selected-category');
 };
 
 export function goToLocal() {
     const selectedCategory = localStorage.getItem('selected-category');
-    // console.log(selectedCategory);
     if(selectedCategory) {
         reloadCategory(selectedCategory)
     }
@@ -123,6 +125,15 @@ export function takeFavoritesCardsFromLS() {
     }
 };
 
+export function removeFromLSFavorites() {
+
+}
+
+export function removeFromLocalStorage(id) {
+    let arr = JSON.parse(localStorage.getItem(keyLocalStorageFavorites));
+    const updatedArr = arr.filter(item => item._id !== id);
+    localStorage.setItem(keyLocalStorageFavorites, JSON.stringify(updatedArr));
+}
 
 
 // LOCAL STORAGE ДЛЯ РЕЙТИНГУ
@@ -159,6 +170,21 @@ export function takeRatingFromLS() {
 
 // LOCAL STORAGE ДЛЯ ФІЛЬТРІВ
 
+export function saveInLocalStorageFilters(filtersObj) {
+    let dataFilters = JSON.stringify(filtersObj);
+    localStorage.setItem("key_filters", dataFilters);
+};
+
+export function resetLocalStorageFilters() {
+    localStorage.removeItem("key_filters")
+};
+
+export function getFiltersFromLS() {
+    let savedInfo = JSON.parse(localStorage.getItem("key_filters"));
+    if(savedInfo) {
+        return savedInfo;
+    }
+};
 
 
 
@@ -169,4 +195,12 @@ function reloadThemeAndFormData() {
     reloadTheme(); // Відновлення стану теми
     reloadForm(); // Відновлення даних форми
     reloadCategory(); // Відновлення обраної категорії
+    // reloadPageFilters(); // Відновлення обраних фільтрів
 }
+
+/////////////////////
+
+export function isTrueIdFavorites(id) {
+    const arr = JSON.parse(localStorage.getItem(keyLocalStorageFavorites));
+    return arr.some(el => el._id === id);
+};

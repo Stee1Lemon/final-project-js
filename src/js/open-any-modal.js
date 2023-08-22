@@ -14,7 +14,7 @@ function createModal(content) {
         instance.element().addEventListener('click', adListenerToCloseBtn);
         document.addEventListener('keydown', escListener);
         const btnToCloseAuto = instance.element().querySelector('.btn-rating');
-        mutationObserver(btnToCloseAuto, instance);
+        if (btnToCloseAuto) mutationObserver(btnToCloseAuto, instance);
       },
     }
   );

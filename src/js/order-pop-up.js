@@ -1,37 +1,34 @@
 import { Notify } from "notiflix";
-import {saveInLocalStorageModal} from './local-storage';
-import {resetLocalStorageModal} from './local-storage';
+import {saveInLocalStorageModal, resetLocalStorageModal, returnObjectOfModal} from './local-storage';
 import { createModal } from './open-any-modal';
 
 const openBtn = document.querySelector('.btn-open-order');
 openBtn?.addEventListener('click', openOrderModal);
 
-function openOrderModal(){
+export function openOrderModal(){
   createModal(orderModalMarkup());
+
   const form = document.querySelector('.form-oder');
-  form?.addEventListener('input', () => {dataForm = {
-  name: name.value, 
-  phone: phone.value, 
-  email: email.value, 
-  comment: comment.value 
-  }});
+
+  form?.addEventListener('input', () => {saveInLocalStorageModal()});
   form?.addEventListener('submit', submitForm);
-  const {name, phone, email, comment} = form.elements;
+
+  const {name, phone, email} = form.elements;
+
   function submitForm(e) {
         e.preventDefault();
         
         if(name.value === '' || phone.value === '' || email.value === '')
         return Notify.info('Please, fill name, phone and email!');
     
-        // відсилання на бек
-        getBack();
+        postBack();
     
         e.currentTarget.reset();
-        // resetLocalStorageModal();
-        // dataForm = {};
+        resetLocalStorageModal();
   }
     
-  function getBack() {
+  function postBack() {
+        const dataForm = returnObjectOfModal();
         console.log(dataForm);
   }
 }

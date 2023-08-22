@@ -9,8 +9,8 @@ export class FetchInfo {
     return axios.get(`${this.BASE_URL}events`);
   }
 
-  fetchAllRecipesPerPage(limit) {
-    return axios.get(`${this.BASE_URL}recipes?limit=${limit}`);
+  fetchAllRecipesPerPage(limit, page) {
+    return axios.get(`${this.BASE_URL}recipes?limit=${limit}&page=${page}`);
   }
 
   fetchPopularRecipes() {
