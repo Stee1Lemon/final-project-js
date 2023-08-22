@@ -1,5 +1,4 @@
 import { createModal } from './open-any-modal';
-import { debounce } from 'lodash';
 import { FetchInfo } from './fetch-requests';
 import { Notify } from 'notiflix';
 
@@ -145,10 +144,14 @@ function showRating() {
         return Notify.warning('Choose rating to set');
       }
       console.log('змінити ID заглушку');
-      console.log('info in local storage', objToSendLocal);
+      console.log('info in local storage (148)', objToSendLocal);
       fetchUse
         .patchRatingRecipe(ratingValue.id, objToSendBack)
-        .then(res => console.log(res.statusText))
+        .then(res => {
+          ratingSendRateBtnEl.classList.add('close');
+          Notify.success('Thank you for your feedback');
+          console.log(res.statusText);
+        })
         .catch(err => {
           Notify.warning(err.response.data.message);
           console.log(err.response.data.message);
