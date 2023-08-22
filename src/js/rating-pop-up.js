@@ -1,6 +1,7 @@
 import { createModal } from './open-any-modal';
 import { debounce } from 'lodash';
 import { FetchInfo } from './fetch-requests';
+import { Notify } from 'notiflix';
 
 const ratingOpenBtn = document.querySelector('.open-rating-btn');
 
@@ -80,7 +81,6 @@ function showRating() {
     const ratingEmailEl = document.querySelector('.rating-input');
     const ratingSendRateBtnEl = document.querySelector('.btn-rating');
 
-    ratingEmailEl?.addEventListener('input', debounce(observeEmailField, 300));
     ratingSendRateBtnEl?.addEventListener('click', sendRating);
 
     let ratingActive, ratingValue;
@@ -107,6 +107,8 @@ function showRating() {
       ratingActive.style.width = `${ratingActiveWidth}%`;
     }
 
+    let isChecked = false;
+
     function setRating(rating) {
       const ratingItems = rating.querySelectorAll('.rating-item');
       for (let index = 0; index < ratingItems.length; index += 1) {
@@ -120,13 +122,10 @@ function showRating() {
         });
         ratingItem.addEventListener('click', function (e) {
           initRatingVars(rating);
-
-          if (rating.dataset.ajax) {
-            console.log('send to server');
-          }
           ratingValue.innerHTML = index + 1;
           rate = ratingValue.textContent;
           setRatingActiveWidth();
+          informCheck(ratingItem.checked);
         });
       }
     }
@@ -141,20 +140,25 @@ function showRating() {
         rate: Number(ratingValue.innerHTML),
         email: ratingEmailEl.value,
       };
-      console.log('objToSendLocal', objToSendLocal);
-      console.log('objToSendBack', objToSendBack);
-      console.log(ratingValue.id);
+
+      if (!isChecked) {
+        return Notify.warning('Choose rating to set');
+      }
+      console.log('змінити ID заглушку');
+      console.log('info in local storage', objToSendLocal);
       fetchUse
         .patchRatingRecipe(ratingValue.id, objToSendBack)
-        .then(res => console.log(res))
-        .catch(err => console.log(err));
+        .then(res => console.log(res.statusText))
+        .catch(err => {
+          Notify.warning(err.response.data.message);
+          console.log(err.response.data.message);
+        });
     }
-    function observeEmailField(evt) {
-      email = evt.target.value.trim().toLowerCase();
-      console.log('from observe', email);
+
+    function informCheck(doChecked) {
+      if (doChecked) isChecked = true;
     }
   }
 }
-
 
 export { showRating };
