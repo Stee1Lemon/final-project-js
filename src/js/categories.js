@@ -5,6 +5,7 @@ import {
   goToLocal,
   handleCategoryClick,
   removeCategoriesFromLS,
+  resetLocalStorageFilters,
 } from './local-storage';
 import { paginationSetUp } from './pagination';
 
@@ -42,7 +43,7 @@ getCategories();
 
 if (!localStorage.getItem('selected-category')) {
   getAllRecipes();
-  // resetLocalStorageFilters();
+  resetLocalStorageFilters();
   categoriesBtnEl.classList.add('categories-btn-active');
 }
 
@@ -65,7 +66,7 @@ function handlerAllCategoriesBtn() {
   categoriesBtnEl.classList.add('categories-btn-active');
   removeCategoriesFromLS();
   getAllRecipes();
-  // resetLocalStorageFilters();
+  resetLocalStorageFilters();
 }
 
 export async function getAllRecipes(selectedPage) {
@@ -74,7 +75,10 @@ export async function getAllRecipes(selectedPage) {
       errorEl.classList.add('is-hidden');
     }
     const pageToShow = selectedPage || 1;
-    const resp = await request.fetchAllRecipesPerPage(seeViewport(), pageToShow);
+    const resp = await request.fetchAllRecipesPerPage(
+      seeViewport(),
+      pageToShow
+    );
     totalPages = resp.data.totalPages;
     currentPage = resp.data.page;
     cardsMarkUp(resp.data.results);
