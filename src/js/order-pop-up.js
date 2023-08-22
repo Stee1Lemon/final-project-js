@@ -5,6 +5,8 @@ import { createModal } from './open-any-modal';
 const openBtn = document.querySelector('.btn-open-order');
 openBtn?.addEventListener('click', openOrderModal);
 
+const form = document.querySelector('.form-oder');
+
 export function openOrderModal(){
   createModal(orderModalMarkup());
 
@@ -13,24 +15,24 @@ export function openOrderModal(){
   form?.addEventListener('input', () => {saveInLocalStorageModal()});
   form?.addEventListener('submit', submitForm);
 
-  const {name, phone, email} = form.elements;
+  console.log(form);
 
   function submitForm(e) {
-        e.preventDefault();
-        
-        if(name.value === '' || phone.value === '' || email.value === '')
-        return Notify.info('Please, fill name, phone and email!');
-    
-        postBack();
-    
-        e.currentTarget.reset();
-        resetLocalStorageModal();
+    e.preventDefault();
+  
+    const {name, phone, email} = form.elements;
+
+    if(name.value === '' || phone.value === '' || email.value === '')
+    return Notify.info('Please, fill name, phone and email!');
+  
+    postBack();
+  
+    e.currentTarget.reset();
+    resetLocalStorageModal();
   }
-    
-  function postBack() {
-        const dataForm = returnObjectOfModal();
-        console.log(dataForm);
-  }
+  
+  // postBack();
+ 
 }
 
 
@@ -70,6 +72,12 @@ function orderModalMarkup(){
 </div>`
 }
 
+
+
+function postBack() {
+  const dataForm = returnObjectOfModal();
+  console.log(dataForm);
+}
 // // form?.addEventListener('submit', resetLocalStorageModal);
 // // form?.addEventListener('input', saveInLocalStorageModal);
 

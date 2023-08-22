@@ -9,8 +9,8 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -30%) rotate(0);
-    overflow-y: auto;
+    transform: translate(-50%, -20%) rotate(0);
+    overflow: scroll;
 }
 
 .modal-recipe-content{
@@ -179,7 +179,7 @@
     .modal-recipe{
         width: 531px;
         padding: 32px;
-        transform: translate(-50%, -40%) rotate(0);
+        transform: translate(-50%, -30%) rotate(0);
     }
 
     .recipe-modal-img{
