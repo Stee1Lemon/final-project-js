@@ -112,13 +112,16 @@ function showRating() {
       const ratingItems = rating.querySelectorAll('.rating-item');
       for (let index = 0; index < ratingItems.length; index += 1) {
         const ratingItem = ratingItems[index];
+
         ratingItem.addEventListener('mouseenter', function (e) {
           initRatingVars(rating);
           setRatingActiveWidth(ratingItem.value);
         });
+
         ratingItem.addEventListener('mouseleave', function (e) {
           setRatingActiveWidth();
         });
+
         ratingItem.addEventListener('click', function (e) {
           initRatingVars(rating);
           ratingValue.innerHTML = index + 1;
@@ -128,6 +131,7 @@ function showRating() {
         });
       }
     }
+    
     function sendRating(evt) {
       const objToSendLocal = {
         rate: Number(ratingValue.innerHTML),
