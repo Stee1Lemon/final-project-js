@@ -17,7 +17,7 @@ ul{
 	list-style: none;
 }
 .footer{
-	background-color: #24262b;
+	background-color: var(--dark-color);
     padding: 70px 0;
 }
 .footer-col{
@@ -26,7 +26,7 @@ ul{
 }
 .footer-col h4{
 	font-size: 18px;
-	color: #ffffff;
+	color: var(--light-color);
 	text-transform: capitalize;
 	margin-bottom: 35px;
 	font-weight: 500;
@@ -37,7 +37,7 @@ ul{
 	position: absolute;
 	left:0;
 	bottom: -10px;
-	background-color: #e91e63;
+	background-color: var(--red-color);
 	height: 2px;
 	box-sizing: border-box;
 	width: 50px;
@@ -48,15 +48,15 @@ ul{
 .footer-col ul li a{
 	font-size: 16px;
 	text-transform: capitalize;
-	color: #ffffff;
+	color: var(--light-color);
 	text-decoration: none;
 	font-weight: 300;
-	color: #bbbbbb;
+	color: var(--grey-color);
 	display: block;
 	transition: all 0.3s ease;
 }
 .footer-col ul li a:hover{
-	color: #ffffff;
+	color: var(--light-color);
 	padding-left: 8px;
 }
 .footer-col .social-links a{
@@ -68,17 +68,17 @@ ul{
 	text-align: center;
 	line-height: 40px;
 	border-radius: 50%;
-	color: #ffffff;
+	color: var(--light-color);
 	transition: all 0.5s ease;
 }
 .footer-col .social-links a:hover{
-	color: #24262b;
-	background-color: #ffffff;
+	color: var(--dark-color);
+	background-color: var(--light-color);
 }
 .team-section{
 display: flex;
 justify-content: center;
-color: #ffffff;
+color: var(--light-color);
 }
 
 .team-section h1{
@@ -94,7 +94,7 @@ color: #ffffff;
 	position: absolute;
 	left: 50%;
 	bottom: -10px;
-	background-color: #e91e63;
+	background-color: var(--red-color);
 	height: 5px;
 	box-sizing: border-box;
 	width: 270px;
@@ -102,7 +102,7 @@ color: #ffffff;
   }
 
   .developer-list {
-	background-color: white;
+	background-color: var(--light-color);
 	max-width: 500px;
 	padding: 20px;
 	border-radius: 10px;
