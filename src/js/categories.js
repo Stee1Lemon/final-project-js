@@ -122,7 +122,9 @@ export async function getRecipesByCategory(category, selectedPage) {
       seeViewport()
     );
     if (resp.data.results.length === 0) {
-      errorElementCategoryAndFilters('We are sorry. There are no recipes in this category.')
+      errorElementCategoryAndFilters(
+        'We are sorry. There are no recipes in this category.'
+      );
     }
     totalPages = resp.data.totalPages;
     currentPage = resp.data.page;
@@ -146,13 +148,152 @@ function makeBtnNotActive() {
 }
 
 export function getNameOfActiveCategory() {
-  categoryBtns.map(btn => {
+  let nameOfActiveBtn = '';
+  categoryBtns.forEach(btn => {
     if (btn.classList.contains('category-btn-active')) {
-      return btn.textContent;
+      nameOfActiveBtn = btn.textContent;
     }
   });
+  return nameOfActiveBtn;
 }
 
 export function getTotalPages() {
   return totalPages;
+}
+
+async function getRecipeByInfo(filtersObj, selectedPage) {
+  if (filtersObj.title) {
+    getRecipeByTitleInfo(filtersObj, selectedPage);
+  } else {
+    getRecipeByFilterInfo(filtersObj, selectedPage);
+  }
+}
+
+async function getRecipeByTitleInfo(filtersObj, selectedPage) {
+  const selectedCategory = getNameOfActiveCategory();
+  console.log(getNameOfActiveCategory());
+  if (!selectedCategory) {
+    getRecipeByTitle(filtersObj.selectedPage);
+  } else {
+    getRecipeByTitleAndCategory(filtersObj.selectedPage);
+  }
+}
+
+async function getRecipeByFilterInfo(filtersObj, selectedPage) {
+  const selectedCategory = getNameOfActiveCategory();
+  if (!selectedCategory) {
+    getRecipeByFilter(filtersObj, selectedPage);
+  } else {
+    getRecipeByFilterAndCategory(filtersObj, selectedPage);
+  }
+}
+
+async function getRecipeByTitle(filtersObj, selectedPage) {
+  try {
+    const pageToShow = selectedPage || 1;
+    const resp = await request.fetchRecipeByTitle(
+      filtersObj.title,
+      pageToShow,
+      seeViewport()
+    );
+    if (resp.data.results.length === 0) {
+      errorElementCategoryAndFilters(
+        'We are sorry. There are no recipes matching your request.'
+      );
+    }
+    totalPages = resp.data.totalPages;
+    currentPage = resp.data.page;
+    cardsMarkUp(resp.data.results);
+    if (pageToShow === 1) {
+      paginationSetUp(currentPage, totalPages);
+    }
+  } catch (err) {
+    console.log(err);
+    recipesTable.innerHTML = '';
+    errorEl.classList.remove('is-hidden');
+  }
+}
+
+async function getRecipeByTitleAndCategory(filtersObj, selectedPage) {
+  try {
+    const pageToShow = selectedPage || 1;
+    const resp = await request.fetchRecipeByTitleAndCategory(
+      getNameOfActiveCategory(),
+      filtersObj.title,
+      pageToShow,
+      seeViewport()
+    );
+    if (resp.data.results.length === 0) {
+      errorElementCategoryAndFilters(
+        'We are sorry. There are no recipes matching your request.'
+      );
+    }
+    totalPages = resp.data.totalPages;
+    currentPage = resp.data.page;
+    cardsMarkUp(resp.data.results);
+    if (pageToShow === 1) {
+      paginationSetUp(currentPage, totalPages);
+    }
+  } catch (err) {
+    console.log(err);
+    recipesTable.innerHTML = '';
+    errorEl.classList.remove('is-hidden');
+  }
+}
+
+async function getRecipeByFilter(filtersObj, selectedPage) {
+  try {
+    const pageToShow = selectedPage || 1;
+    const resp = await request.fetchRecipesByFilter(
+      pageToShow,
+      seeViewport(),
+      filtersObj.time,
+      filtersObj.area,
+      filtersObj.ingredient
+    );
+    if (resp.data.results.length === 0) {
+      errorElementCategoryAndFilters(
+        'We are sorry. There are no recipes matching your request.'
+      );
+    }
+    totalPages = resp.data.totalPages;
+    currentPage = resp.data.page;
+    cardsMarkUp(resp.data.results);
+    if (pageToShow === 1) {
+      paginationSetUp(currentPage, totalPages);
+    }
+  } catch (err) {
+    console.log(err);
+    recipesTable.innerHTML = '';
+    errorEl.classList.remove('is-hidden');
+  }
+}
+
+async function getRecipeByFilterAndCategory(filtersObj, selectedPage) {
+  try {
+    const pageToShow = selectedPage || 1;
+    const resp = await request.fetchRecipesByFilterWithCategory(
+      getNameOfActiveCategory(),
+      pageToShow,
+      seeViewport(),
+      filtersObj.time,
+      filtersObj.area,
+      filtersObj.ingredient
+    );
+    if (resp.data.results.length === 0) {
+      errorElementCategoryAndFilters(
+        'We are sorry. There are no recipes matching your request.'
+      );
+    }
+    totalPages = resp.data.totalPages;
+    currentPage = resp.data.page;
+    cardsMarkUp(resp.data.results);
+    if (pageToShow === 1) {
+      paginationSetUp(currentPage, totalPages);
+    }
+  } catch (err) {
+    console.log(err);
+    recipesTable.innerHTML = '';
+    errorEl.classList.remove('is-hidden');
+  }
 }
