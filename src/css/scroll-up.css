@@ -4,6 +4,7 @@
     right: 50px;
     bottom: 50px;
     border-radius: 50%;
+    border: none;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -30,6 +31,28 @@
     height: 50%;
     fill: currentcolor;
   }
+
+@media screen and (min-width: 375px) {
+  .btn-up {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+@media (min-width: 768px) {
+  .btn-up {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .btn-up {
+    width: 120px;
+    height: 120px;
+  }
+}
+
 
   @media (hover: hover) and (pointer: fine) {
     .btn-up:hover {
