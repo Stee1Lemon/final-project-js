@@ -11,16 +11,22 @@ export function openOrderModal(){
   createModal(orderModalMarkup());
 
   const form = document.querySelector('.form-oder');
+  const {name, phone, email} = form.elements;
 
-  form?.addEventListener('input', () => {saveInLocalStorageModal()});
+  form?.addEventListener('input', () => {
+    const objForLocal = {
+      name: name.value,
+      phone: phone.value,
+      email: email.value,
+      comment: comment.value,
+    }
+    saveInLocalStorageModal(objForLocal)});
   form?.addEventListener('submit', submitForm);
 
   console.log(form);
 
   function submitForm(e) {
     e.preventDefault();
-  
-    const {name, phone, email} = form.elements;
 
     if(name.value === '' || phone.value === '' || email.value === '')
     return Notify.info('Please, fill name, phone and email!');
@@ -48,6 +54,7 @@ function orderModalMarkup(){
         type="text"
         name="name"
         pattern="[A-z]{1,15}"
+        placeholder="Your name"
       />
     </label>
     <label class="order-form-label">
@@ -57,15 +64,16 @@ function orderModalMarkup(){
         type="text"
         name="phone"
         pattern="[0-9]{10}"
+        placeholder="Your phone: 0681112233"
       />
     </label>
     <label class="order-form-label">
       <span class="order-form-span">Email</span>
-      <input class="order-form-input" type="email" name="email" />
+      <input class="order-form-input" type="email" name="email" placeholder="Your email: dog@gmail.com"/>
     </label>
     <label class="order-form-label">
       <span class="order-form-span">Comment</span>
-      <textarea class="order-form-textarea" name="comment"></textarea>
+      <textarea class="order-form-textarea" name="comment" placeholder="Your comment"></textarea>
     </label>
     <button class="order-submit base-btn" type="submit">Send</button>
   </form>

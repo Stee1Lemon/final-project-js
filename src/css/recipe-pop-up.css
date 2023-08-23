@@ -1,20 +1,37 @@
+.modal-recipe {
+    scrollbar-width: thin;
+    scrollbar-color: var(--light-modal-scroll-color) inherit;
+    }
+    
+.modal-recipe::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-recipe::-webkit-scrollbar-track {
+    background: inherit;
+}
+
+.modal-recipe::-webkit-scrollbar-thumb {
+    background-color: var(--light-modal-scroll-color);
+    border-radius: 12px;
+    border: transparent;
+    width: 8px;
+    height: 116px;
+    }
+
 .modal-recipe{
     width: 320px;
-    height: auto;
+    max-height: 100vh;
     padding: 40px 20px;
     flex-direction: column;
     align-items: center;
-    background: var(--light-color);
+    background: var(--light-modal-background-color);
     margin: 0;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -20%) rotate(0);
-    overflow: scroll;
-}
-
-.modal-recipe-content{
-    overflow: auto;
+    transform: translate(-50%, -50%) rotate(0);
+    overflow-y: auto;
 }
 
 .recipe-modal-btn-wrap{
@@ -34,7 +51,7 @@
 .btn-give-rating{
     background-color: transparent;
     border: 1px solid var(--accent-color);
-    color: var(--dark-color);
+    color: var(--light-theme-text-color);
     padding: 12px 24px; 
     font-size: 14px;
     font-weight: 500;
@@ -61,6 +78,7 @@
     background: transparent;
     border: none;
     font-size: 18px; 
+    color: var(--light-modal-text-color);
 }
 
 .btn-recipe-close:hover,
@@ -75,7 +93,7 @@
     line-height: 24px;
     letter-spacing: 0em;
     text-align: left;
-    color: var(--dark-color);
+    color: var(--light-theme-text-color);
     margin-top: 20px;
     text-transform: uppercase;
 }
@@ -121,7 +139,7 @@
 }
 
 .ingredients-name-span{   
-    color: var(--dark-color);
+    color: var(--light-theme-text-color);
 }
 
 .ingredients-measure-span{
@@ -146,6 +164,7 @@
 
 .recipe-modal-tag-item{
     padding-bottom: 30px;
+    color: var(--light-theme-text-color);
 }
 
 .recipe-modal-instructions-paragraph{
@@ -179,7 +198,7 @@
     .modal-recipe{
         width: 531px;
         padding: 32px;
-        transform: translate(-50%, -30%) rotate(0);
+        transform: translate(-50%, -50%) rotate(0);
     }
 
     .recipe-modal-img{
@@ -193,20 +212,20 @@
     }
 
     .recipe-modal-title{
-        order: 1;
+        order: -1;
         margin-bottom: 16px;
         margin-top: 0;
     }
 
     .recipe-modal-tag-item{
-        margin-right: 0;
-        padding-bottom: 0;
+        /* margin-right: 0; */
+        padding-bottom: 35px;
     }
 
     .modal-ingredients-list{
-        margin-top: 32px;
+        margin-top: 0;
         margin-bottom: 32px;
-        order: 4;
+        /* order: 4; */
     }
 
     .modal-tags-list{
@@ -221,7 +240,7 @@
 
     .recipe-modal-instructions-wrap{
         margin-bottom: 32px;
-        order: 5;
+        /* order: 5; */
     }
 
     .modal-recipe-content{
@@ -229,22 +248,25 @@
         flex-direction: column;
     }
 
-    .video-or-image-wrap{
+    /* .video-or-image-wrap{
         order: 2;
-    }
+    } */
 
-    .raring-time-tags{
+    /* .recipe-modal-tags{
         order: 2;
+    } */
+
+    .rating-time-tags-wrap{
+        /* order: 2; */
         display: flex;
         justify-content: space-between;
-    }
-
-    .recipe-modal-tags{
-        order: 2;
+        align-items: baseline;
+        margin-top: 16px;
     }
 
     .rating-time-wrap{
-        order: 2;
+        /* order: 2; */
+        margin-bottom: 16px;
     }
 
 }

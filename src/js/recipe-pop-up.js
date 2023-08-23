@@ -7,14 +7,7 @@ import { openRatingModal } from './rating-pop-up.js'
 import { takeFavoritesCardsFromLS, addToLocalFavoritesCards, removeFromLocalStorage } from './local-storage';
 import { makeCardsMarkUp } from './recipes-cards.js';
 
-
 const recipes = new FetchInfo();
-
-const btnOpenRecipe = document.querySelector('.open-modal-recipe');
-
-btnOpenRecipe?.addEventListener('click', openRecipeModal);
-
-// const id = "6462a8f74c3d0ddd28897fc1";
 
 export function openRecipeModal(id){
     console.log('click on open recipe btn');
@@ -23,11 +16,13 @@ export function openRecipeModal(id){
         console.log(recipeObj.data);
         recipeModalMarkup(recipeObj.data);
         showRating();
-        textContentBtnFav(recipeObj.data);
+        window?.addEventListener('resize', moveTags);
+        moveTags();
+        textContentBtnFav(recipeObj.data.title);
         const btnFav = document.querySelector('.btn-favorite');
         btnFav?.addEventListener('click', () => {addOrRemoveFav(recipeObj.data)});
         const btnRating = document.querySelector('.btn-give-rating');
-        btnRating.addEventListener('click', () => {openRatingModal()});
+        btnRating.addEventListener('click', () => {openRatingModal(recipeObj.data._id, recipeObj.data.title, recipeObj.data.rating)});
       });
 }
 
@@ -87,7 +82,7 @@ function recipeModalMarkup(recipeData){
     .join('');
     const recipeMarkup =  `<div class="video-or-image-wrap">${videoOrImage()}</div>
              <h2 class="recipe-modal-title">${recipeData.title}</h2>
-            <div class="raring-time-tags"></div>
+             <div class="rating-time-tags-wrap"></div>
             <div class="rating-time-wrap">
                 <div class="rating-recipe-modal rating">
                     <div class="rating-value-modal rating-value">${recipeData.rating}</div>
@@ -119,23 +114,41 @@ function recipeModalMarkup(recipeData){
       recipeContainer.innerHTML = recipeMarkup;
 }
 
-// function loseFetch() {
-//   return `<img src="/src/images/error-img.webp"></img>`
-// }
+function moveTags(){
+  const divWrap = document.querySelector('.rating-time-tags-wrap');
+  const tagsDiv = document.querySelector('.recipe-modal-tags');
+  const tagsUl = document.querySelector('.modal-tags-list');
+  const divTimeRating = document.querySelector('.rating-time-wrap');
+  
+  if (window.innerWidth > 768){
+    divWrap.appendChild(tagsUl);
+    divWrap.appendChild(divTimeRating);
+  } else {
+    tagsDiv.appendChild(tagsUl);
+  }
+}
 
-function textContentBtnFav(recipe){
+function textContentBtnFav(recipeTitle){
   const btnFav = document.querySelector('.btn-favorite');
     const recipesInLS = takeFavoritesCardsFromLS();
     console.log(recipesInLS);
-    if (recipesInLS.length === 0){
+    if (recipesInLS[0] === null){
       console.log('length 0')
       return;
     } 
     console.log('lenght > 0'); 
-    if (recipesInLS.includes(recipe)){
+
+    const isRecipeTitleInObj = Object.values(recipesInLS)
+    .some(obj => obj.title === recipeTitle);
+
+    if(isRecipeTitleInObj){
       console.log('resipes include my recipe');
       btnFav.textContent = 'Remove from favorites';
     }
+    // if (recipesInLS.includes(recipeTitle)){
+    //   console.log('resipes include my recipe');
+    //   btnFav.textContent = 'Remove from favorites';
+    // }
 }
 
 function addOrRemoveFav (recipe) {
@@ -148,7 +161,9 @@ function addOrRemoveFav (recipe) {
     const recipesFromLS = takeFavoritesCardsFromLS();
     makeCardsMarkUp(recipesFromLS);
   }
+  if (btnFav.textContent = "Remove from favorites"){
     removeFromLocalStorage(recipe.id);
     const recipesFromLS = takeFavoritesCardsFromLS();
     makeCardsMarkUp(recipesFromLS);
+  }
 }
