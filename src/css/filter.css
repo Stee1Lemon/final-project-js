@@ -29,6 +29,7 @@
     border: 1px solid var(--light-theme-transparent-color);
     border-radius: 15px;
     padding-left: 48px;
+    padding-right: 40px;
     background-color: var(--light-theme-background-color);
     color: var(--light-theme-text-color);
 }
@@ -113,6 +114,11 @@
     fill: var(--accent-color);
 }
 
+.disabled {
+    background-color: var(--light-disable-color);
+    cursor: not-allowed;
+}
+
 /* ------Зміни в бібліотеці slim-select------- */
 /* ------------------------------------------- */
 /* ------------------------------------------- */
@@ -191,16 +197,25 @@ div.ss-content.ss-open-below {
 div.ss-content .ss-search input{
     color: var(--light-theme-text-color);
     background-color: var(--light-modal-background-color);
-    border: 1px solid var(--light-theme-transparent-color)
+    border: 1px solid var(--light-theme-transparent-color);
+    padding-left: 11px;
 }
 
 div.ss-content .ss-search input:focus {
-    outline: none;
     box-shadow: none;
 }
 
 div.ss-content .ss-search input::placeholder {
     color: var(--light-theme-semi-transparent-color);
+}
+
+div.ss-list .ss-search {
+    color: var(--light-theme-text-color);
+    margin-left: 11px;
+}
+
+div.ss-main.ss-disabled {
+    background-color: var(--light-disable-color);
 }
 
 /* -------------------Скрол------------------- */
@@ -255,7 +270,6 @@ div.ss-content .ss-search input::placeholder {
     max-width: 125px;
     min-width: 125px;
     height: 48px;
-
 }
 
 .area-select {
@@ -267,6 +281,5 @@ div.ss-content .ss-search input::placeholder {
 
 .ingredients-select {
     height: 48px;
-
 }
 }
