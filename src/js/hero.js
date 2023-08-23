@@ -28,8 +28,7 @@ const fetchListItems = async () => {
   return events.data;
 };
 
-
-heroBtn.addEventListener("click", ()=> console.log("ku-ku"));
+heroBtn.addEventListener("click", openOrderModal);
 
 
 fetchListItems()
