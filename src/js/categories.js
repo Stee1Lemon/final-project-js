@@ -161,7 +161,7 @@ export function getTotalPages() {
   return totalPages;
 }
 
-async function getRecipeByInfo(filtersObj, selectedPage) {
+export async function getRecipeByInfo(filtersObj, selectedPage) {
   if (filtersObj.title) {
     getRecipeByTitleInfo(filtersObj, selectedPage);
   } else {
@@ -169,7 +169,7 @@ async function getRecipeByInfo(filtersObj, selectedPage) {
   }
 }
 
-async function getRecipeByTitleInfo(filtersObj, selectedPage) {
+export async function getRecipeByTitleInfo(filtersObj, selectedPage) {
   const selectedCategory = getNameOfActiveCategory();
   console.log(getNameOfActiveCategory());
   if (!selectedCategory) {
@@ -179,7 +179,7 @@ async function getRecipeByTitleInfo(filtersObj, selectedPage) {
   }
 }
 
-async function getRecipeByFilterInfo(filtersObj, selectedPage) {
+export async function getRecipeByFilterInfo(filtersObj, selectedPage) {
   const selectedCategory = getNameOfActiveCategory();
   if (!selectedCategory) {
     getRecipeByFilter(filtersObj, selectedPage);
@@ -188,7 +188,7 @@ async function getRecipeByFilterInfo(filtersObj, selectedPage) {
   }
 }
 
-async function getRecipeByTitle(filtersObj, selectedPage) {
+export async function getRecipeByTitle(filtersObj, selectedPage) {
   try {
     const pageToShow = selectedPage || 1;
     const resp = await request.fetchRecipeByTitle(
@@ -214,7 +214,7 @@ async function getRecipeByTitle(filtersObj, selectedPage) {
   }
 }
 
-async function getRecipeByTitleAndCategory(filtersObj, selectedPage) {
+export async function getRecipeByTitleAndCategory(filtersObj, selectedPage) {
   try {
     const pageToShow = selectedPage || 1;
     const resp = await request.fetchRecipeByTitleAndCategory(
@@ -241,7 +241,7 @@ async function getRecipeByTitleAndCategory(filtersObj, selectedPage) {
   }
 }
 
-async function getRecipeByFilter(filtersObj, selectedPage) {
+export async function getRecipeByFilter(filtersObj, selectedPage) {
   try {
     const pageToShow = selectedPage || 1;
     const resp = await request.fetchRecipesByFilter(
@@ -269,7 +269,7 @@ async function getRecipeByFilter(filtersObj, selectedPage) {
   }
 }
 
-async function getRecipeByFilterAndCategory(filtersObj, selectedPage) {
+export async function getRecipeByFilterAndCategory(filtersObj, selectedPage) {
   try {
     const pageToShow = selectedPage || 1;
     const resp = await request.fetchRecipesByFilterWithCategory(
