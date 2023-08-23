@@ -1,5 +1,6 @@
 import { FetchInfo } from './fetch-requests';
 import { showRating } from './rating-pop-up.js';
+import { openRecipeModal } from './recipe-pop-up';
 import {
   addToLocalFavoritesCards,
   takeFavoritesCardsFromLS,
@@ -44,6 +45,11 @@ function cardsMarkUp(cardInfo) {
   showRating();
   isAlreadyOnFavorite(favorites);
   addToFavoriteListener();
+}
+
+function addListenerToBtnSeeMore(id) {
+  const btnCardEl = document.querySelector('.btn-card');
+  btnCardEl.addEventListener('click', openRecipeModal(id));
 }
 
 function makeCardsMarkUp(cardInfo) {
@@ -118,8 +124,11 @@ function addToFavoriteListener() {
 }
 
 function isAlreadyOnFavorite(favorites) {
+  const btnCardEl = document.querySelector('.btn-card');
   const btnAddToFavoriteEl = document.querySelectorAll('.add-favorite');
+
   btnAddToFavoriteEl.forEach(el => {
+    id = el.id;
     const findMatch = favorites.find(function (obj) {
       return obj._id === el.id;
     });
@@ -127,6 +136,9 @@ function isAlreadyOnFavorite(favorites) {
       return;
     }
     el.classList.add('on-favorites');
+  });
+  btnCardEl.addEventListener('click', () => {
+    openRecipeModal(btnAddToFavoriteEl[0].id);
   });
 }
 
