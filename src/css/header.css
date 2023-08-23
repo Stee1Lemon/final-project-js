@@ -1,4 +1,4 @@
-.header-link.js-link {
+.header-link-home.js-link {
     color: var(--accent-color);
 }
 
@@ -252,7 +252,8 @@ input:checked+.menu-slider:before {
 
     }
 
-    .header-link {
+    .header-link-home,
+    .header-link-fav {
         color: var(--light-theme-text-color);
         font-family: Inter;
         font-size: 12px;

@@ -1,6 +1,6 @@
 // console.log('3. Header');
 
-// import {openOrderModal } from "/order-pop-up";
+import { openOrderModal } from "./order-pop-up";
 
 // ----------------------------------------------Мобільне меню
 (() => {
@@ -28,7 +28,7 @@ const bodyEl = document.querySelector('body');
 
 switcherEl.forEach(input => {
     // Перевіряємо положення світчера і присвоюємо змінній theme відповідне значення
-    input.addEventListener('change', function () {
+    input?.addEventListener('change', function () {
         if (input.checked === false) {
             theme = 'light';
             bodyEl.classList.remove('dark')
@@ -63,28 +63,21 @@ if (activeTheme === null || activeTheme === 'light') {
 // ----------------------------------------------------Іконка корзина
 
 const basketEl = document.querySelector('.header-basket')
-// basketEl.addEventListener('click', openOrderModal);
+basketEl.addEventListener('click', openOrderModal);
 
 
 //-------------------------------------------- Зміна кольору посилань
 
-// const header = document.querySelector('.header-item');
-// console.log(header);
-// const seeFavorites = document.querySelector('.fav-section');
-// console.log(seeFavorites);
-// if (header) {
-//     header.firstElementChild.classList.add('js-link');
-// } else if(null) {
-//     header.lastElementChild.classList.add('js-link');
-// }
+const homeEl = document.querySelector('.header-link-home');
+const favEl = document.querySelector('.header-link-fav');
+console.log(homeEl);
+console.log(favEl);
+const seeFavorites = document.querySelector('.fav-section');
 
-// if (seeFavorites ===null) {
-//     header.lastElementChild.classList.add('js-link');
-// }
+if (!seeFavorites) {
+    homeEl.classList.add('js-link');
+}
+else {
+    favEl.classList.add('js-link');
+}
 
-
-// const seeFavorites = document.querySelector('.fav-section');
-// const header = document.querySelector('.header-container')
-// if (seeFavorites) {
-//     header.classList.add('favorite-page');
-// }
