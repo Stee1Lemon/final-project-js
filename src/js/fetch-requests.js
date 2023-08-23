@@ -9,8 +9,8 @@ export class FetchInfo {
     return axios.get(`${this.BASE_URL}events`);
   }
 
-  fetchAllRecipesPerPage(limit) {
-    return axios.get(`${this.BASE_URL}recipes?limit=${limit}`);
+  fetchAllRecipesPerPage(limit, page) {
+    return axios.get(`${this.BASE_URL}recipes?limit=${limit}&page=${page}`);
   }
 
   fetchPopularRecipes() {
@@ -24,6 +24,37 @@ export class FetchInfo {
   fetchByCategory(category, page, limit) {
     return axios.get(
       `${this.BASE_URL}recipes?category=${category}&page=${page}&limit=${limit}`
+    );
+  }
+
+  fetchRecipeByTitle(title, page, limit) {
+    return axios.get(
+      `${this.BASE_URL}recipes?title=${title}&page=${page}&limit=${limit}`
+    );
+  }
+  fetchRecipeByTitleAndCategory(category, title, page, limit) {
+    return axios.get(
+      `${this.BASE_URL}recipes?category=${category}title=${title}&page=${page}&limit=${limit}`
+    );
+  }
+  fetchRecipesByFilter(page, limit, time, area, ingredient) {
+    return axios.get(
+      `${this.BASE_URL}recipes?category=${category}&page=${page}
+      &limit=${limit}&time=${time}&area=${area}&ingredient=${ingredient}`
+    );
+  }
+
+  fetchRecipesByFilterWithCategory(
+    category,
+    page,
+    limit,
+    time,
+    area,
+    ingredient
+  ) {
+    return axios.get(
+      `${this.BASE_URL}recipes?category=${category}&page=${page}
+      &limit=${limit}&time=${time}&area=${area}&ingredient=${ingredient}`
     );
   }
 
@@ -50,9 +81,18 @@ export class FetchInfo {
     });
   }
 
-  // postOrder() {
-  //   return axios.get(`${this.BASE_URL}orders`);
-  // }
+  postOrderApi(name, phone, email, comment) {
+    return axios({
+      url: `${this.BASE_URL}orders/add`,
+      method: 'POST',
+      data: {
+        name: name,
+        phone: phone,
+        email: email,
+        comment: comment,
+      },
+    });
+  }
 }
 
 export class FetchInfoByFilter {

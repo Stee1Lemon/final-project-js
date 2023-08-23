@@ -3,9 +3,12 @@ import 'basiclightbox/dist/basicLightbox.min.css';
 
 // До кнопки закриття потрібно додати клас "close-button"
 function createModal(content) {
+  const bodyEl = document.querySelector('body');
+  bodyEl.classList.add('no-scroll');
+
   const instance = basicLightbox.create(
     `
-    <div class="modal">
+    <div class="modal no-scroll">
       ${content}
     </div>
     `,
@@ -28,7 +31,6 @@ function createModal(content) {
           closeAuto(instance, observer);
           return;
         }
-        console.log('ne v if');
       }
     }
 
@@ -41,6 +43,7 @@ function createModal(content) {
       e.target === instance.element() ||
       e.target.classList.contains('close-button')
     ) {
+      bodyEl.classList.remove('no-scroll');
       instance.close();
     }
   }
@@ -48,6 +51,7 @@ function createModal(content) {
   function escListener(e) {
     if (e.key === 'Escape') {
       removeListeners(instance, escListener);
+      bodyEl.classList.remove('no-scroll');
       instance.close();
     }
   }
@@ -65,7 +69,7 @@ function createModal(content) {
     element.removeEventListener('click', adListenerToCloseBtn);
     document.removeEventListener('keydown', escListener);
     observer.disconnect();
-
+    bodyEl.classList.remove('no-scroll');
     instance.close();
   }
 

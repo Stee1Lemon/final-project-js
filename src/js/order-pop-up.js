@@ -1,39 +1,44 @@
 import { Notify } from "notiflix";
-import {saveInLocalStorageModal} from './local-storage';
-import {resetLocalStorageModal} from './local-storage';
+import {saveInLocalStorageModal, resetLocalStorageModal, returnObjectOfModal} from './local-storage';
 import { createModal } from './open-any-modal';
 
 const openBtn = document.querySelector('.btn-open-order');
 openBtn?.addEventListener('click', openOrderModal);
 
-function openOrderModal(){
+const form = document.querySelector('.form-oder');
+
+export function openOrderModal(){
   createModal(orderModalMarkup());
+
   const form = document.querySelector('.form-oder');
-  form?.addEventListener('input', () => {dataForm = {
-  name: name.value, 
-  phone: phone.value, 
-  email: email.value, 
-  comment: comment.value 
-  }});
+  const {name, phone, email} = form.elements;
+
+  form?.addEventListener('input', () => {
+    const objForLocal = {
+      name: name.value,
+      phone: phone.value,
+      email: email.value,
+      comment: comment.value,
+    }
+    saveInLocalStorageModal(objForLocal)});
   form?.addEventListener('submit', submitForm);
-  const {name, phone, email, comment} = form.elements;
+
+  console.log(form);
+
   function submitForm(e) {
-        e.preventDefault();
-        
-        if(name.value === '' || phone.value === '' || email.value === '')
-        return Notify.info('Please, fill name, phone and email!');
-    
-        // відсилання на бек
-        getBack();
-    
-        e.currentTarget.reset();
-        // resetLocalStorageModal();
-        // dataForm = {};
+    e.preventDefault();
+
+    if(name.value === '' || phone.value === '' || email.value === '')
+    return Notify.info('Please, fill name, phone and email!');
+  
+    postBack();
+  
+    e.currentTarget.reset();
+    resetLocalStorageModal();
   }
-    
-  function getBack() {
-        console.log(dataForm);
-  }
+  
+  // postBack();
+ 
 }
 
 
@@ -49,6 +54,7 @@ function orderModalMarkup(){
         type="text"
         name="name"
         pattern="[A-z]{1,15}"
+        placeholder="Your name"
       />
     </label>
     <label class="order-form-label">
@@ -58,21 +64,28 @@ function orderModalMarkup(){
         type="text"
         name="phone"
         pattern="[0-9]{10}"
+        placeholder="Your phone: 0681112233"
       />
     </label>
     <label class="order-form-label">
       <span class="order-form-span">Email</span>
-      <input class="order-form-input" type="email" name="email" />
+      <input class="order-form-input" type="email" name="email" placeholder="Your email: dog@gmail.com"/>
     </label>
     <label class="order-form-label">
       <span class="order-form-span">Comment</span>
-      <textarea class="order-form-textarea" name="comment"></textarea>
+      <textarea class="order-form-textarea" name="comment" placeholder="Your comment"></textarea>
     </label>
     <button class="order-submit base-btn" type="submit">Send</button>
   </form>
 </div>`
 }
 
+
+
+function postBack() {
+  const dataForm = returnObjectOfModal();
+  console.log(dataForm);
+}
 // // form?.addEventListener('submit', resetLocalStorageModal);
 // // form?.addEventListener('input', saveInLocalStorageModal);
 
