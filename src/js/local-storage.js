@@ -155,7 +155,7 @@ export function addToLocalFavoritesCards(newObject) {
 export function takeFavoritesCardsFromLS() {
     try {
         if(localStorage.getItem('keyOfFavoritesCards') !== null) {
-            return JSON.parse(localStorage.getItem(keyLocalStorageFavorites));
+            return JSON.parse(localStorage.getItem('keyOfFavoritesCards'));
         }
     } catch(error) {
         console.log(error);
