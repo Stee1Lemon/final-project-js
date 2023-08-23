@@ -11,7 +11,7 @@ export function openOrderModal(){
   createModal(orderModalMarkup());
 
   const form = document.querySelector('.form-oder');
-  const {name, phone, email} = form.elements;
+  const {name, phone, email, comment} = form.elements;
 
   form?.addEventListener('input', () => {
     const objForLocal = {
