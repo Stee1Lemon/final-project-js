@@ -1,5 +1,7 @@
 // console.log('3. Header');
 
+import { openOrderModal } from "./order-pop-up";
+
 // ----------------------------------------------Мобільне меню
 (() => {
     const refs = {
@@ -26,7 +28,7 @@ const bodyEl = document.querySelector('body');
 
 switcherEl.forEach(input => {
     // Перевіряємо положення світчера і присвоюємо змінній theme відповідне значення
-    input.addEventListener('change', function () {
+    input?.addEventListener('change', function () {
         if (input.checked === false) {
             theme = 'light';
             bodyEl.classList.remove('dark')
@@ -41,8 +43,6 @@ switcherEl.forEach(input => {
 })
 // Функція зміни теми
 function changeTheme(themeName) {
-    
-    // bodyEl.classList.toggle('dark');
     bodyEl.classList.toggle('dark');
 }
 
@@ -60,12 +60,24 @@ if (activeTheme === null || activeTheme === 'light') {
 
 }
 
-// Іконка корзина
-const basketEl = document.querySelector('.header-basket')
-console.log(basketEl);
-basketEl.addEventListener('click', onBasketIconClick);
+// ----------------------------------------------------Іконка корзина
 
-function onBasketIconClick() {
-    console.log('НАТИСНУТА ІКОНКА КОРЗИНА - функціонал не визначений');
-    
+const basketEl = document.querySelector('.header-basket')
+basketEl.addEventListener('click', openOrderModal);
+
+
+//-------------------------------------------- Зміна кольору посилань
+
+const homeEl = document.querySelector('.header-link-home');
+const favEl = document.querySelector('.header-link-fav');
+console.log(homeEl);
+console.log(favEl);
+const seeFavorites = document.querySelector('.fav-section');
+
+if (!seeFavorites) {
+    homeEl.classList.add('js-link');
 }
+else {
+    favEl.classList.add('js-link');
+}
+
