@@ -67,7 +67,7 @@ body {
   --light-modal-scroll-color: #ffffff2e;
   --light-modal-background-color: #050505;
   --light-theme-hero-text-slider: #ffffff99;
-  --lightn-theme-hero-dish-desc: #ffffff33;
+  --lightn-theme-hero-dish-desc: rgba(255, 255, 255, 0.2);
   --light-mobile-bg-color: #050505;
   --light-hero-btn-bg-color: #9bb537;
 }
