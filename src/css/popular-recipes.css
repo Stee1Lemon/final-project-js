@@ -112,7 +112,7 @@
     display: -webkit-box;
     -webkit-line-clamp: 1;
     line-clamp: 1;
-    -webkit-box-orient: vertical;  
+    -webkit-box-orient: vertical;
   }
 
   .popular-recipe-descr {
@@ -122,10 +122,35 @@
     -webkit-line-clamp: 3;
     line-clamp: 3;
   }
+
+  .popular-scroll {
+    height: 350px;
+    overflow: auto;
+  }
+
+  /* Scrollbar */
+  .popular-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: var(--light-modal-scroll-color) inherit;
+  }
+
+  .popular-scroll::-webkit-scrollbar {
+    width: 4px;
+  }
+  .popular-scroll::-webkit-scrollbar-track {
+    background: inherit;
+  }
+  .popular-scroll::-webkit-scrollbar-thumb {
+    background-color: var(--light-modal-scroll-color);
+    border-radius: 12px;
+    border: transparent;
+    width: 4px;
+    height: 116px;
+  }
 }
 
 /* MEDIA DESKTOP */
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1280px) {
   .popular-container {
     width: 235px;
   }
@@ -151,5 +176,10 @@
   .popular-title {
     font-size: 24px;
     line-height: 1.16;
+  }
+
+  .popular-scroll {
+    height: 150px;
+    /* 375px */
   }
 }

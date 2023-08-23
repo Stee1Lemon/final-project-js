@@ -8,22 +8,41 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 import { FetchInfo } from './fetch-requests.js';
 
+const filters = new FetchInfo();
+
+const inputSubmit = document.querySelector('.search-input');
+const selectTime = document.querySelector('.time-select');
 const selectArea = document.querySelector('.area-select');
 const selectIngredients = document.querySelector('.ingredients-select');
-const selectTime = document.querySelector('.time-select');
+const resetFilter = document.querySelector('.filter-reset');
+const resetInput = document.querySelector('.filter-input-reset-icon');
 
-selectArea.addEventListener('change', selectedArea)
-selectIngredients.addEventListener('change', selectedIngredient);
+inputSubmit?.addEventListener('input', debounce(handlerInput, 300));
+selectTime?.addEventListener('change', selectedTime);
+selectArea?.addEventListener('change', selectedArea);
+selectIngredients?.addEventListener('change', selectedIngredient);
+resetFilter?.addEventListener('click', resetAllFilters)
+resetInput?.addEventListener('click', resetInputValue);
 
-function selectedArea(evt) {
-  searchArea = evt.currentTarget.value
-  console.log(searchArea);
-}
+let searchArea = '';
+let searchIngredient = ''; 
+let searchTime = ''; 
+let searchText = '';
 
-function selectedIngredient(evt) {
-  searchIngredient = evt.currentTarget.value;
-  console.log(searchIngredient);
-}
+let slimSelectTime;
+let slimSelectArea;
+let slimSelectIngredients;
+
+export const fullFilter = {
+  search: searchText,
+  time: searchTime,
+  area: searchArea,
+  ingredients: searchIngredient,
+};
+
+const defaultTimeOption =
+  '<option data-placeholder="true" value="">0 min</option>';
+  const fullTimeOption = '<option value="">0 min</option>';
 
 function timesMarkup() {
   let secondsStep = [];
@@ -35,64 +54,120 @@ function timesMarkup() {
       return `<option value="${minute}">${minute} min</option>`;
     })
     .join('');
-  selectTime.insertAdjacentHTML('beforeend', timeMarkup);
+    const selectTimeMarkup = defaultTimeOption + fullTimeOption + timeMarkup;
+  selectTime.insertAdjacentHTML('beforeend', selectTimeMarkup);
 
-  new SlimSelect({
-    select: selectTime,
+  slimSelectTime = new SlimSelect({
+    select: '.time-select',
   });
 }
+
 timesMarkup();
 
-const filters = new FetchInfo();
+const defaultAreaOption =
+  '<option data-placeholder="true" value="">Region</option>';
+  const fullAreaOption = 
+  '<option value="" selected>Region</option>';
 
 filters
   .fetchAllAreas()
   .then(resp => {
     const areasMarkup = resp.data
       .map(area => {
-        return `<option value="${area._id}">${area.name}</option>`;
+        return `<option value="${area.name}">${area.name}</option>`;
       })
       .join('');
-    selectArea.insertAdjacentHTML('beforeend', areasMarkup);
-
-    new SlimSelect({
-      select: selectArea,
-    });
+      const selectAreaMarkup = defaultAreaOption + fullAreaOption + areasMarkup;
+      selectArea.insertAdjacentHTML('beforeend', selectAreaMarkup);
+      
+      slimSelectArea = new SlimSelect({
+        select: '.area-select',
+      });
   })
   .catch(() => {
     Notify.failure(`Oops! Something went wrong! Try reloading the page!`);
   });
+
+  const defaultIngredientsOption =
+    '<option data-placeholder="true" value="">Product</option>';
+  const fullIngredientsOption =
+    '<option value="" selected>Product</option>';
 
 filters
   .fetchAllIngredients()
   .then(resp => {
     const ingredientsMarkup = resp.data
       .map(ingredient => {
-        return `<option value="${ingredient._id}">${ingredient.name}</option>`;
+        return `<option value="${ingredient.name}">${ingredient.name}</option>`;
       })
       .join('');
-    selectIngredients.insertAdjacentHTML('beforeend', ingredientsMarkup);
+      const selectIngredientsMarkup =
+        defaultIngredientsOption + fullIngredientsOption + ingredientsMarkup;
+    selectIngredients.insertAdjacentHTML('beforeend', selectIngredientsMarkup);
 
-    new SlimSelect({
-      select: selectIngredients,
+    slimSelectIngredients = new SlimSelect({
+      select: '.ingredients-select',
     });
   })
   .catch(() => {
     Notify.failure(`Oops! Something went wrong! Try reloading the page!`);
   });
 
-const inputSubmit = document.querySelector('.search-input');
-
-inputSubmit.addEventListener('input', debounce(handlerInput, 300));
-
 function handlerInput(evt) {
+  evt.preventDefault();
   searchText = evt.target.value.trim().toLowerCase();
-  console.log(searchText);
-  
-  // if (searchText === '') {
-  //   виклик функціх з All categories
-  //   return
-  // }
+  if (searchText.length >= 1) {
+    resetInput.classList.remove('is-hidden');
+  }
+  if (searchText.length === 0) {
+    resetInput.classList.add('is-hidden');
+  }
+  updateFullFilter();
 }
 
-// function foo (searchText, )
+function selectedTime(evt) {
+  searchTime = evt.currentTarget.value;
+  updateFullFilter();
+}
+
+function selectedArea(evt) {
+  searchArea = evt.currentTarget.value;
+  updateFullFilter();
+}
+
+function selectedIngredient(evt) {
+  searchIngredient = evt.currentTarget.value;
+  updateFullFilter();
+}
+
+function resetInputValue() {
+  inputSubmit.value = '';
+  searchText = '';
+  resetInput.classList.add('is-hidden');
+  updateFullFilter();
+}
+
+function updateFullFilter() {
+  fullFilter.search = searchText;
+  fullFilter.time = searchTime;
+  fullFilter.area = searchArea;
+  fullFilter.ingredients = searchIngredient;
+  console.log(fullFilter);
+}
+
+function resetAllFilters() {
+  resetInput.classList.add('is-hidden');
+  
+  inputSubmit.value = '';
+  
+  slimSelectTime.setSelected(selectTime.options[0].value);
+  slimSelectArea.setSelected(selectArea.options[0].value);
+  slimSelectIngredients.setSelected(selectIngredients.options[0].value);
+
+  searchText = '';
+  searchTime = '';
+  searchArea = '';
+  searchIngredient = '';
+  
+  updateFullFilter();
+}

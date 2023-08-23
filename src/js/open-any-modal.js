@@ -3,9 +3,12 @@ import 'basiclightbox/dist/basicLightbox.min.css';
 
 // До кнопки закриття потрібно додати клас "close-button"
 function createModal(content) {
+  const bodyEl = document.querySelector('body');
+  bodyEl.classList.add('no-scroll');
+
   const instance = basicLightbox.create(
     `
-    <div class="modal">
+    <div class="modal no-scroll">
       ${content}
     </div>
     `,
@@ -13,15 +16,34 @@ function createModal(content) {
       onShow: instance => {
         instance.element().addEventListener('click', adListenerToCloseBtn);
         document.addEventListener('keydown', escListener);
+        const btnToCloseAuto = instance.element().querySelector('.btn-rating');
+        if (btnToCloseAuto) mutationObserver(btnToCloseAuto, instance);
       },
     }
   );
+
+  function mutationObserver(mutations, instance) {
+    const config = { attributes: true };
+
+    function fnCallback(mutations, observer) {
+      for (const mutation of mutations) {
+        if (mutation.target.classList.contains('close')) {
+          closeAuto(instance, observer);
+          return;
+        }
+      }
+    }
+
+    const observer = new MutationObserver(fnCallback);
+    observer.observe(mutations, config);
+  }
 
   function adListenerToCloseBtn(e) {
     if (
       e.target === instance.element() ||
       e.target.classList.contains('close-button')
     ) {
+      bodyEl.classList.remove('no-scroll');
       instance.close();
     }
   }
@@ -29,16 +51,26 @@ function createModal(content) {
   function escListener(e) {
     if (e.key === 'Escape') {
       removeListeners(instance, escListener);
+      bodyEl.classList.remove('no-scroll');
       instance.close();
     }
   }
 
-  function removeListeners(instance, escListener) {
+  function removeListeners(instance) {
     const element = instance.element();
     if (element) {
       element.removeEventListener('click', adListenerToCloseBtn);
     }
     document.removeEventListener('keydown', escListener);
+  }
+
+  function closeAuto(instance, observer) {
+    const element = instance.element();
+    element.removeEventListener('click', adListenerToCloseBtn);
+    document.removeEventListener('keydown', escListener);
+    observer.disconnect();
+    bodyEl.classList.remove('no-scroll');
+    instance.close();
   }
 
   instance.show();

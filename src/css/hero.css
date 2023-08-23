@@ -5,12 +5,10 @@
   overflow: hidden;
 }
 
-.hero-name-btn-block {
-  padding-left: 20px;
-}
+
 
 .hero-name{
-  color: var(--dark-color);
+  color: var(--light-theme-text-color);
   font-family: Inter;
   font-size: 26px;
   font-style: normal;
@@ -31,7 +29,7 @@
 
 .hero-text {
   margin-top: 14px;
-  color: var(--dark-color);
+  color: var(--light-theme-text-color);
   font-family: Inter;
   font-size: 14px;
   font-style: normal;
@@ -44,13 +42,14 @@
   padding: 14px 28px;
   justify-content: center;
   align-items: center;
+  background-color: transparent;
 
   border-radius: 12px;
   border: 1px solid var(--accent-color);
   margin-top: 28px;
-  margin-bottom: 48px;
+  /* margin-bottom: 48px; */
 
-  color: var(--dark-color);
+  color: var(--light-theme-text-color);
   font-family: Inter;
   font-size: 14px;
   font-style: normal;
@@ -85,12 +84,16 @@
 }
 
 /* ==============   my-swiper-wrap   ======================= */
+.container.wo-padding {
+  padding: 0 0 0 20px;
+}
+
 
 
 .cook {
   object-fit: cover;
   border-radius: 12px;
-  border: 1px solid var(--accent-color);
+  /* border: 1px solid var(--accent-color); */
   height: 280px;
   max-width: 80px;
 }
@@ -160,7 +163,7 @@
 
 .swiper {
   position: absolute;
-  left: 20px;
+  /* left: 20px; */
   overflow: hidden;
   height: 322px;
   width: 480px;
@@ -169,6 +172,7 @@
 .my-swiper-wrap {
   width: 100%;
   position: relative;
+  margin-top: 48px;
 }
 
 .hero-slide-wrap {
@@ -184,7 +188,7 @@
   display: block;
   position: absolute;
   bottom: 24px;
-  color: #f8f8f899;
+  color: var(--lightn-theme-hero-text-slider);
   text-align: center;
   font-family: Inter;
   font-size: 10px;
@@ -199,7 +203,7 @@
   display: block;
   position: absolute;
   bottom: 14px;
-  color: #f8f8f833;
+  color: var(--lightn-theme-hero-dish-desc);
   text-align: center;
   font-family: Inter;
   font-size: 8px;
@@ -209,13 +213,17 @@
 }
 
 
+.swiper-pagination-bullet {
+  position: relative;
+  top: 0px;
+  left: -11%;
+}
 
 
 
 
 
-
-
+/* ========== adaptive ================= */
 
 
 
@@ -228,9 +236,6 @@
     .hero-name {
         font-size: 36px;
       }
-    .hero-name-btn-block {
-      padding-left: 30px;
-    }
 
     .tasty-green {
       font-size: 36px;
@@ -247,16 +252,27 @@
 
     .hero-btn {
       margin-top: 32px;
-      margin-bottom: 64px;
+      
     }
 
     
 
     /* --------------------  Swiper   -------------------*/
+    
+    
+    .container.wo-padding {
+      padding: 0 0 0 32px;
+    }
+    
     .pic {
       height: 271px;
       max-width: 302px;
     }
+
+    .my-swiper-wrap {
+      margin-top: 64px;
+    }
+
 
     .swiper-wrapper {        
       width: 650px;
@@ -266,7 +282,7 @@
     .cook {
       object-fit: cover;
       border-radius: 12px;
-      border: 1px solid var(--accent-color);
+      /* border: 1px solid var(--accent-color); */
       height: 442px;
       max-width: 121px;
     }
@@ -319,10 +335,6 @@
       height: 484px;
       
     }
-
-    .my-swiper-wrap {
-      padding-left: 12px;
-    }
     
   .dish-description {
     width: 276px;
@@ -338,7 +350,10 @@
     bottom: 32px;
     font-size: 12px;
     line-height: 1.16;
-  }      
+  }
+  .swiper-pagination-bullet {
+    left: -15%;
+  }
 }
 
 
@@ -352,7 +367,7 @@
 
 
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1280px) {
   .vrap-hero {
     display: flex;
   }
@@ -383,17 +398,28 @@
 
   .hero-name-btn-block {
     padding-left: 0px;
+    
+    margin-right: 32px;
+    padding-top: 64px;
+      
   }
 
-.hero-name {
-  width: 446px;
+  .hero-name {
+    width: 446px;
+  }
+
+  .swiper {
+    height: 488px;
+    left: 0px;
+    } 
+
+  .my-swiper-wrap {
+    padding-top: 0px;
+    margin-top: 0;
+  }
+ 
+.container.wo-padding {
+  padding: 0 0 0 100px;
 }
-
-.swiper {
-  height: 488px;
-  left: 0px;
-  } 
-
-
 }
 

@@ -1,4 +1,5 @@
 import { FetchInfo } from './fetch-requests';
+import { openRecipeModal } from './recipe-pop-up';
 
 const popularRecipes = new FetchInfo();
 const popularListEl = document.querySelector('.popular-list-js');
@@ -9,11 +10,21 @@ const largeMedia = window.matchMedia('(max-width: 1200px)');
 async function getPopular() {
   try {
     const resp = await popularRecipes.fetchPopularRecipes();
+    if (resp.data.length > 4) {
+      popularListEl.classList.add('popular-scroll');
+    }
     popularListEl.insertAdjacentHTML(
       'afterbegin',
       createPopularMarkUp(resp.data)
     );
-    popularListEl?.addEventListener('click', handlerRecipeClick);
+
+    const recipies = popularListEl.querySelectorAll('.popular-recipe');
+    recipies.forEach((recipe) => {
+      recipe.addEventListener('click', () => {
+        openRecipeModal(recipe.id);
+      })
+    })
+
   } catch (err) {
     console.log(err);
     popularListEl.innerHTML = `
@@ -41,9 +52,9 @@ function createPopularMarkUp(arr) {
       //   description = newDescription + '...';
       // }
       const descriptionString = `
-        <li class="popular-recipe">
+        <li class="popular-recipe" id="${_id}">
           <img class="popular-img" src="${preview}" alt="${title}">
-          <div class="popular-desc-container" id="${_id}">
+          <div class="popular-desc-container">
             <h3 class="popular-recipe-title">${title}</h3>
             <p class="popular-recipe-descr">${description}</p>
           </div>
@@ -52,22 +63,6 @@ function createPopularMarkUp(arr) {
       return descriptionString;
     })
     .join('');
-}
-
-function handlerRecipeClick(ev) {
-  let idNumber;
-  if (ev.target.nodeName === 'IMG') {
-    idNumber = ev.target.nextElementSibling.id;
-  } else if (ev.target.nodeName === 'H3' || ev.target.nodeName === 'P') {
-    idNumber = ev.target.parentNode.id;
-  } else if (ev.target.nodeName === 'DIV') {
-    idNumber = ev.target.id;
-  } else {
-    idNumber = ev.target.children[1].id;
-  }
-    // console.log(idNumber)
-    // modalOpen(); ???
-    // fetchWithMarkup(idNumber); ???
 }
 
 function seeViewportForNumberOfRecipies() {

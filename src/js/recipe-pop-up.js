@@ -1,75 +1,169 @@
-import { all } from "axios";
-import { FetchInfo } from "./fetch-requests";
+import { all } from 'axios';
+import { join } from 'lodash';
+import { FetchInfo } from './fetch-requests';
+import { showRating } from './rating-pop-up.js';
+import { createModal } from './open-any-modal.js';
+import { openRatingModal } from './rating-pop-up.js'
+import { takeFavoritesCardsFromLS, addToLocalFavoritesCards, removeFromLocalStorage } from './local-storage';
+import { makeCardsMarkUp } from './recipes-cards.js';
 
 const recipes = new FetchInfo();
 
+export function openRecipeModal(id){
+    console.log('click on open recipe btn');
+    createModal(recipeModalContentMurkup());
+    recipes.fetchRecipeById(id).then(recipeObj => {
+        console.log(recipeObj.data);
+        recipeModalMarkup(recipeObj.data);
+        showRating();
+        window?.addEventListener('resize', moveTags);
+        moveTags();
+        textContentBtnFav(recipeObj.data.title);
+        const btnFav = document.querySelector('.btn-favorite');
+        btnFav?.addEventListener('click', () => {addOrRemoveFav(recipeObj.data)});
+        const btnRating = document.querySelector('.btn-give-rating');
+        btnRating.addEventListener('click', () => {openRatingModal(recipeObj.data._id, recipeObj.data.title, recipeObj.data.rating)});
+      });
+}
 
-const recipeContainer = document.querySelector('.modal-recipe-content');
 
-recipes.fetchRecipeById()
-.then(recipeObj => {
-    console.log(recipeObj.data);
-    recipeMarkup(recipeObj.data);
-});
+function recipeModalContentMurkup() {
+    return `<div class="modal-recipe">
+        <button type="button" class="btn-recipe-close close-button">x</button>
+        <div class="modal-recipe-content">  
+        </div>
+        <div class="recipe-modal-btn-wrap">
+            <button type="button" class="base-btn btn-favorite">Add to favorite</button>
+            <button type="button" class="base-btn btn-give-rating">Give a rating</button>
+         </div>
+    </div>
+    </div>
+`
+}
 
+function recipeModalMarkup(recipeData){
+    const recipeContainer = document.querySelector('.modal-recipe-content');
+    const videoOrImage = () => {
+            if (recipeData.youtube) {
+              const videoId = recipeData.youtube.split('v=')[1];
+              const embedLink = `https://www.youtube.com/embed/${videoId}`;
+              const video = `<iframe class="recipe-modal-video" src="${embedLink}" width="295" height="295"></iframe>`;
+              return video;
+            }
+            return `<img class="recipe-modal-img" src="${recipeData.preview}" width="295" height="295"></img>`;
+          };
 
+    const ingredientsList = recipeData.ingredients.map(
+      ingredient =>
+        `<li class="recipe-modal-ingredients-item"><span class="ingredients-name-span">${ingredient.name}</span><span class="ingredients-measure-span">${ingredient.measure}</span></li>`
+    )
+    .join('');
 
-function recipeMarkup(resipeData){
-    const {youtube, preview, title, rating, time, ingredients, tags, instructions} = resipeData; 
-    // console.log(resipeData);
-    // const videoOrImg = youtube ? `<iframe src="${youtube}" width="295" height="295"></iframe>` : `<img src="${preview}"></img>`; 
-    // const videoOrImg = fVideoOrImg();
-    // console.log(videoOrImg);
-    // function fVideoOrImg(){
-    //     const canDisplayVideo = canDisplayInIframe(youtube);
-    //     if (!canDisplayVideo){
-    //         return `<img src="${preview}" width="295" height="295"></img>`;
-    //     }
-    //     return `<iframe class="recipe-modal-video" src="${youtube}" width="295" height="295"></iframe>`; 
+  const ifTags = () => {
+    if (recipeData.tags[0] === '') {
+      return '';
+    }
+    const tagslist = recipeData.tags.map(
+        tag =>
+          `<li class="recipe-modal-tag-item">
+                <span class="recipe-modal-teg-span">#${tag}</span>
+            </li>`
+      )
+      .join('');
+    return tagslist;
+  };
+  const paragrapsOfRecipe = recipeData.instructions.split(/\r\n\r\n|\r\n/);
+
+  const paragrapsMarkup = paragrapsOfRecipe
+    .map(
+      paragraph =>
+        `<p class="recipe-modal-instructions-paragraph">${paragraph}</p>`
+    )
+    .join('');
+    const recipeMarkup =  `<div class="video-or-image-wrap">${videoOrImage()}</div>
+             <h2 class="recipe-modal-title">${recipeData.title}</h2>
+             <div class="rating-time-tags-wrap"></div>
+            <div class="rating-time-wrap">
+                <div class="rating-recipe-modal rating">
+                    <div class="rating-value-modal rating-value">${recipeData.rating}</div>
+                        <div class="rating-body">
+                            <div class="rating-active"></div>
+                                <div class="rating-items">
+                      <input type="radio" class="rating-item" name="recipe-rating" value="1"/>
+                      <input type="radio" class="rating-item" name="recipe-rating" value="2"/>
+                      <input type="radio" class="rating-item" name="recipe-rating" value="3"/>
+                      <input type="radio" class="rating-item" name="recipe-rating" value="4"/>
+                      <input type="radio" class="rating-item" name="recipe-rating" value="5"/>
+                                </div>
+                        </div>
+                    </div>
+            <p class="recipe-modal-time">${recipeData.time}min</p>
+            </div>
+                <ul class="modal-ingredients-list">
+                ${ingredientsList}
+                </ul>
+            <div class="recipe-modal-tags">
+                <ul class="modal-tags-list">
+                ${ifTags()}
+                </ul>
+            </div>
+            <div class="recipe-modal-instructions-wrap">
+                ${paragrapsMarkup}
+            </div>
+            `;
+      recipeContainer.innerHTML = recipeMarkup;
+}
+
+function moveTags(){
+  const divWrap = document.querySelector('.rating-time-tags-wrap');
+  const tagsDiv = document.querySelector('.recipe-modal-tags');
+  const tagsUl = document.querySelector('.modal-tags-list');
+  const divTimeRating = document.querySelector('.rating-time-wrap');
+  
+  if (window.innerWidth > 768){
+    divWrap.appendChild(tagsUl);
+    divWrap.appendChild(divTimeRating);
+  } else {
+    tagsDiv.appendChild(tagsUl);
+  }
+}
+
+function textContentBtnFav(recipeTitle){
+  const btnFav = document.querySelector('.btn-favorite');
+    const recipesInLS = takeFavoritesCardsFromLS();
+    console.log(recipesInLS);
+    if (recipesInLS[0] === null){
+      console.log('length 0')
+      return;
+    } 
+    console.log('lenght > 0'); 
+
+    const isRecipeTitleInObj = Object.values(recipesInLS)
+    .some(obj => obj.title === recipeTitle);
+
+    if(isRecipeTitleInObj){
+      console.log('resipes include my recipe');
+      btnFav.textContent = 'Remove from favorites';
+    }
+    // if (recipesInLS.includes(recipeTitle)){
+    //   console.log('resipes include my recipe');
+    //   btnFav.textContent = 'Remove from favorites';
     // }
+}
 
-
-    const ingredientsListName = ingredients.map(ingredient => 
-            `<li class="recipe-modal-name-item">${ingredient.name}</li>`
-            ).join('');
-    
-
-    const ingredientsListMeasure = ingredients.map( ingredient => 
-        `<li class="recipe-modal-measure-item">${ingredient.measure}</li>`).join('');
-
-
-    const tagslist = tags.map( tag => 
-        `<li class="recipe-modal-tag-item">
-            <span class="recipe-modal-teg-span">#${tag}</span>
-        </li>`).join('');
-
-    const paragrapsOfRecipe = instructions.split('\r\n\r\n');
-    const paragrapsMarkup = paragrapsOfRecipe.map(paragraph => 
-        `<p class="recipe-modal-instructions-paragraph">${paragraph}</p>`).join('');
-
-    const recipeMarkup = `<img class="recipe-modal-img" src="${preview}" width="295" height="295"></img>
-    <h2 class="recipe-modal-title">${title}</h2>
-    <div class="rating-time-wrap">
-    <p class="recipe-modal-rating">${rating}</p>
-    <span class="recipe-modal-stars">*****</span>
-    <p class="recipe-modal-time">${time}min</p>
-    </div>
-    <div class="modal-ingredients-list-wrap">
-        <ul class="modal-ingredients-name-list">
-        ${ingredientsListName}
-        </ul>
-        <ul class="modal-ingredients-measure-list">
-        ${ingredientsListMeasure}
-        </ul>
-    </div>
-    <div class="recipe-modal-tags">
-        <ul class="modal-tags-list">
-        ${tagslist}
-        </ul>
-    </div>
-    <div class="recipe-modal-instructions-wrap">
-        ${paragrapsMarkup}
-    </div>
-    `;
-    recipeContainer.insertAdjacentHTML('afterbegin', recipeMarkup);
+function addOrRemoveFav (recipe) {
+  const btnFav = document.querySelector('.btn-favorite');
+   console.log('click add fav');
+  if (btnFav.textContent = "Add to favorite"){
+    console.log('add fav');
+    addToLocalFavoritesCards(recipe);
+    btnFav.textContent = "Remove from favorites";
+    const recipesFromLS = takeFavoritesCardsFromLS();
+    makeCardsMarkUp(recipesFromLS);
+  }
+  if (btnFav.textContent = "Remove from favorites"){
+    removeFromLocalStorage(recipe.id);
+    const recipesFromLS = takeFavoritesCardsFromLS();
+    makeCardsMarkUp(recipesFromLS);
+  }
 }
