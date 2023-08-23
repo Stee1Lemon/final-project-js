@@ -124,7 +124,7 @@ function isAlreadyOnFavorite(favorites) {
 
   btnAddToFavoriteEl.forEach(el => {
     const findMatch = favorites.find(function (obj) {
-      return obj._id === id;
+      return obj._id === el.id;
     });
     if (!findMatch) {
       return;
