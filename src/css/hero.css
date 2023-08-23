@@ -5,9 +5,7 @@
   overflow: hidden;
 }
 
-.hero-name-btn-block {
-  /* padding-left: 20px; */
-}
+
 
 .hero-name{
   color: var(--light-theme-text-color);
@@ -238,9 +236,6 @@
     .hero-name {
         font-size: 36px;
       }
-    .hero-name-btn-block {
-      /* padding-left: 30px; */
-    }
 
     .tasty-green {
       font-size: 36px;
@@ -339,11 +334,6 @@
       width: 900px;
       height: 484px;
       
-    }
-
-    .my-swiper-wrap {
-      /* padding-left: 12px; */
-     
     }
     
   .dish-description {
