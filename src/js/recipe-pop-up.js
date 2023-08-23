@@ -4,6 +4,9 @@ import { FetchInfo } from './fetch-requests';
 import { showRating } from './rating-pop-up.js';
 import { createModal } from './open-any-modal.js';
 import { openRatingModal } from './rating-pop-up.js'
+import { takeFavoritesCardsFromLS, addToLocalFavoritesCards, removeFromLocalStorage } from './local-storage';
+import { makeCardsMarkUp } from './recipes-cards.js';
+
 
 const recipes = new FetchInfo();
 
@@ -11,23 +14,21 @@ const btnOpenRecipe = document.querySelector('.open-modal-recipe');
 
 btnOpenRecipe?.addEventListener('click', openRecipeModal);
 
+// const id = "6462a8f74c3d0ddd28897fc1";
 
-const id = "6462a8f74c3d0ddd28897fbc";
-
-
-function openRecipeModal(){
+export function openRecipeModal(id){
     console.log('click on open recipe btn');
     createModal(recipeModalContentMurkup());
     recipes.fetchRecipeById(id).then(recipeObj => {
         console.log(recipeObj.data);
         recipeModalMarkup(recipeObj.data);
+        showRating();
+        textContentBtnFav(recipeObj.data);
+        const btnFav = document.querySelector('.btn-favorite');
+        btnFav?.addEventListener('click', () => {addOrRemoveFav(recipeObj.data)});
+        const btnRating = document.querySelector('.btn-give-rating');
+        btnRating.addEventListener('click', () => {openRatingModal()});
       });
-    showRating();
-    const btnFav = document.querySelector('.btn-favorite');
-    btnFav?.addEventListener('click', addOrRemoveFav);
-    const btnRating = document.querySelector('.btn-give-rating');
-    // btnRating.addEventListener('click', openRatingModal);
-    btnRating?.addEventListener('click', giveRating);
 }
 
 
@@ -118,12 +119,36 @@ function recipeModalMarkup(recipeData){
       recipeContainer.innerHTML = recipeMarkup;
 }
 
+// function loseFetch() {
+//   return `<img src="/src/images/error-img.webp"></img>`
+// }
 
-function addOrRemoveFav(){
-    console.log('click on add to fav');
+function textContentBtnFav(recipe){
+  const btnFav = document.querySelector('.btn-favorite');
+    const recipesInLS = takeFavoritesCardsFromLS();
+    console.log(recipesInLS);
+    if (recipesInLS.length === 0){
+      console.log('length 0')
+      return;
+    } 
+    console.log('lenght > 0'); 
+    if (recipesInLS.includes(recipe)){
+      console.log('resipes include my recipe');
+      btnFav.textContent = 'Remove from favorites';
+    }
 }
 
-function giveRating(){
-    // openRatingModal();
-    console.log('click on give a rating');
+function addOrRemoveFav (recipe) {
+  const btnFav = document.querySelector('.btn-favorite');
+   console.log('click add fav');
+  if (btnFav.textContent = "Add to favorite"){
+    console.log('add fav');
+    addToLocalFavoritesCards(recipe);
+    btnFav.textContent = "Remove from favorites";
+    const recipesFromLS = takeFavoritesCardsFromLS();
+    makeCardsMarkUp(recipesFromLS);
+  }
+    removeFromLocalStorage(recipe.id);
+    const recipesFromLS = takeFavoritesCardsFromLS();
+    makeCardsMarkUp(recipesFromLS);
 }

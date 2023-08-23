@@ -1,10 +1,13 @@
 import Pagination from 'tui-pagination';
+import { getAllRecipes, getRecipesByCategory } from './categories.js';
+import { getCategoryFromLS } from './local-storage.js';
 
-function paginationSetUp(currentPage, totalPages) {
+function paginationSetUp(currentPage, totalPages, objFromFilter) {
   const container = document.getElementById('pagination');
 
   const options = {
     totalItems: `${totalPages}` + 0,
+    itemsPerPage: 10,
     visiblePages: window.innerWidth < 768 ? 2 : 3,
     page: currentPage,
     firstItemClassName: 'tui-first-child',
@@ -37,8 +40,24 @@ function paginationSetUp(currentPage, totalPages) {
 
   function someFn(clickedButton) {
     const currentPage = pagination.getCurrentPage();
-    console.log(`Обраний номер сторінки: ${currentPage}`);
-    return { number: currentPage };
+    const currentCategory = getCategoryFromLS();
+    if (objFromFilter) {
+      doFilterCards(objFromFilter);
+      return;
+    } else if (currentCategory) {
+      getRecipesByCategory(currentCategory, currentPage);
+      return;
+    } else {
+      getAllRecipes(currentPage);
+    }
+  }
+
+  function doFilterCards() {
+    if (title) {
+      // fn for title search
+      return;
+    }
+    // fn for other filters
   }
 }
 
