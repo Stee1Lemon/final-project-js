@@ -171,11 +171,10 @@ export async function getRecipeByInfo(filtersObj, selectedPage) {
 
 export async function getRecipeByTitleInfo(filtersObj, selectedPage) {
   const selectedCategory = getNameOfActiveCategory();
-  console.log(getNameOfActiveCategory());
   if (!selectedCategory) {
-    getRecipeByTitle(filtersObj.selectedPage);
+    getRecipeByTitle(filtersObj, selectedPage);
   } else {
-    getRecipeByTitleAndCategory(filtersObj.selectedPage);
+    getRecipeByTitleAndCategory(filtersObj, selectedPage);
   }
 }
 
