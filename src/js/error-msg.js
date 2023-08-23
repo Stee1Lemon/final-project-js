@@ -1,8 +1,22 @@
 const recipesTable = document.querySelector('.js-card-items');
 
+export function createErrorContainerForRecipes() {
+  recipesTable.insertAdjacentHTML(
+    'afterend',
+    `<div class="err-container-recipes-js" style="text-align: center"></div>`
+  );
+}
+
 export function errorElementCategoryAndFilters(string) {
-    recipesTable.insertAdjacentHTML(
-            'afterend',
-            `<div><p class="categories-err" style="text-align: center">${string}</p></div>`
-          );
-    }
+  const errContainerRecipies = document.querySelector(
+    '.err-container-recipes-js'
+  );
+  errContainerRecipies.innerHTML = `<p class="categories-err cards-err-js" ">${string}</p>`;
+}
+
+export function errorRemove() {
+  const errContainerRecipies = document.querySelector(
+    '.err-container-recipes-js'
+  );
+  errContainerRecipies.innerHTML = '';
+}

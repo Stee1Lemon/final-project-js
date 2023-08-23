@@ -8,7 +8,7 @@ import {
   resetLocalStorageFilters,
 } from './local-storage';
 import { paginationSetUp } from './pagination';
-import { errorElementCategoryAndFilters } from './error-msg';
+import { createErrorContainerForRecipes, errorElementCategoryAndFilters, errorRemove } from './error-msg';
 
 const request = new FetchInfo();
 const categoriesBtnEl = document.querySelector('.categories-btn-js');
@@ -41,6 +41,7 @@ async function getCategories() {
 }
 
 getCategories();
+createErrorContainerForRecipes ();
 
 if (!localStorage.getItem('selected-category')) {
   getAllRecipes();
@@ -66,6 +67,7 @@ function handlerAllCategoriesBtn() {
   makeBtnNotActive();
   categoriesBtnEl.classList.add('categories-btn-active');
   removeCategoriesFromLS();
+  errorRemove();
   getAllRecipes();
   resetLocalStorageFilters();
 }
@@ -104,6 +106,7 @@ function handlerCategoryBtn(ev) {
   }
   categoriesBtnEl.classList.remove('categories-btn-active');
   makeBtnNotActive();
+  errorRemove();
   ev.target.classList.add('category-btn-active');
   const nameOfCategory = ev.target.textContent;
   handleCategoryClick(nameOfCategory);
@@ -162,6 +165,7 @@ export function getTotalPages() {
 }
 
 export async function getRecipeByInfo(filtersObj, selectedPage) {
+  errorRemove();
   if (filtersObj.title) {
     getRecipeByTitleInfo(filtersObj, selectedPage);
   } else {
@@ -189,6 +193,9 @@ export async function getRecipeByFilterInfo(filtersObj, selectedPage) {
 
 export async function getRecipeByTitle(filtersObj, selectedPage) {
   try {
+    if (!errorEl.classList.contains('is-hidden')) {
+      errorEl.classList.add('is-hidden');
+    }
     const pageToShow = selectedPage || 1;
     const resp = await request.fetchRecipeByTitle(
       filtersObj.title,
@@ -204,7 +211,7 @@ export async function getRecipeByTitle(filtersObj, selectedPage) {
     currentPage = resp.data.page;
     cardsMarkUp(resp.data.results);
     if (pageToShow === 1) {
-      paginationSetUp(currentPage, totalPages);
+      paginationSetUp(currentPage, totalPages, filtersObj);
     }
   } catch (err) {
     console.log(err);
@@ -215,6 +222,9 @@ export async function getRecipeByTitle(filtersObj, selectedPage) {
 
 export async function getRecipeByTitleAndCategory(filtersObj, selectedPage) {
   try {
+    if (!errorEl.classList.contains('is-hidden')) {
+      errorEl.classList.add('is-hidden');
+    }
     const pageToShow = selectedPage || 1;
     const resp = await request.fetchRecipeByTitleAndCategory(
       getNameOfActiveCategory(),
@@ -231,7 +241,7 @@ export async function getRecipeByTitleAndCategory(filtersObj, selectedPage) {
     currentPage = resp.data.page;
     cardsMarkUp(resp.data.results);
     if (pageToShow === 1) {
-      paginationSetUp(currentPage, totalPages);
+      paginationSetUp(currentPage, totalPages, filtersObj);
     }
   } catch (err) {
     console.log(err);
@@ -242,6 +252,9 @@ export async function getRecipeByTitleAndCategory(filtersObj, selectedPage) {
 
 export async function getRecipeByFilter(filtersObj, selectedPage) {
   try {
+    if (!errorEl.classList.contains('is-hidden')) {
+      errorEl.classList.add('is-hidden');
+    }
     const pageToShow = selectedPage || 1;
     const resp = await request.fetchRecipesByFilter(
       pageToShow,
@@ -259,7 +272,7 @@ export async function getRecipeByFilter(filtersObj, selectedPage) {
     currentPage = resp.data.page;
     cardsMarkUp(resp.data.results);
     if (pageToShow === 1) {
-      paginationSetUp(currentPage, totalPages);
+      paginationSetUp(currentPage, totalPages, filtersObj);
     }
   } catch (err) {
     console.log(err);
@@ -270,6 +283,9 @@ export async function getRecipeByFilter(filtersObj, selectedPage) {
 
 export async function getRecipeByFilterAndCategory(filtersObj, selectedPage) {
   try {
+    if (!errorEl.classList.contains('is-hidden')) {
+      errorEl.classList.add('is-hidden');
+    }
     const pageToShow = selectedPage || 1;
     const resp = await request.fetchRecipesByFilterWithCategory(
       getNameOfActiveCategory(),
@@ -288,7 +304,7 @@ export async function getRecipeByFilterAndCategory(filtersObj, selectedPage) {
     currentPage = resp.data.page;
     cardsMarkUp(resp.data.results);
     if (pageToShow === 1) {
-      paginationSetUp(currentPage, totalPages);
+      paginationSetUp(currentPage, totalPages, filtersObj);
     }
   } catch (err) {
     console.log(err);
