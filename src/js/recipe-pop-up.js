@@ -12,6 +12,7 @@ const recipes = new FetchInfo();
 export function openRecipeModal(id){
     console.log('click on open recipe btn');
     createModal(recipeModalContentMurkup());
+    addBorder();
     recipes.fetchRecipeById(id).then(recipeObj => {
         console.log(recipeObj.data);
         recipeModalMarkup(recipeObj.data);
@@ -80,7 +81,8 @@ function recipeModalMarkup(recipeData){
         `<p class="recipe-modal-instructions-paragraph">${paragraph}</p>`
     )
     .join('');
-    const recipeMarkup =  `<div class="video-or-image-wrap">${videoOrImage()}</div>
+    const recipeMarkup =  `<div class="fixed-div">
+             <div class="video-or-image-wrap">${videoOrImage()}</div>
              <h2 class="recipe-modal-title">${recipeData.title}</h2>
              <div class="rating-time-tags-wrap"></div>
             <div class="rating-time-wrap">
@@ -96,9 +98,11 @@ function recipeModalMarkup(recipeData){
                       <input type="radio" class="rating-item" name="recipe-rating" value="5"/>
                                 </div>
                         </div>
-                    </div>
+                  </div>
             <p class="recipe-modal-time">${recipeData.time}min</p>
             </div>
+                    </div>
+                    <div class="scroll-div">
                 <ul class="modal-ingredients-list">
                 ${ingredientsList}
                 </ul>
@@ -110,6 +114,7 @@ function recipeModalMarkup(recipeData){
             <div class="recipe-modal-instructions-wrap">
                 ${paragrapsMarkup}
             </div>
+                    </div>
             `;
       recipeContainer.innerHTML = recipeMarkup;
 }
@@ -143,27 +148,36 @@ function textContentBtnFav(recipeTitle){
 
     if(isRecipeTitleInObj){
       console.log('resipes include my recipe');
-      btnFav.textContent = 'Remove from favorites';
+      btnFav.textContent = 'Remove from favorite';
     }
-    // if (recipesInLS.includes(recipeTitle)){
-    //   console.log('resipes include my recipe');
-    //   btnFav.textContent = 'Remove from favorites';
-    // }
 }
 
 function addOrRemoveFav (recipe) {
   const btnFav = document.querySelector('.btn-favorite');
-   console.log('click add fav');
+
   if (btnFav.textContent = "Add to favorite"){
+    console.log('click add fav');
     console.log('add fav');
     addToLocalFavoritesCards(recipe);
-    btnFav.textContent = "Remove from favorites";
     const recipesFromLS = takeFavoritesCardsFromLS();
     makeCardsMarkUp(recipesFromLS);
+    btnFav.textContent = "Remove from favorite";
   }
-  if (btnFav.textContent = "Remove from favorites"){
+  if (btnFav.textContent = "Remove from favorite"){
+    console.log('click remove from fav');
     removeFromLocalStorage(recipe.id);
     const recipesFromLS = takeFavoritesCardsFromLS();
     makeCardsMarkUp(recipesFromLS);
+    btnFav.textContent = "Add to favorite"
+  }
+}
+
+function addBorder(){
+  const modalRecipe = document.querySelector('.modal-recipe');
+
+  let activeTheme = localStorage.getItem('theme');
+  if (activeTheme === 'dark'){
+    modalRecipe.style.border = '4px solid var( --light-theme-almost-transparent-color)';
+    modalRecipe.style.borderRadius = '10px';
   }
 }

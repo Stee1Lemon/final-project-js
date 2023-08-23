@@ -1,3 +1,8 @@
+/* 
+.scroll-div{
+    overflow-y: auto;
+    flex-grow: 1;
+} */
 .modal-recipe {
     scrollbar-width: thin;
     scrollbar-color: var(--light-modal-scroll-color) inherit;
@@ -23,6 +28,7 @@
     width: 320px;
     max-height: 100vh;
     padding: 40px 20px;
+    /* display: flex; */
     flex-direction: column;
     align-items: center;
     background: var(--light-modal-background-color);
@@ -32,6 +38,11 @@
     left: 50%;
     transform: translate(-50%, -50%) rotate(0);
     overflow-y: auto;
+    /* overflow: hidden; */
+}
+
+.modal-recipe > *:not(.scroll-div) {
+  overflow: hidden;
 }
 
 .recipe-modal-btn-wrap{

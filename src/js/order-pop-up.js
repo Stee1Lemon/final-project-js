@@ -1,14 +1,19 @@
 import { Notify } from "notiflix";
 import {saveInLocalStorageModal, resetLocalStorageModal, returnObjectOfModal} from './local-storage';
 import { createModal } from './open-any-modal';
+import { FetchInfo } from "./fetch-requests";
 
 const openBtn = document.querySelector('.btn-open-order');
 openBtn?.addEventListener('click', openOrderModal);
+
+const fetch = new FetchInfo();
 
 const form = document.querySelector('.form-oder');
 
 export function openOrderModal(){
   createModal(orderModalMarkup());
+
+  addBorder();
 
   const form = document.querySelector('.form-oder');
   const {name, phone, email, comment} = form.elements;
@@ -80,12 +85,23 @@ function orderModalMarkup(){
 </div>`
 }
 
+function addBorder(){
+  const modalOrder = document.querySelector('.modal-order');
+
+  let activeTheme = localStorage.getItem('theme');
+  if (activeTheme === 'dark'){
+    modalOrder.style.border = '4px solid var( --light-theme-almost-transparent-color)';
+    modalOrder.style.borderRadius = '10px';
+  }
+}
 
 
 function postBack() {
   const dataForm = returnObjectOfModal();
   console.log(dataForm);
+  console.log(dataForm.name);
+  fetch.postOrderApi(dataForm.name, dataForm.phone, dataForm.email, dataForm.comment)
+  .then(console.log('date go to back'));
 }
-// // form?.addEventListener('submit', resetLocalStorageModal);
-// // form?.addEventListener('input', saveInLocalStorageModal);
+
 
