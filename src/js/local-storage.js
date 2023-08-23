@@ -1,4 +1,4 @@
-import { openOrderModal } from "./order-pop-up"
+import { openOrderModal } from "./order-pop-up";
 
 // LOCAL STORAGE ДЛЯ СВІТЧЕРА
 import { getRecipesByCategory } from './categories'
@@ -37,14 +37,9 @@ function reloadTheme() {
 
 // LOCAL STORAGE ДЛЯ МОДАЛКИ ЗАМОВЛЕННЯ
 
-export function saveInLocalStorageModal(form) {
-    try {
-        let dataForm = JSON.stringify({
-            name: form.name.value,
-            phone: form.phone,
-            email: form.email
-        });
-        localStorage.setItem("key_form", dataForm);
+export function saveInLocalStorageModal(objForLocal) {
+    try { localStorage.setItem("key_form", JSON.stringify(objForLocal));
+    console.log(localStorage.getItem("key_form"))
     } catch (error) {
         console.log(error);
     };
@@ -62,27 +57,6 @@ export function resetLocalStorageModal() {
     try {
         localStorage.removeItem("key_form");
     } catch(error) {
-        console.log(error);
-    };
-};
-
-const form = document.querySelector(".form-oder");
-
-
-function reloadForm() {
-    try {
-        let savedInfo = JSON.parse(localStorage.getItem("key_form"));
-    if(savedInfo) {
-        const {name, phone, email} = form.elements;
-        openOrderModal();
-        console.log(savedInfo);
-        console.log(form.name);
-        name.value = savedInfo.name;
-        phone.value = savedInfo.phone;
-        email.value = savedInfo.email;
-    } 
-        }
-    catch(error) {
         console.log(error);
     };
 };
@@ -144,8 +118,8 @@ export function goToLocal() {
 };
 
 // LOCAL STORAGE ДЛЯ FAVORITES
-
 const keyLocalStorageFavorites = 'keyOfFavoritesCards';
+
 
 function loadFromLocalStorageFavorites() {
     try {
@@ -180,7 +154,7 @@ export function addToLocalFavoritesCards(newObject) {
 
 export function takeFavoritesCardsFromLS() {
     try {
-        if(keyLocalStorageFavorites) {
+        if(localStorage.getItem('keyOfFavoritesCards') !== null) {
             return JSON.parse(localStorage.getItem(keyLocalStorageFavorites));
         }
     } catch(error) {
@@ -273,16 +247,11 @@ export function getFiltersFromLS() {
     };
 };
 
-
-
-
 // //////////////////////////////////////////
 reloadThemeAndFormData();
 function reloadThemeAndFormData() {
     reloadTheme(); // Відновлення стану теми
-    reloadForm(); // Відновлення даних форми
     reloadCategory(); // Відновлення обраної категорії
-    // reloadPageFilters(); // Відновлення обраних фільтрів
 }
 
 /////////////////////
