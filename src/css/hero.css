@@ -2,6 +2,7 @@
 .vrap-hero {
   position: relative;
   padding-top: 42px;
+  padding-bottom: 40px;
   overflow: hidden;
 }
 
@@ -137,7 +138,7 @@
    background-color: var(--dark-color);
 
    border-radius: 12px;
-   border: 1px solid var(--dark-color);
+   /* border: 1px solid var(--dark-color); */
    margin-right: 8px;
 
   background: var(--accent-color);
@@ -152,21 +153,21 @@
     background-color: var(--dark-color);
     /* object-fit: cover; */
     border-radius: 12px;
-    border: 1px solid var(--dark-color);
+    /* border: 1px solid var(--dark-color); */
     margin-right: 16px;
     overflow: hidden;
   }
 
-.cap {
+/* .cap {
   margin-top: 40px;
-}
+} */
 
 .swiper {
   position: absolute;
   /* left: 20px; */
   overflow: hidden;
-  height: 322px;
-  width: 480px;
+  height: 302px;
+  width: 512px;
 }
 
 .my-swiper-wrap {
@@ -215,7 +216,7 @@
 
 .swiper-pagination-bullet {
   position: relative;
-  top: 0px;
+  top: 12px;
   left: -11%;
 }
 
@@ -332,7 +333,7 @@
   
     .swiper {
       width: 900px;
-      height: 484px;
+      height: 468px;
       
     }
     
@@ -370,6 +371,7 @@
 @media screen and (min-width: 1280px) {
   .vrap-hero {
     display: flex;
+    padding-bottom: 50px;
   }
 
   .first-pic {
@@ -409,7 +411,7 @@
   }
 
   .swiper {
-    height: 488px;
+    height: 468px;
     left: 0px;
     } 
 
@@ -420,6 +422,9 @@
  
 .container.wo-padding {
   padding: 0 0 0 100px;
+}
+.swiper-horizontal {
+  bottom: 0px;
 }
 }
 

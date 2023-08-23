@@ -58,7 +58,9 @@ fetchListItems()
         enabled: true,
         onlyInViewport: false,
       }
-   });
+    });
+    
+  
     
     return swiper;
     
@@ -70,7 +72,7 @@ fetchListItems()
 
   })
 
-
+const picErr = "../images/error-img.webp";
 
 
 function swiperRendering(elements) {
@@ -79,15 +81,15 @@ function swiperRendering(elements) {
     <div class="swiper-slide">
       <div class="hero-slide-wrap">
         <div class="first-pic">
-          <img class="cook" src="${element.cook.imgWebpUrl}" />
+          <img class="cook" src="${element.cook.imgWebpUrl}" alt="Photo of the cook who prepared the dish" />
         </div>
         <div class="second-pic">
-          <img  class="pic" src="${element.topic.previewWebpUrl}" />
+          <img  class="pic" src="${element.topic.previewWebpUrl}" alt = "The name of the finished dish and the country of origin" />
           <p class="dish-description">${element.topic.name}</p>
           <p class="dish-area">${element.topic.area}</p>
         </div>
         <div class="third-pic">
-          <img class="zoom-dish zoom-one zoom-two zoom-three" src="${element.topic.imgWebpUrl}" />
+          <img class="zoom-dish zoom-one zoom-two zoom-three" src="${element.topic.imgWebpUrl}" alt = "zoom image of the finished dish" />
         </div>
       </div>
     </div>
@@ -96,35 +98,3 @@ function swiperRendering(elements) {
   .join("");
   swiperWrapper.insertAdjacentHTML("beforeend", markup);
 };
-
-
-
-
-
-
-
-
-  // return `
-  //   <div class="swiper-slide"><img class="cook" src="${element.cook.imgWebpUrl}" /></div>
-  //   <div class="swiper-slide"><div class="main-dish-bg"><img  class="pic" src="${element.topic.previewWebpUrl}" /></div></div>
-  //   <div class="swiper-slide"><div class="big-dish-bg"><img src="${element.topic.imgWebpUrl}" /> </div></div>
-  //   `;
-  
-
-    //   return ` 
-    // <div class="swiper-slide">
-    //   <div class="cook-name">
-    //     <img class="cook" src="${element.cook.imgWebpUrl}" />
-    //   </div>
-    // </div>
-    // <div class="swiper-slide">
-    //  <div class="main-dish-bg">
-    //     <img  class="pic" src="${element.topic.previewWebpUrl}" />
-    //   </div>
-    // </div>
-    // <div class="swiper-slide">
-    //   <div class="big-dish-bg">
-    //     <img class="zoom-dish" src="${element.topic.imgWebpUrl}" />
-    //   </div>
-    // </div>
-    // `;
