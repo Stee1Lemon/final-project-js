@@ -58,7 +58,9 @@ fetchListItems()
         enabled: true,
         onlyInViewport: false,
       }
-   });
+    });
+    
+  
     
     return swiper;
     
