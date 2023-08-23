@@ -43,8 +43,9 @@ function seeViewport() {
 function cardsMarkUp(cardInfo) {
   recipesTable.innerHTML = makeCardsMarkUp(cardInfo);
   showRating();
-  isAlreadyOnFavoriteAndListenerForButton(favorites);
+  isAlreadyOnFavorite(favorites);
   addToFavoriteListener();
+  addListenerForButton();
 }
 
 function makeCardsMarkUp(cardInfo) {
@@ -118,9 +119,8 @@ function addToFavoriteListener() {
   });
 }
 
-function isAlreadyOnFavoriteAndListenerForButton(favorites) {
+function isAlreadyOnFavorite(favorites) {
   const btnAddToFavoriteEl = document.querySelectorAll('.add-favorite');
-  const btnCardEl = document.querySelectorAll('.btn-card');
 
   btnAddToFavoriteEl.forEach(el => {
     const findMatch = favorites.find(function (obj) {
@@ -131,9 +131,13 @@ function isAlreadyOnFavoriteAndListenerForButton(favorites) {
     }
     el.classList.add('on-favorites');
   });
+}
+
+function addListenerForButton() {
+  const btnCardEl = document.querySelectorAll('.btn-card');
+
   btnCardEl.forEach(el => {
     el.addEventListener('click', () => {
-      console.log(el.id);
       openRecipeModal(el.id);
     });
   });

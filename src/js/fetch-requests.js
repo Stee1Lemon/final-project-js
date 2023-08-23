@@ -39,8 +39,7 @@ export class FetchInfo {
   }
   fetchRecipesByFilter(page, limit, time, area, ingredient) {
     return axios.get(
-      `${this.BASE_URL}recipes?category=${category}&page=${page}
-      &limit=${limit}&time=${time}&area=${area}&ingredient=${ingredient}`
+      `${this.BASE_URL}recipes?page=${page}&limit=${limit}&time=${time}&area=${area}&ingredient=${ingredient}`
     );
   }
 
