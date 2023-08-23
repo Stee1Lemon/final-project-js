@@ -1,12 +1,16 @@
 import { debounce } from 'lodash';
 import SlimSelect from 'slim-select';
 import 'slim-select/dist/slimselect.css';
-
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import '../css/filter.css';
 
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
-
 import { FetchInfo } from './fetch-requests.js';
+import { getRecipeByInfo } from './categories.js';
+import { errorElementCategoryAndFilters } from './error-msg.js';
+import {
+  saveInLocalStorageFilters,
+  getFiltersFromLS,
+} from './local-storage.js';
 
 const filters = new FetchInfo();
 
@@ -23,22 +27,16 @@ selectArea?.addEventListener('change', selectedArea);
 selectIngredients?.addEventListener('change', selectedIngredient);
 resetFilter?.addEventListener('click', resetAllFilters)
 resetInput?.addEventListener('click', resetInputValue);
+inputSubmit?.addEventListener('keydown', removeEnter);
 
+let searchText = '';
+let searchTime = '';
 let searchArea = '';
 let searchIngredient = ''; 
-let searchTime = ''; 
-let searchText = '';
 
 let slimSelectTime;
 let slimSelectArea;
 let slimSelectIngredients;
-
-export const fullFilter = {
-  search: searchText,
-  time: searchTime,
-  area: searchArea,
-  ingredients: searchIngredient,
-};
 
 const defaultTimeOption =
   '<option data-placeholder="true" value="">0 min</option>';
@@ -113,14 +111,27 @@ filters
     Notify.failure(`Oops! Something went wrong! Try reloading the page!`);
   });
 
+let fullFilter = {
+  title: searchText,
+  time: searchTime,
+  area: searchArea,
+  ingredients: searchIngredient,
+};
+
 function handlerInput(evt) {
-  evt.preventDefault();
   searchText = evt.target.value.trim().toLowerCase();
   if (searchText.length >= 1) {
     resetInput.classList.remove('is-hidden');
+    selectTime.setAttribute('disabled', 'disabled');
+    selectArea.setAttribute('disabled', 'disabled');
+    selectIngredients.setAttribute('disabled', 'disabled');
+    getRecipeByInfo(fullFilter);
   }
   if (searchText.length === 0) {
     resetInput.classList.add('is-hidden');
+    selectTime.removeAttribute('disabled');
+    selectArea.removeAttribute('disabled');
+    selectIngredients.removeAttribute('disabled');
   }
   updateFullFilter();
 }
@@ -144,20 +155,47 @@ function resetInputValue() {
   inputSubmit.value = '';
   searchText = '';
   resetInput.classList.add('is-hidden');
+  selectTime.removeAttribute('disabled');
+  selectArea.removeAttribute('disabled');
+  selectIngredients.removeAttribute('disabled');
   updateFullFilter();
 }
 
+function removeEnter(evt) {
+  if (evt.key === 'Enter') {
+    evt.preventDefault();
+  }
+}
+
 function updateFullFilter() {
-  fullFilter.search = searchText;
+  fullFilter.title = searchText;
   fullFilter.time = searchTime;
   fullFilter.area = searchArea;
   fullFilter.ingredients = searchIngredient;
-  console.log(fullFilter);
+
+  if (searchTime || searchArea || searchIngredient) {
+    inputSubmit.classList.add('disabled');
+    inputSubmit.setAttribute('disabled', 'disabled');
+  }
+  if (!searchTime && !searchArea && !searchIngredient) {
+    inputSubmit.classList.remove('disabled');
+    inputSubmit.removeAttribute('disabled');
+  }
+
+  saveInLocalStorageFilters(fullFilter);
+
+  // console.log(fullFilter);
+  
+  if (searchTime && searchArea && searchIngredient) {
+    getRecipeByInfo(fullFilter);
+    return;
+  }
+  // else {
+  //   Notify.info(`Please fill all fields`);
+  // }
 }
 
-function resetAllFilters() {
-  resetInput.classList.add('is-hidden');
-  
+export function resetAllFilters() {
   inputSubmit.value = '';
   
   slimSelectTime.setSelected(selectTime.options[0].value);
@@ -169,5 +207,15 @@ function resetAllFilters() {
   searchArea = '';
   searchIngredient = '';
   
+  resetInput.classList.add('is-hidden');
+  inputSubmit.removeAttribute('disabled');
+  selectTime.removeAttribute('disabled');
+  selectArea.removeAttribute('disabled');
+  selectIngredients.removeAttribute('disabled');
+
   updateFullFilter();
 }
+
+// getFiltersFromLS();
+
+// fullFilter = getFiltersFromLS();

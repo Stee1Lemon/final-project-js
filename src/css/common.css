@@ -28,6 +28,7 @@
   --light-modal-scroll-color: #0505052e;
   --lightn-theme-hero-text-slider: #f8f8f899;
   --lightn-theme-hero-dish-desc: #f8f8f833;
+  --light-disable-color: #0505051a;
 
   --cards-background-color-for-stars: #00000042;
 
@@ -70,6 +71,7 @@ body {
   --lightn-theme-hero-dish-desc: rgba(255, 255, 255, 0.2);
   --light-mobile-bg-color: #050505;
   --light-hero-btn-bg-color: #9bb537;
+  --light-disable-color: #ffffff33;
 }
 
 .is-hidden {
