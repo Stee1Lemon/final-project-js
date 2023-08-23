@@ -126,7 +126,6 @@ function isAlreadyOnFavorite(favorites) {
   const btnAddToFavoriteEl = document.querySelectorAll('.add-favorite');
 
   btnAddToFavoriteEl.forEach(el => {
-    id = el.id;
     const findMatch = favorites.find(function (obj) {
       return obj._id === el.id;
     });
