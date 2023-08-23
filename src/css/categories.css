@@ -1,5 +1,5 @@
 .categories-section {
-  padding: 40px 8px 20px 0;
+  padding: 0 8px 20px 0;
 }
 
 .categories-btn {
@@ -93,7 +93,7 @@
 /* MEDIA TABLET */
 @media screen and (min-width: 768px) {
   .categories-section {
-    padding: 53px 0 32px 0;
+    padding: 0 0 32px 0;
   }
 
   .categories-btn {
@@ -119,10 +119,7 @@
 
 /* MEDIA DESKTOP */
 @media screen and (min-width: 1280px) {
-  .categories-section {
-    padding: 63px 0 32px 0;
-  }
-
+  
   .categories-btn {
     margin: 0 0 42px 0;
   }
