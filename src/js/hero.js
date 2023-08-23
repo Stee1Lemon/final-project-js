@@ -13,12 +13,13 @@
 import Swiper, {  Navigation, Pagination } from 'swiper';
 import 'swiper/swiper-bundle.min.css'
 import 'swiper/swiper.min.css'
-
+// export function openOrderModal()
+import { openOrderModal } from "./order-pop-up"; 
 
 import axios from 'axios';
 const paginationPosition = document.querySelector('.swiper-pagination');
 const swiperSlide = document.querySelector('.swiper-slide');
-const aaa = document.querySelector(".swiper-slide:nth-child(1)");
+const heroBtn = document.querySelector('.hero-btn');
 
 const swiperWrapper = document.querySelector('.swiper-wrapper');
 
@@ -26,6 +27,9 @@ const fetchListItems = async () => {
   const events = await axios.get(`https://tasty-treats-backend.p.goit.global/api/events`);
   return events.data;
 };
+
+heroBtn.addEventListener("click", openOrderModal);
+
 
 fetchListItems()
   .then(response => {
@@ -40,6 +44,8 @@ fetchListItems()
    
       modules: [Pagination, Navigation],
       pagination: {
+        clickable: true,
+        bulletClass: `swiper-pagination-bullet`,
         el: '.swiper-pagination',
       },
       
@@ -59,7 +65,7 @@ fetchListItems()
   })
   .catch(err => {
     console.log(err);
-    errorSwiperRendering();
+    // errorSwiperRendering();
     
 
   })
@@ -89,14 +95,13 @@ function swiperRendering(elements) {
   })
   .join("");
   swiperWrapper.insertAdjacentHTML("beforeend", markup);
-
 };
 
 
 
 
 
-console.log(window.screen.width);
+
 
 
   // return `
