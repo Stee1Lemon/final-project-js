@@ -44,13 +44,6 @@ function createPopularMarkUp(arr) {
   }
   return arr
     .map(({ title, description, preview, _id }) => {
-      // title = seeViewportForTitle(title);
-      // const numberOfLetters = seeViewportForDescription();
-      // let newDescription;
-      // if (description.length > numberOfLetters) {
-      //   newDescription = description.slice(0, numberOfLetters);
-      //   description = newDescription + '...';
-      // }
       const descriptionString = `
         <li class="popular-recipe" id="${_id}">
           <img class="popular-img" src="${preview}" alt="${title}">
@@ -88,53 +81,3 @@ function seeViewportForNumberOfRecipies() {
   }
   return number;
 }
-
-// function seeViewportForTitle(title) {
-//   let string = title;
-//   smallMedia?.addEventListener('change', isPhone);
-//   largeMedia?.addEventListener('change', isTablet);
-//   isPhone(smallMedia);
-//   function isPhone(event) {
-//     if (event.matches) {
-//       string = title;
-//     } else {
-//       isTablet(largeMedia);
-//     }
-//   }
-
-//   function isTablet(event) {
-//     if (event.matches) {
-//       if (string.length > 11) {
-//         const newTitle = string.slice(0, 11);
-//         string = newTitle + '...';
-//       }
-//     } else {
-//       string = title;
-//     }
-//   }
-//   return string;
-// }
-
-// function seeViewportForDescription() {
-//   let number = '80';
-//   smallMedia?.addEventListener('change', isPhone);
-//   largeMedia?.addEventListener('change', isTablet);
-//   isPhone(smallMedia);
-
-//   function isPhone(event) {
-//     if (event.matches) {
-//       number = 80;
-//     } else {
-//       isTablet(largeMedia);
-//     }
-//   }
-
-//   function isTablet(event) {
-//     if (event.matches) {
-//       number = 43;
-//     } else {
-//       number = 80;
-//     }
-//   }
-//   return number;
-// }
