@@ -121,6 +121,7 @@ body {
   .sections-flex {
     display: flex;
     gap: 32px;
+    padding: 40px 0;
   }
 }
 
