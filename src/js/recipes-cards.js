@@ -43,7 +43,7 @@ function seeViewport() {
 function cardsMarkUp(cardInfo) {
   recipesTable.innerHTML = makeCardsMarkUp(cardInfo);
   showRating();
-  isAlreadyOnFavorite(favorites);
+  isAlreadyOnFavoriteAndListenerForButton(favorites);
   addToFavoriteListener();
 }
 
@@ -97,7 +97,7 @@ function makeCardsMarkUp(cardInfo) {
           </div>
         </div>
       </div>
-      <button class="base-btn btn-card" type="button">See recipe</button>
+      <button class="base-btn btn-card" type="button" id="${_id}">See recipe</button>
     </div>
   </div>
   <span class="add-favorite " id="${_id}">&#9825;</span>
@@ -107,7 +107,6 @@ function makeCardsMarkUp(cardInfo) {
 }
 
 function addToFavoriteListener() {
-  const btnCardEl = document.querySelector('.btn-card');
   const btnAddToFavoriteEl = document.querySelectorAll('.add-favorite');
   btnAddToFavoriteEl.forEach(el => {
     el.addEventListener('click', addOrRemoveFromFavorite);
@@ -117,22 +116,26 @@ function addToFavoriteListener() {
     }
     el.textContent = '♡';
   });
-  btnCardEl.addEventListener('click', () => {
-    openRecipeModal(btnAddToFavoriteEl[0].id);
-  });
 }
 
-function isAlreadyOnFavorite(favorites) {
+function isAlreadyOnFavoriteAndListenerForButton(favorites) {
   const btnAddToFavoriteEl = document.querySelectorAll('.add-favorite');
+  const btnCardEl = document.querySelectorAll('.btn-card');
 
   btnAddToFavoriteEl.forEach(el => {
     const findMatch = favorites.find(function (obj) {
-      return obj._id === el.id;
+      return obj._id === id;
     });
     if (!findMatch) {
       return;
     }
     el.classList.add('on-favorites');
+  });
+  btnCardEl.forEach(el => {
+    el.addEventListener('click', () => {
+      console.log(el.id);
+      openRecipeModal(el.id);
+    });
   });
 }
 
