@@ -28,10 +28,30 @@ export class FetchInfo {
   }
 
   fetchRecipeByTitle(title, page, limit) {
-    return axios.get(`${this.BASE_URL}recipes?title=${title}&page=${page}&limit=${limit}`);
+    return axios.get(
+      `${this.BASE_URL}recipes?title=${title}&page=${page}&limit=${limit}`
+    );
+  }
+  fetchRecipeByTitleAndCategory(category, title, page, limit) {
+    return axios.get(
+      `${this.BASE_URL}recipes?category=${category}title=${title}&page=${page}&limit=${limit}`
+    );
+  }
+  fetchRecipesByFilter(page, limit, time, area, ingredient) {
+    return axios.get(
+      `${this.BASE_URL}recipes?category=${category}&page=${page}
+      &limit=${limit}&time=${time}&area=${area}&ingredient=${ingredient}`
+    );
   }
 
-  fetchRecipesByFilter(category, page, limit, time, area, ingredient) {
+  fetchRecipesByFilterWithCategory(
+    category,
+    page,
+    limit,
+    time,
+    area,
+    ingredient
+  ) {
     return axios.get(
       `${this.BASE_URL}recipes?category=${category}&page=${page}
       &limit=${limit}&time=${time}&area=${area}&ingredient=${ingredient}`
