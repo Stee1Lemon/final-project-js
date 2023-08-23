@@ -47,11 +47,6 @@ function cardsMarkUp(cardInfo) {
   addToFavoriteListener();
 }
 
-function addListenerToBtnSeeMore(id) {
-  const btnCardEl = document.querySelector('.btn-card');
-  btnCardEl.addEventListener('click', openRecipeModal(id));
-}
-
 function makeCardsMarkUp(cardInfo) {
   return cardInfo
     .map(({ _id, preview, title, description, rating }) => {
@@ -112,6 +107,7 @@ function makeCardsMarkUp(cardInfo) {
 }
 
 function addToFavoriteListener() {
+  const btnCardEl = document.querySelector('.btn-card');
   const btnAddToFavoriteEl = document.querySelectorAll('.add-favorite');
   btnAddToFavoriteEl.forEach(el => {
     el.addEventListener('click', addOrRemoveFromFavorite);
@@ -121,10 +117,12 @@ function addToFavoriteListener() {
     }
     el.textContent = '♡';
   });
+  btnCardEl.addEventListener('click', () => {
+    openRecipeModal(btnAddToFavoriteEl[0].id);
+  });
 }
 
 function isAlreadyOnFavorite(favorites) {
-  const btnCardEl = document.querySelector('.btn-card');
   const btnAddToFavoriteEl = document.querySelectorAll('.add-favorite');
 
   btnAddToFavoriteEl.forEach(el => {
@@ -136,9 +134,6 @@ function isAlreadyOnFavorite(favorites) {
       return;
     }
     el.classList.add('on-favorites');
-  });
-  btnCardEl.addEventListener('click', () => {
-    openRecipeModal(btnAddToFavoriteEl[0].id);
   });
 }
 
