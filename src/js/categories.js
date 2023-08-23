@@ -83,7 +83,9 @@ export async function getAllRecipes(selectedPage) {
     totalPages = resp.data.totalPages;
     currentPage = resp.data.page;
     cardsMarkUp(resp.data.results);
-    paginationSetUp(currentPage, totalPages);
+    if (pageToShow === 1) {
+      paginationSetUp(currentPage, totalPages);
+    }
   } catch (err) {
     console.log(err);
     recipesTable.innerHTML = '';
@@ -124,8 +126,10 @@ export async function getRecipesByCategory(category, selectedPage) {
     }
     totalPages = resp.data.totalPages;
     currentPage = resp.data.page;
-    paginationSetUp(currentPage, totalPages);
     cardsMarkUp(resp.data.results);
+    if (pageToShow === 1) {
+      paginationSetUp(currentPage, totalPages);
+    }
   } catch (err) {
     console.log(err);
     recipesTable.innerHTML = '';
