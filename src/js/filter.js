@@ -6,10 +6,8 @@ import '../css/filter.css';
 
 import { FetchInfo } from './fetch-requests.js';
 import { getRecipeByInfo, getAllRecipes } from './categories.js';
-import { errorElementCategoryAndFilters } from './error-msg.js';
 import {
   saveInLocalStorageFilters,
-  resetLocalStorageFilters,
   getFiltersFromLS,
 } from './local-storage.js';
 
@@ -40,6 +38,8 @@ let searchIngredient;
 let slimSelectTime;
 let slimSelectArea;
 let slimSelectIngredients;
+
+let timeoutId;
 
 function timesMarkup() {
   const defaultTimeOption = `<option data-placeholder="true" value="">0 min</option>`;
@@ -103,9 +103,6 @@ filters
     slimSelectIngredients = new SlimSelect({
       select: '.ingredients-select',
     });
-
-    // takeFromLocal();
-    
   })
   .catch(() => {
     Notify.failure(`Oops! Something went wrong! Try reloading the page!`);
@@ -141,17 +138,24 @@ function handlerInput(evt) {
 
 function selectedTime(evt) {
   searchTime = evt.currentTarget.value;
-  updateFullFilter();
+  scheduleUpdate();
 }
 
 function selectedArea(evt) {
   searchArea = evt.currentTarget.value;
-  updateFullFilter();
+  scheduleUpdate();
 }
 
 function selectedIngredient(evt) {
   searchIngredient = evt.currentTarget.value;
-  updateFullFilter();
+  scheduleUpdate();
+}
+
+function scheduleUpdate() {
+  clearTimeout(timeoutId);
+  timeoutId = setTimeout(() => {
+    updateFullFilter();
+  }, 100);
 }
 
 function resetInputValue() {
@@ -171,7 +175,7 @@ function removeEnter(evt) {
   }
 }
 
-setTimeout(() => {takeFromLocal()}, 1000);
+setTimeout(() => {takeFromLocal()}, 2000);
 
 function updateFullFilter() {
   fullFilter.title = searchText;
@@ -189,11 +193,8 @@ function updateFullFilter() {
     inputSubmit.classList.remove('disabled');
     inputSubmit.removeAttribute('disabled');
   }
-
   // console.log(fullFilter);
-
   if (searchTime && searchArea && searchIngredient) {
-    // console.log(fullFilter);
     getRecipeByInfo(fullFilter);
     return;
   } else if (!searchTime && !searchArea && !searchIngredient) {
@@ -219,7 +220,6 @@ export function resetAllFilters() {
   selectArea.removeAttribute('disabled');
   selectIngredients.removeAttribute('disabled');
 
-  // getAllRecipes();
   updateFullFilter();
 }
 
@@ -248,7 +248,6 @@ function takeFromLocal() {
     selectIngredients.removeAttribute('disabled');
   }
   getRecipeByInfo(fullFilterFromLocal);
-  // updateFullFilter();
 }
 
 function setSelectedDelay(foo) {
@@ -266,39 +265,3 @@ function localStorageTimeout() {
   slimSelectArea.setSelected(searchArea);
   slimSelectIngredients.setSelected(searchIngredient);
 }
-
-
-
-
-
-
-
-
-
-// function timesMarkup() {
-//   const fromLocal = getFiltersFromLS();
-//   const fullTimeOption = `<option value="">0 min</option>`;
-//   let secondsStep = [];
-//   for (let minutes = 5; minutes <= 120; minutes += 5) {
-//     secondsStep.push(`${minutes}`);
-//   }
-//   let timeMarkup = secondsStep
-//     .map(minute => {
-//       if (fromLocal.time) {
-//         `<option value="${minute}" class="ss-single">${minute} min</option>`;
-//       }
-//       return `<option value="${minute}">${minute} min</option>`;
-//     })
-//     .join('');
-//   if (!fromLocal) {
-//     const defaultTimeOption = `<option data-placeholder="true" value="">0 min</option>`;
-//     const selectTimeMarkup = defaultTimeOption + fullTimeOption + timeMarkup;
-//     selectTime.insertAdjacentHTML('beforeend', selectTimeMarkup);
-//   }
-//   const finalTMarkup = fullTimeOption + timeMarkup;
-//   selectTime.insertAdjacentHTML('beforeend', finalTMarkup);
-
-//   slimSelectTime = new SlimSelect({
-//     select: '.time-select',
-//   });
-// }
