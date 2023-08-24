@@ -53,7 +53,7 @@ createErrorContainerForRecipes();
 
 if (!localStorage.getItem('selected-category')) {
   getAllRecipes();
-  resetLocalStorageFilters();
+  // resetLocalStorageFilters();
   if (categoriesBtnEl) categoriesBtnEl.classList.add('categories-btn-active');
 }
 

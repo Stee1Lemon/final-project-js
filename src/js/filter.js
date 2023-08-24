@@ -5,10 +5,11 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import '../css/filter.css';
 
 import { FetchInfo } from './fetch-requests.js';
-import { getRecipeByInfo } from './categories.js';
+import { getRecipeByInfo, getAllRecipes } from './categories.js';
 import { errorElementCategoryAndFilters } from './error-msg.js';
 import {
   saveInLocalStorageFilters,
+  resetLocalStorageFilters,
   getFiltersFromLS,
 } from './local-storage.js';
 
@@ -25,24 +26,24 @@ inputSubmit?.addEventListener('input', debounce(handlerInput, 300));
 selectTime?.addEventListener('change', selectedTime);
 selectArea?.addEventListener('change', selectedArea);
 selectIngredients?.addEventListener('change', selectedIngredient);
-resetFilter?.addEventListener('click', resetAllFilters)
+resetFilter?.addEventListener('click', () => {
+  resetAllFilters(), getAllRecipes();
+});
 resetInput?.addEventListener('click', resetInputValue);
 inputSubmit?.addEventListener('keydown', removeEnter);
 
-let searchText = '';
-let searchTime = '';
-let searchArea = '';
-let searchIngredient = ''; 
+let searchText;
+let searchTime;
+let searchArea;
+let searchIngredient;
 
 let slimSelectTime;
 let slimSelectArea;
 let slimSelectIngredients;
 
-const defaultTimeOption =
-  '<option data-placeholder="true" value="">0 min</option>';
-  const fullTimeOption = '<option value="">0 min</option>';
-
 function timesMarkup() {
+  const defaultTimeOption = `<option data-placeholder="true" value="">0 min</option>`;
+  const fullTimeOption = `<option value="">0 min</option>`;
   let secondsStep = [];
   for (let minutes = 5; minutes <= 120; minutes += 5) {
     secondsStep.push(`${minutes}`);
@@ -52,7 +53,7 @@ function timesMarkup() {
       return `<option value="${minute}">${minute} min</option>`;
     })
     .join('');
-    const selectTimeMarkup = defaultTimeOption + fullTimeOption + timeMarkup;
+  const selectTimeMarkup = defaultTimeOption + fullTimeOption + timeMarkup;
   selectTime.insertAdjacentHTML('beforeend', selectTimeMarkup);
 
   slimSelectTime = new SlimSelect({
@@ -62,45 +63,41 @@ function timesMarkup() {
 
 timesMarkup();
 
-const defaultAreaOption =
-  '<option data-placeholder="true" value="">Region</option>';
-  const fullAreaOption = 
-  '<option value="" selected>Region</option>';
-
 filters
   .fetchAllAreas()
   .then(resp => {
+    const defaultAreaOption =
+      '<option data-placeholder="true" value="">Region</option>';
+    const fullAreaOption = '<option value="" selected>Region</option>';
     const areasMarkup = resp.data
       .map(area => {
         return `<option value="${area.name}">${area.name}</option>`;
       })
       .join('');
-      const selectAreaMarkup = defaultAreaOption + fullAreaOption + areasMarkup;
-      selectArea.insertAdjacentHTML('beforeend', selectAreaMarkup);
-      
-      slimSelectArea = new SlimSelect({
-        select: '.area-select',
-      });
+    const selectAreaMarkup = defaultAreaOption + fullAreaOption + areasMarkup;
+    selectArea.insertAdjacentHTML('beforeend', selectAreaMarkup);
+
+    slimSelectArea = new SlimSelect({
+      select: '.area-select',
+    });
   })
   .catch(() => {
     Notify.failure(`Oops! Something went wrong! Try reloading the page!`);
   });
 
-  const defaultIngredientsOption =
-    '<option data-placeholder="true" value="">Product</option>';
-  const fullIngredientsOption =
-    '<option value="" selected>Product</option>';
-
 filters
   .fetchAllIngredients()
   .then(resp => {
+    const defaultIngredientsOption =
+      '<option data-placeholder="true" value="">Product</option>';
+    const fullIngredientsOption = '<option value="" selected>Product</option>';
     const ingredientsMarkup = resp.data
       .map(ingredient => {
-        return `<option value="${ingredient.name}">${ingredient.name}</option>`;
+        return `<option value="${ingredient._id}">${ingredient.name}</option>`;
       })
       .join('');
-      const selectIngredientsMarkup =
-        defaultIngredientsOption + fullIngredientsOption + ingredientsMarkup;
+    const selectIngredientsMarkup =
+      defaultIngredientsOption + fullIngredientsOption + ingredientsMarkup;
     selectIngredients.insertAdjacentHTML('beforeend', selectIngredientsMarkup);
 
     slimSelectIngredients = new SlimSelect({
@@ -133,8 +130,10 @@ function handlerInput(evt) {
     selectTime.removeAttribute('disabled');
     selectArea.removeAttribute('disabled');
     selectIngredients.removeAttribute('disabled');
+    getAllRecipes();
     updateFullFilter();
   }
+  // console.log(fullFilter);
 }
 
 function selectedTime(evt) {
@@ -159,6 +158,7 @@ function resetInputValue() {
   selectTime.removeAttribute('disabled');
   selectArea.removeAttribute('disabled');
   selectIngredients.removeAttribute('disabled');
+  getAllRecipes();
   updateFullFilter();
 }
 
@@ -168,11 +168,15 @@ function removeEnter(evt) {
   }
 }
 
+takeFromLocal();
+
 function updateFullFilter() {
   fullFilter.title = searchText;
   fullFilter.time = searchTime;
   fullFilter.area = searchArea;
   fullFilter.ingredients = searchIngredient;
+
+  saveInLocalStorageFilters(fullFilter);
 
   if (searchTime || searchArea || searchIngredient) {
     inputSubmit.classList.add('disabled');
@@ -183,41 +187,122 @@ function updateFullFilter() {
     inputSubmit.removeAttribute('disabled');
   }
 
-  saveInLocalStorageFilters(fullFilter);
-
   // console.log(fullFilter);
-  
+
   if (searchTime && searchArea && searchIngredient) {
-    // console.log(fullFilter)
+    // console.log(fullFilter);
     getRecipeByInfo(fullFilter);
     return;
+  } else if (!searchTime && !searchArea && !searchIngredient) {
+    return;
+  } else {
+    Notify.info(`Please fill all fields`);
   }
-  // else {
-  //   Notify.info(`Please fill all fields`);
-  // }
 }
 
 export function resetAllFilters() {
   inputSubmit.value = '';
-  
-  slimSelectTime.setSelected(selectTime.options[0].value);
-  slimSelectArea.setSelected(selectArea.options[0].value);
-  slimSelectIngredients.setSelected(selectIngredients.options[0].value);
+
+  slimSelectsetSelectedDelay();
 
   searchText = '';
   searchTime = '';
   searchArea = '';
   searchIngredient = '';
-  
+
   resetInput.classList.add('is-hidden');
   inputSubmit.removeAttribute('disabled');
   selectTime.removeAttribute('disabled');
   selectArea.removeAttribute('disabled');
   selectIngredients.removeAttribute('disabled');
 
+  // getAllRecipes();
   updateFullFilter();
 }
 
-// getFiltersFromLS();
+function slimSelectsetSelectedDelay() {
+  someTime = window.setTimeout(timeout, 0);
+}
 
-// fullFilter = getFiltersFromLS();
+function timeout() {
+  slimSelectTime.setSelected(selectTime.options[0].value);
+  slimSelectArea.setSelected(selectArea.options[0].value);
+  slimSelectIngredients.setSelected(selectIngredients.options[0].value);
+}
+
+function takeFromLocal() {
+  fullFilterFromLocal = getFiltersFromLS() || {};
+  // console.log(fullFilterFromLocal);
+  searchText = fullFilterFromLocal.title || '';
+  searchTime = fullFilterFromLocal.time || '';
+  searchArea = fullFilterFromLocal.area || '';
+  searchIngredient = fullFilterFromLocal.ingredients || '';
+
+  inputSubmit.value = searchText;
+  slimSelectTime.setSelected(searchTime);
+  slimSelectArea.setSelectedByValue(searchArea);
+  slimSelectIngredients.setSelectedByValue(searchIngredient);
+
+  if (searchText.length >= 1) {
+    resetInput.classList.remove('is-hidden');
+    selectTime.setAttribute('disabled', 'disabled');
+    selectArea.setAttribute('disabled', 'disabled');
+    selectIngredients.setAttribute('disabled', 'disabled');
+    getRecipeByInfo(fullFilterFromLocal);
+  }
+  if (searchText.length === 0) {
+    resetInput.classList.add('is-hidden');
+    selectTime.removeAttribute('disabled');
+    selectArea.removeAttribute('disabled');
+    selectIngredients.removeAttribute('disabled');
+    getAllRecipes();
+  }
+
+  // updateFullFilter();
+}
+
+// takeFromLocal();
+
+
+// let fullFilter = {
+//   title: searchText,
+//   time: searchTime,
+//   area: searchArea,
+//   ingredients: searchIngredient,
+// };
+
+
+
+
+
+
+
+
+
+// function timesMarkup() {
+//   const fromLocal = getFiltersFromLS();
+//   const fullTimeOption = `<option value="">0 min</option>`;
+//   let secondsStep = [];
+//   for (let minutes = 5; minutes <= 120; minutes += 5) {
+//     secondsStep.push(`${minutes}`);
+//   }
+//   let timeMarkup = secondsStep
+//     .map(minute => {
+//       if (fromLocal.time) {
+//         `<option value="${minute}" class="ss-single">${minute} min</option>`;
+//       }
+//       return `<option value="${minute}">${minute} min</option>`;
+//     })
+//     .join('');
+//   if (!fromLocal) {
+//     const defaultTimeOption = `<option data-placeholder="true" value="">0 min</option>`;
+//     const selectTimeMarkup = defaultTimeOption + fullTimeOption + timeMarkup;
+//     selectTime.insertAdjacentHTML('beforeend', selectTimeMarkup);
+//   }
+//   const finalTMarkup = fullTimeOption + timeMarkup;
+//   selectTime.insertAdjacentHTML('beforeend', finalTMarkup);
+
+//   slimSelectTime = new SlimSelect({
+//     select: '.time-select',
+//   });
+// }
