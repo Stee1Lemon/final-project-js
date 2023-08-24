@@ -194,6 +194,11 @@ div.ss-content.ss-open-below {
     border: 1px solid var(--light-theme-transparent-color);
 }
 
+div.ss-content.ss-open-above {
+    background-color: var(--light-modal-background-color);
+    border: 1px solid var(--light-theme-transparent-color);
+}
+
 div.ss-content .ss-search input{
     color: var(--light-theme-text-color);
     background-color: var(--light-modal-background-color);
