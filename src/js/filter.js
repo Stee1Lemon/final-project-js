@@ -103,6 +103,9 @@ filters
     slimSelectIngredients = new SlimSelect({
       select: '.ingredients-select',
     });
+
+    // takeFromLocal();
+    
   })
   .catch(() => {
     Notify.failure(`Oops! Something went wrong! Try reloading the page!`);
@@ -168,7 +171,7 @@ function removeEnter(evt) {
   }
 }
 
-takeFromLocal();
+setTimeout(() => {takeFromLocal()}, 1000);
 
 function updateFullFilter() {
   fullFilter.title = searchText;
@@ -203,7 +206,7 @@ function updateFullFilter() {
 export function resetAllFilters() {
   inputSubmit.value = '';
 
-  slimSelectsetSelectedDelay();
+  setSelectedDelay(placeholderTimeout);
 
   searchText = '';
   searchTime = '';
@@ -220,16 +223,6 @@ export function resetAllFilters() {
   updateFullFilter();
 }
 
-function slimSelectsetSelectedDelay() {
-  someTime = window.setTimeout(timeout, 0);
-}
-
-function timeout() {
-  slimSelectTime.setSelected(selectTime.options[0].value);
-  slimSelectArea.setSelected(selectArea.options[0].value);
-  slimSelectIngredients.setSelected(selectIngredients.options[0].value);
-}
-
 function takeFromLocal() {
   fullFilterFromLocal = getFiltersFromLS() || {};
   // console.log(fullFilterFromLocal);
@@ -239,37 +232,40 @@ function takeFromLocal() {
   searchIngredient = fullFilterFromLocal.ingredients || '';
 
   inputSubmit.value = searchText;
-  slimSelectTime.setSelected(searchTime);
-  // slimSelectArea.setSelectedByValue(searchArea);
-  // slimSelectIngredients.setSelectedByValue(searchIngredient);
+
+  setSelectedDelay(localStorageTimeout);
 
   if (searchText.length >= 1) {
     resetInput.classList.remove('is-hidden');
     selectTime.setAttribute('disabled', 'disabled');
     selectArea.setAttribute('disabled', 'disabled');
     selectIngredients.setAttribute('disabled', 'disabled');
-    getRecipeByInfo(fullFilterFromLocal);
   }
   if (searchText.length === 0) {
     resetInput.classList.add('is-hidden');
     selectTime.removeAttribute('disabled');
     selectArea.removeAttribute('disabled');
     selectIngredients.removeAttribute('disabled');
-    getAllRecipes();
   }
-
+  getRecipeByInfo(fullFilterFromLocal);
   // updateFullFilter();
 }
 
-// takeFromLocal();
+function setSelectedDelay(foo) {
+  someTime = window.setTimeout(foo, 0);
+}
 
+function placeholderTimeout() {
+  slimSelectTime.setSelected(selectTime.options[0].value);
+  slimSelectArea.setSelected(selectArea.options[0].value);
+  slimSelectIngredients.setSelected(selectIngredients.options[0].value);
+}
 
-// let fullFilter = {
-//   title: searchText,
-//   time: searchTime,
-//   area: searchArea,
-//   ingredients: searchIngredient,
-// };
+function localStorageTimeout() {
+  slimSelectTime.setSelected(searchTime);
+  slimSelectArea.setSelected(searchArea);
+  slimSelectIngredients.setSelected(searchIngredient);
+}
 
 
 
