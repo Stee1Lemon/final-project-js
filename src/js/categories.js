@@ -8,7 +8,11 @@ import {
   resetLocalStorageFilters,
 } from './local-storage';
 import { paginationSetUp } from './pagination';
-import { createErrorContainerForRecipes, errorElementCategoryAndFilters, errorRemove } from './error-msg';
+import {
+  createErrorContainerForRecipes,
+  errorElementCategoryAndFilters,
+  errorRemove,
+} from './error-msg';
 
 const request = new FetchInfo();
 const categoriesBtnEl = document.querySelector('.categories-btn-js');
@@ -42,7 +46,7 @@ async function getCategories() {
 }
 
 getCategories();
-createErrorContainerForRecipes ();
+createErrorContainerForRecipes();
 
 if (!localStorage.getItem('selected-category')) {
   getAllRecipes();
@@ -274,7 +278,7 @@ export async function getRecipeByFilter(filtersObj, selectedPage) {
       seeViewport(),
       filtersObj.time,
       filtersObj.area,
-      filtersObj.ingredient
+      filtersObj.ingredients
     );
     if (resp.data.results.length === 0) {
       errorElementCategoryAndFilters(
@@ -307,8 +311,9 @@ export async function getRecipeByFilterAndCategory(filtersObj, selectedPage) {
       seeViewport(),
       filtersObj.time,
       filtersObj.area,
-      filtersObj.ingredient
+      filtersObj.ingredients
     );
+    console.log(filtersObj);
     if (resp.data.results.length === 0) {
       errorElementCategoryAndFilters(
         'We are sorry. There are no recipes matching your request.'
