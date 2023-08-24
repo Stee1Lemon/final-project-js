@@ -2,7 +2,7 @@ import { createModal } from './open-any-modal.js';
 import manImage from '../images/images-developer/man-image.webp';
 import womanImage from '../images/images-developer/woman-image.webp';
 
-const developerOpenBtn = document.querySelector('.team-section');
+const developerOpenBtn = document.querySelector('.dev-btn');
 
 developerOpenBtn?.addEventListener('click', openTeamModal);
 
@@ -63,7 +63,7 @@ function getModalContent() {
       <span class="developer-role">Developer</span>
   </div>
 </div>
-<button class="close-button" onclick="closeTeamModal()">&#10006;</button>
+<button class="close-button">&#10006;</button>
 </div>`;
 }
 
