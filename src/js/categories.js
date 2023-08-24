@@ -38,11 +38,13 @@ async function getCategories() {
     goToLocal();
   } catch (err) {
     console.log(err);
-    categoriesListEl.innerHTML = `
+    if (categoriesListEl) {
+      categoriesListEl.innerHTML = `
       <p class="categories-err">
       We are sorry, something went wrong. Please, reload the page!
       </p>
       `;
+    }
   }
 }
 
@@ -99,8 +101,10 @@ export async function getAllRecipes(selectedPage) {
     }
   } catch (err) {
     console.log(err);
-    recipesTable.innerHTML = '';
-    errorEl.classList.remove('is-hidden');
+    if (recipesTable) {
+      recipesTable.innerHTML = '';
+      errorEl.classList.remove('is-hidden');
+    }
   }
 }
 
@@ -149,9 +153,11 @@ export async function getRecipesByCategory(category, selectedPage) {
       paginationSetUp(currentPage, totalPages);
     }
   } catch (err) {
-    console.log(err);
-    recipesTable.innerHTML = '';
-    errorEl.classList.remove('is-hidden');
+    if (recipesTable) {
+      console.log(err);
+      recipesTable.innerHTML = '';
+      errorEl.classList.remove('is-hidden');
+    }
   }
 }
 
@@ -231,9 +237,11 @@ export async function getRecipeByTitle(filtersObj, selectedPage) {
       paginationSetUp(currentPage, totalPages, filtersObj);
     }
   } catch (err) {
-    console.log(err);
-    recipesTable.innerHTML = '';
-    errorEl.classList.remove('is-hidden');
+    if (recipesTable) {
+      console.log(err);
+      recipesTable.innerHTML = '';
+      errorEl.classList.remove('is-hidden');
+    }
   }
 }
 
@@ -262,9 +270,11 @@ export async function getRecipeByTitleAndCategory(filtersObj, selectedPage) {
       paginationSetUp(currentPage, totalPages, filtersObj);
     }
   } catch (err) {
-    console.log(err);
-    recipesTable.innerHTML = '';
-    errorEl.classList.remove('is-hidden');
+    if (recipesTable) {
+      console.log(err);
+      recipesTable.innerHTML = '';
+      errorEl.classList.remove('is-hidden');
+    }
   }
 }
 
@@ -294,9 +304,11 @@ export async function getRecipeByFilter(filtersObj, selectedPage) {
       paginationSetUp(currentPage, totalPages, filtersObj);
     }
   } catch (err) {
-    console.log(err);
-    recipesTable.innerHTML = '';
-    errorEl.classList.remove('is-hidden');
+    if (recipesTable) {
+      console.log(err);
+      recipesTable.innerHTML = '';
+      errorEl.classList.remove('is-hidden');
+    }
   }
 }
 
@@ -328,8 +340,10 @@ export async function getRecipeByFilterAndCategory(filtersObj, selectedPage) {
       paginationSetUp(currentPage, totalPages, filtersObj);
     }
   } catch (err) {
-    console.log(err);
-    recipesTable.innerHTML = '';
-    errorEl.classList.remove('is-hidden');
+    if (recipesTable) {
+      console.log(err);
+      recipesTable.innerHTML = '';
+      errorEl.classList.remove('is-hidden');
+    }
   }
 }
