@@ -39,7 +39,6 @@ function reloadTheme() {
 
 export function saveInLocalStorageModal(objForLocal) {
     try { localStorage.setItem("key_form", JSON.stringify(objForLocal));
-    console.log(localStorage.getItem("key_form"))
     } catch (error) {
         console.log(error);
     };
@@ -61,9 +60,19 @@ export function resetLocalStorageModal() {
     };
 };
 
+export function isInLSModalKey() {
+    try {
+        let info = JSON.parse(localStorage.getItem("key_form"));
+    if (info) {
+        return true;
+    };
+    } catch(error) {
+        console.log(error);
+    };
+};
+
 
 // LOCAL STORAGE ДЛЯ КАТЕГОРІЙ
-// const categoriesList = document.querySelector('.categories-list-js');
 
 export function handleCategoryClick(categoryOption) {
     try {
@@ -246,6 +255,29 @@ export function getFiltersFromLS() {
         console.log(error);
     };
 };
+
+// LOCAL STORAGE ДЛЯ ПАГІНАЦІЇ 
+
+export function saveInLocalStoragePagination(page) {
+    try {
+        let dataPagination = JSON.stringify(page);
+    localStorage.setItem("key_pagination", dataPagination);
+    } catch(error) {
+        console.log(error);
+    };
+};
+
+export function getPaginationFromLS() {
+    try {
+        let savedPage = JSON.parse(localStorage.getItem("key_pagination"));
+        if (savedPage) {
+            return savedPage;
+        }
+    } catch(error) {
+        console.log(error);
+    };
+};
+
 
 // //////////////////////////////////////////
 reloadThemeAndFormData();
