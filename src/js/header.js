@@ -2,6 +2,61 @@
 import { openOrderModal } from './order-pop-up';
 import { resetLocalStorageFilters } from './local-storage';
 
+// --------------------------------------------Активні посилання навігації сайту
+
+document.addEventListener("DOMContentLoaded", (evt) => {
+  console.log('Loaded');
+  const linkHome = document.querySelector('.header-link-home');
+  const linkFav = document.querySelector('.header-link-fav');
+   console.log(linkHome, linkFav);
+
+  function onLinkClick(link) {
+    linkHome.classList.remove("js-link");
+    linkFav.classList.remove("js-link");
+    link.classList.add("js-link");
+  }
+
+  linkHome.addEventListener('click', (evt) => {
+    console.log('Push HOME');
+    onLinkClick(linkHome);
+  });
+
+  linkFav.addEventListener('click', (evt) => {
+    onLinkClick(linkFav);
+    console.log('Push FAV');
+  })
+
+});   // При загрузці HTML-документа
+
+
+
+
+// document.addEventListener("DOMContentLoaded", function() {
+//         const headerLinkHome = document.getElementById("home-link");
+//         const headerLinkFavorites = document.getElementById("favorites-link");
+
+//         function setActiveLink(link) {
+//             headerLinkHome.classList.remove("active");
+//             headerLinkFavorites.classList.remove("active");
+//             link.classList.add("active");
+//         }
+
+//         headerLinkHome.addEventListener("click", function(event) {
+//             setActiveLink( headerLinkHome);
+//         });
+
+//         headerLinkFavorites.addEventListener("click", function(event) {
+//             setActiveLink(headerLinkFavorites);
+//         });
+
+//         if (window.location.pathname.includes("Favorites.html")) {
+//             setActiveLink(headerLinkFavorites);
+//         } else {
+//             setActiveLink(headerLinkHome);
+//         }
+// });
+
+
 // ----------------------------------------------Мобільне меню
 (() => {
   const refs = {
@@ -64,25 +119,5 @@ if (activeTheme === null || activeTheme === 'light') {
 const basketEl = document.querySelector('.header-basket');
 basketEl.addEventListener('click', openOrderModal);
 
-//-------------------------------------------- Зміна кольору посилань
-
-const homeEl = document.querySelector('.header-link-home');
-const favEl = document.querySelector('.header-link-fav');
-const menuLinkHome = document.querySelector('.menu-link-home');
-const seeFavorites = document.querySelector('.fav-section');
-const menuLinkFav = document.querySelector('.menu-link-home');
-
-if (!seeFavorites) {
-  homeEl.classList.add('js-link');
-  if (bodyEl.classList.contains('dark')) {
-    menuLinkHome.classList.add('js-link');
-  }
-} else {
-  favEl.classList.add('js-link');
-  if (bodyEl.classList.contains('dark')) {
-    menuLinkFav.classList.add('js-link');
-  }
-}
-
-// --------------------------------Зброс локалсторідж по фільтрам
+// ----------------------------------------Зброс локалсторідж по фільтрам
 homeEl.addEventListener('click', resetLocalStorageFilters);

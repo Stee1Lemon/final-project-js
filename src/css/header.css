@@ -1,11 +1,6 @@
-.header-link-home.js-link {
+.js-link {
     color: var(--accent-color);
 }
-
-.header-link-fav.js-link {
-    color: var(--accent-color);
-}
-
 
 .header-container {
     display: flex;
@@ -181,15 +176,6 @@
     line-height: normal;
 
     text-align: center;
-}
-
-/* .menu-link-home */
-.js-link {
-    color: var(--accent-color);
-}
-
-.menu-link-fav.js-link {
-    color: var(--accent-color);
 }
 
 /* Switcher menu */
