@@ -28,7 +28,7 @@ const bodyEl = document.querySelector('body');
 
 switcherEl.forEach(input => {
     // Перевіряємо положення світчера і присвоюємо змінній theme відповідне значення
-    input?.addEventListener('change', function () {
+    input.addEventListener('change', function () {
         if (input.checked === false) {
             theme = 'light';
             bodyEl.classList.remove('dark')
