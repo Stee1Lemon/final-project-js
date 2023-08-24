@@ -1,6 +1,5 @@
-const recipesTable = document.querySelector('.js-card-items');
-
 export function createErrorContainerForRecipes() {
+  const recipesTable = document.querySelector('.js-card-items');
   recipesTable.insertAdjacentHTML(
     'afterend',
     `<div class="err-container-recipes-js" style="text-align: center"></div>`
