@@ -2,6 +2,10 @@
     color: var(--accent-color);
 }
 
+.header-link-fav.js-link {
+    color: var(--accent-color);
+}
+
 
 .header-container {
     display: flex;
@@ -166,7 +170,8 @@
     margin-bottom: 16px;
 }
 
-.menu-link {
+.menu-link-home,
+.menu-link-fav {
     display: block;
     color: #FFF;
     font-family: Inter;
@@ -178,6 +183,14 @@
     text-align: center;
 }
 
+/* .menu-link-home */
+.js-link {
+    color: var(--accent-color);
+}
+
+.menu-link-fav.js-link {
+    color: var(--accent-color);
+}
 
 /* Switcher menu */
 .menu-switch {
