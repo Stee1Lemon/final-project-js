@@ -1,6 +1,6 @@
 // console.log('3. Header');
-
 import { openOrderModal } from "./order-pop-up";
+import { resetLocalStorageFilters } from "./local-storage";
 
 // ----------------------------------------------Мобільне меню
 (() => {
@@ -24,6 +24,7 @@ import { openOrderModal } from "./order-pop-up";
 
 let theme = null;
 const switcherEl = document.querySelectorAll('.js-switch'); //Вибираємо всі світчери на сторінці.
+console.log(switcherEl);
 const bodyEl = document.querySelector('body');
 
 switcherEl.forEach(input => {
@@ -33,6 +34,7 @@ switcherEl.forEach(input => {
             theme = 'light';
             bodyEl.classList.remove('dark')
             localStorage.setItem('theme', theme)
+            
         } else {
             theme = 'dark';
             changeTheme(theme);
@@ -43,7 +45,7 @@ switcherEl.forEach(input => {
 })
 // Функція зміни теми
 function changeTheme(themeName) {
-    bodyEl.classList.toggle('dark');
+    bodyEl.classList.add('dark');
 }
 
 // Перевіряємо, чи є в локалсторідж значення теми і записуємо в змінну theme
@@ -70,14 +72,23 @@ basketEl.addEventListener('click', openOrderModal);
 
 const homeEl = document.querySelector('.header-link-home');
 const favEl = document.querySelector('.header-link-fav');
-console.log(homeEl);
-console.log(favEl);
+const menuLinkHome = document.querySelector('.menu-link-home');
 const seeFavorites = document.querySelector('.fav-section');
+const menuLinkFav = document.querySelector('.menu-link-home');
+
 
 if (!seeFavorites) {
     homeEl.classList.add('js-link');
+    if (bodyEl.classList.contains('dark')) {
+        menuLinkHome.classList.add('js-link');
+    }
 }
 else {
     favEl.classList.add('js-link');
+    if (bodyEl.classList.contains('dark')) {
+        menuLinkFav.classList.add('js-link');
+    }
 }
 
+// --------------------------------Зброс локалсторідж по фільтрам 
+    homeEl.addEventListener('click', resetLocalStorageFilters);
