@@ -125,6 +125,7 @@ function handlerInput(evt) {
     selectTime.setAttribute('disabled', 'disabled');
     selectArea.setAttribute('disabled', 'disabled');
     selectIngredients.setAttribute('disabled', 'disabled');
+    updateFullFilter();
     getRecipeByInfo(fullFilter);
   }
   if (searchText.length === 0) {
@@ -132,8 +133,8 @@ function handlerInput(evt) {
     selectTime.removeAttribute('disabled');
     selectArea.removeAttribute('disabled');
     selectIngredients.removeAttribute('disabled');
+    updateFullFilter();
   }
-  updateFullFilter();
 }
 
 function selectedTime(evt) {
@@ -187,6 +188,7 @@ function updateFullFilter() {
   // console.log(fullFilter);
   
   if (searchTime && searchArea && searchIngredient) {
+    // console.log(fullFilter)
     getRecipeByInfo(fullFilter);
     return;
   }
