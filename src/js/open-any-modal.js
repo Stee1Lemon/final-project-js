@@ -18,7 +18,11 @@ function createModal(content) {
         instance.element().addEventListener('click', adListenerToCloseBtn);
         document.addEventListener('keydown', escListener);
         const btnToCloseAuto = instance.element().querySelector('.btn-rating');
+        const btnSubmitFormEl = instance
+          .element()
+          .querySelector('.order-submit');
         if (btnToCloseAuto) mutationObserver(btnToCloseAuto, instance);
+        if (btnSubmitFormEl) mutationObserver(btnSubmitFormEl, instance);
       },
     }
   );
