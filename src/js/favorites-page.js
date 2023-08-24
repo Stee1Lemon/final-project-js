@@ -1,9 +1,5 @@
 //console.log('10.Favorites page');
-import {
-  seeViewport,
-  makeCardsMarkUp,
-  addToFavoriteListener,
-} from './recipes-cards';
+import { makeCardsMarkUp, addToFavoriteListener } from './recipes-cards';
 import { showRating } from './rating-pop-up.js';
 import './header.js';
 
