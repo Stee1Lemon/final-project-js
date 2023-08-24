@@ -1,25 +1,22 @@
-import { all } from 'axios';
-import { join } from 'lodash';
 import { FetchInfo } from './fetch-requests';
 import { showRating } from './rating-pop-up.js';
 import { createModal } from './open-any-modal.js';
 import { openRatingModal } from './rating-pop-up.js'
 import { takeFavoritesCardsFromLS, addToLocalFavoritesCards, removeFromLocalStorage } from './local-storage';
 import { makeCardsMarkUp } from './recipes-cards.js';
+// import {cardsMarkup} from './favorites-page';
 
 const recipes = new FetchInfo();
 
 export function openRecipeModal(id){
-    console.log('click on open recipe btn');
     createModal(recipeModalContentMurkup());
     addBorder();
     recipes.fetchRecipeById(id).then(recipeObj => {
-        console.log(recipeObj.data);
         recipeModalMarkup(recipeObj.data);
         showRating();
+        textContentBtnFav(recipeObj.data.title);
         window?.addEventListener('resize', moveTags);
         moveTags();
-        textContentBtnFav(recipeObj.data.title);
         const btnFav = document.querySelector('.btn-favorite');
         btnFav?.addEventListener('click', () => {addOrRemoveFav(recipeObj.data)});
         const btnRating = document.querySelector('.btn-give-rating');
@@ -157,10 +154,10 @@ function addOrRemoveFav (recipe) {
 
   if (btnFav.textContent = "Add to favorite"){
     console.log('click add fav');
-    console.log('add fav');
     addToLocalFavoritesCards(recipe);
     const recipesFromLS = takeFavoritesCardsFromLS();
     makeCardsMarkUp(recipesFromLS);
+    console.log('add fav');
     btnFav.textContent = "Remove from favorite";
   }
   if (btnFav.textContent = "Remove from favorite"){
@@ -168,6 +165,7 @@ function addOrRemoveFav (recipe) {
     removeFromLocalStorage(recipe.id);
     const recipesFromLS = takeFavoritesCardsFromLS();
     makeCardsMarkUp(recipesFromLS);
+    console.log('remove from fav');
     btnFav.textContent = "Add to favorite"
   }
 }
