@@ -29,30 +29,35 @@ function ratingMarkUp(id, name, rating) {
               class="rating-item"
               name="recipe-rating"
               value="1"
+              aria-label="recipe-rating 1"
             />
             <input
               type="radio"
               class="rating-item"
               name="recipe-rating"
               value="2"
+              aria-label="recipe-rating 2"
             />
             <input
               type="radio"
               class="rating-item"
               name="recipe-rating"
               value="3"
+              aria-label="recipe-rating 3"
             />
             <input
               type="radio"
               class="rating-item"
               name="recipe-rating"
               value="4"
+              aria-label="recipe-rating 4"
             />
             <input
               type="radio"
               class="rating-item"
               name="recipe-rating"
               value="5"
+              aria-label="recipe-rating 5"
             />
           </div>
         </div>
