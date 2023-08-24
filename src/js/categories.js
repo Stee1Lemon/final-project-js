@@ -28,10 +28,11 @@ let currentPage;
 async function getCategories() {
   try {
     const resp = await request.fetchAllCategories();
-    categoriesListEl.insertAdjacentHTML(
-      'afterbegin',
-      createCategoriesMarkUp(resp.data)
-    );
+    if (categoriesListEl)
+      categoriesListEl.insertAdjacentHTML(
+        'afterbegin',
+        createCategoriesMarkUp(resp.data)
+      );
     const btns = document.querySelectorAll('.category-btn');
     categoryBtns = [...btns];
     goToLocal();
@@ -51,7 +52,7 @@ createErrorContainerForRecipes();
 if (!localStorage.getItem('selected-category')) {
   getAllRecipes();
   resetLocalStorageFilters();
-  categoriesBtnEl.classList.add('categories-btn-active');
+  if (categoriesBtnEl) categoriesBtnEl.classList.add('categories-btn-active');
 }
 
 function createCategoriesMarkUp(arr) {
