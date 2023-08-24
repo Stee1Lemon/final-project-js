@@ -64,36 +64,41 @@ function makeCardsMarkUp(cardInfo) {
         <div class="rating-value">${rating}</div>
         <div class="rating-body">
           <div class="rating-active"></div>
-          <div class="rating-items">
+          <div class="rating-items id="rating-start">
             <input
               type="radio"
               class="rating-item"
               name="recipe-rating"
               value="1"
+              aria-describedby="rating-start"
             />
             <input
               type="radio"
               class="rating-item"
               name="recipe-rating"
               value="2"
+              aria-describedby="rating-start"
             />
             <input
               type="radio"
               class="rating-item"
               name="recipe-rating"
               value="3"
+              aria-describedby="rating-start"
             />
             <input
               type="radio"
               class="rating-item"
               name="recipe-rating"
               value="4"
+              aria-describedby="rating-start"
             />
             <input
               type="radio"
               class="rating-item"
               name="recipe-rating"
               value="5"
+              aria-describedby="rating-start"
             />
           </div>
         </div>
