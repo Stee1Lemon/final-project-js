@@ -1,11 +1,10 @@
-import { all } from 'axios';
-import { join } from 'lodash';
 import { FetchInfo } from './fetch-requests';
 import { showRating } from './rating-pop-up.js';
 import { createModal } from './open-any-modal.js';
 import { openRatingModal } from './rating-pop-up.js'
 import { takeFavoritesCardsFromLS, addToLocalFavoritesCards, removeFromLocalStorage } from './local-storage';
-import { makeCardsMarkUp } from './recipes-cards.js';
+// import { makeCardsMarkUp } from './recipes-cards.js';
+import {cardsMarkup} from './favorites-page';
 
 const recipes = new FetchInfo();
 
@@ -157,17 +156,17 @@ function addOrRemoveFav (recipe) {
 
   if (btnFav.textContent = "Add to favorite"){
     console.log('click add fav');
-    console.log('add fav');
     addToLocalFavoritesCards(recipe);
     const recipesFromLS = takeFavoritesCardsFromLS();
-    makeCardsMarkUp(recipesFromLS);
+    cardsMarkup(recipesFromLS);
+    console.log('add fav');
     btnFav.textContent = "Remove from favorite";
   }
   if (btnFav.textContent = "Remove from favorite"){
     console.log('click remove from fav');
     removeFromLocalStorage(recipe.id);
     const recipesFromLS = takeFavoritesCardsFromLS();
-    makeCardsMarkUp(recipesFromLS);
+    cardsMarkup(recipesFromLS);
     btnFav.textContent = "Add to favorite"
   }
 }
