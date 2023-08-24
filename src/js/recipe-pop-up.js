@@ -2,9 +2,9 @@ import { FetchInfo } from './fetch-requests';
 import { showRating } from './rating-pop-up.js';
 import { createModal } from './open-any-modal.js';
 import { openRatingModal } from './rating-pop-up.js'
-import { takeFavoritesCardsFromLS, addToLocalFavoritesCards, removeFromLocalStorage } from './local-storage';
+import { takeFavoritesCardsFromLS, addToLocalFavoritesCards, removeFromLocalStorage} from './local-storage';
 import { makeCardsMarkUp } from './recipes-cards.js';
-// import {cardsMarkup} from './favorites-page';
+// import {cardsMarkup} from './recipes-cards.js';
 
 const recipes = new FetchInfo();
 
@@ -14,11 +14,13 @@ export function openRecipeModal(id){
     recipes.fetchRecipeById(id).then(recipeObj => {
         recipeModalMarkup(recipeObj.data);
         showRating();
-        textContentBtnFav(recipeObj.data.title);
+        addOrRemoveBtn(recipeObj.data.title);
         window?.addEventListener('resize', moveTags);
         moveTags();
-        const btnFav = document.querySelector('.btn-favorite');
-        btnFav?.addEventListener('click', () => {addOrRemoveFav(recipeObj.data)});
+        const btnAddFav = document.querySelector('.btn-favorite');
+        const btnRemoveFav = document.querySelector('.btn-remove-fav');
+        btnAddFav?.addEventListener('click', () => addToFav(recipeObj.data));
+        btnRemoveFav?.addEventListener('click',() => removeFromFav(recipeObj.data));
         const btnRating = document.querySelector('.btn-give-rating');
         btnRating.addEventListener('click', () => {openRatingModal(recipeObj.data._id, recipeObj.data.title, recipeObj.data.rating)});
       });
@@ -32,6 +34,7 @@ function recipeModalContentMurkup() {
         </div>
         <div class="recipe-modal-btn-wrap">
             <button type="button" class="base-btn btn-favorite">Add to favorite</button>
+            <button type="button" class="base-btn btn-remove-fav is-hidden">Remove from favorite</button>
             <button type="button" class="base-btn btn-give-rating">Give a rating</button>
          </div>
     </div>
@@ -130,9 +133,22 @@ function moveTags(){
   }
 }
 
-function textContentBtnFav(recipeTitle){
-  const btnFav = document.querySelector('.btn-favorite');
-    const recipesInLS = takeFavoritesCardsFromLS();
+
+function addBorder(){
+  const modalRecipe = document.querySelector('.modal-recipe');
+
+  let activeTheme = localStorage.getItem('theme');
+  if (activeTheme === 'dark'){
+    modalRecipe.style.border = '4px solid var( --light-theme-almost-transparent-color)';
+    modalRecipe.style.borderRadius = '10px';
+  }
+}
+
+
+function addOrRemoveBtn(recipeTitle) {
+ const btnAddFav = document.querySelector('.btn-favorite');
+ const btnRemoveFav = document.querySelector('.btn-remove-fav');
+  const recipesInLS = takeFavoritesCardsFromLS();
     console.log(recipesInLS);
     if (recipesInLS[0] === null){
       console.log('length 0')
@@ -145,37 +161,34 @@ function textContentBtnFav(recipeTitle){
 
     if(isRecipeTitleInObj){
       console.log('resipes include my recipe');
-      btnFav.textContent = 'Remove from favorite';
+      btnAddFav.classList.add('is-hidden');
+      btnRemoveFav.classList.remove('is-hidden');
     }
+    else console.log('resipes NOT include my recipe');
 }
 
-function addOrRemoveFav (recipe) {
-  const btnFav = document.querySelector('.btn-favorite');
-
-  if (btnFav.textContent = "Add to favorite"){
-    console.log('click add fav');
-    addToLocalFavoritesCards(recipe);
-    const recipesFromLS = takeFavoritesCardsFromLS();
-    makeCardsMarkUp(recipesFromLS);
-    console.log('add fav');
-    btnFav.textContent = "Remove from favorite";
-  }
-  if (btnFav.textContent = "Remove from favorite"){
-    console.log('click remove from fav');
-    removeFromLocalStorage(recipe.id);
-    const recipesFromLS = takeFavoritesCardsFromLS();
-    makeCardsMarkUp(recipesFromLS);
-    console.log('remove from fav');
-    btnFav.textContent = "Add to favorite"
-  }
+function addToFav(recipe){
+  const btnAddFav = document.querySelector('.btn-favorite');
+ const btnRemoveFav = document.querySelector('.btn-remove-fav');
+  console.log('click add to fav');
+  addToLocalFavoritesCards(recipe);
+  const recipesFromLS = takeFavoritesCardsFromLS();
+  console.log(recipesFromLS);
+  makeCardsMarkUp(recipesFromLS);
+  console.log('add fav');
+  btnAddFav.classList.add('is-hidden');
+  btnRemoveFav.classList.remove('is-hidden');
 }
 
-function addBorder(){
-  const modalRecipe = document.querySelector('.modal-recipe');
-
-  let activeTheme = localStorage.getItem('theme');
-  if (activeTheme === 'dark'){
-    modalRecipe.style.border = '4px solid var( --light-theme-almost-transparent-color)';
-    modalRecipe.style.borderRadius = '10px';
-  }
+function removeFromFav(recipe){
+  const btnAddFav = document.querySelector('.btn-favorite');
+  const btnRemoveFav = document.querySelector('.btn-remove-fav');
+  console.log('click remove');
+  removeFromLocalStorage(recipe.id);
+  const recipesFromLS = takeFavoritesCardsFromLS();
+  console.log(recipesFromLS);
+  makeCardsMarkUp(recipesFromLS);
+  console.log('remove from fav');
+  btnRemoveFav.classList.add('is-hidden');
+  btnAddFav.classList.remove('is-hidden');
 }
