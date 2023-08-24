@@ -1,6 +1,11 @@
 import Pagination from 'tui-pagination';
-import { getAllRecipes, getRecipesByCategory } from './categories.js';
-import { getCategoryFromLS } from './local-storage.js';
+import {
+  getAllRecipes,
+  getRecipesByCategory,
+  getRecipeByTitle,
+  getRecipeByFilter,
+} from './categories.js';
+import { getCategoryFromLS, getFiltersFromLS } from './local-storage.js';
 
 function paginationSetUp(currentPage, totalPages, objFromFilter) {
   const container = document.getElementById('pagination');
@@ -34,13 +39,14 @@ function paginationSetUp(currentPage, totalPages, objFromFilter) {
 
   container.addEventListener('click', function (event) {
     if (event.target.classList.contains('tui-page-btn')) {
-      someFn(event.target);
+      someFn();
     }
   });
 
-  function someFn(clickedButton) {
+  function someFn() {
     const currentPage = pagination.getCurrentPage();
     const currentCategory = getCategoryFromLS();
+    const objFromFilter = getFiltersFromLS();
     if (objFromFilter) {
       doFilterCards(objFromFilter);
       return;
@@ -52,12 +58,14 @@ function paginationSetUp(currentPage, totalPages, objFromFilter) {
     }
   }
 
-  function doFilterCards() {
-    if (title) {
-      // fn for title search
+  function doFilterCards(objFromFilter) {
+    if (objFromFilter.title) {
+      getRecipeByTitle(objFromFilter, currentPage);
       return;
     }
-    // fn for other filters
+    console.log('ne v if', objFromFilter);
+    console.log('ne v if', currentPage);
+    getRecipeByFilter(objFromFilter, currentPage);
   }
 }
 
