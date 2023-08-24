@@ -100,8 +100,8 @@ export async function getAllRecipes(selectedPage) {
       paginationSetUp(currentPage, totalPages);
     }
   } catch (err) {
-    console.log(err);
     if (recipesTable) {
+      console.log(err);
       recipesTable.innerHTML = '';
       errorEl.classList.remove('is-hidden');
     }
