@@ -108,7 +108,7 @@ body {
     padding: 0 20px;
   }
   .sections-flex {
-    padding: 40px 0;
+    padding: 40px 20px 80px;
   }
 }
 
@@ -121,7 +121,7 @@ body {
   .sections-flex {
     display: flex;
     gap: 32px;
-    padding: 40px 0;
+    padding: 40px 32px 100px;
   }
 }
 
@@ -133,7 +133,7 @@ body {
 
   .sections-flex {
     gap: 63px;
-    padding: 50px 0;
+    padding: 50px 100px 100px;
   }
 }
 

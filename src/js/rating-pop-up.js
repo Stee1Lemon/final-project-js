@@ -151,18 +151,16 @@ function showRating() {
       if (!isChecked) {
         return Notify.warning('Choose rating to set');
       }
-      console.log('змінити ID заглушку');
-      console.log('info in local storage (148)', objToSendLocal);
       fetchUse
         .patchRatingRecipe(ratingValue.id, objToSendBack)
         .then(res => {
           ratingSendRateBtnEl.classList.add('close');
+          addToLocalRating(objToSendLocal);
           Notify.success('Thank you for your feedback');
-          console.log(res.statusText);
         })
         .catch(err => {
-          Notify.warning(err.response.data.message);
-          console.log(err.response.data.message);
+          const error = err.response.data.message;
+          Notify.warning(error);
         });
     }
 

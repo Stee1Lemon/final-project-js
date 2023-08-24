@@ -2,12 +2,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 40px;
 }
 
 @media screen and (min-width: 768px) {
   .pagination-wrapper {
-    margin-top: 64px;
   }
 }
 

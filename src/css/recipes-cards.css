@@ -1,5 +1,5 @@
 .card-section {
-  padding: 10px 0 20px;
+  margin: 10px 0 40px;
 }
 
 .recipe-card {
@@ -85,7 +85,7 @@
 
 @media screen and (min-width: 768px) {
   .card-section {
-    padding: 7px 0 32px;
+    margin: 7px 0 64px;
   }
 
   .recipe-card {
