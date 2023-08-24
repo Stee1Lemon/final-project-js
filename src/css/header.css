@@ -1,4 +1,8 @@
-.js-link {
+.header-link-home.js-link {
+    color: var(--accent-color);
+}
+
+.header-link-fav.js-link {
     color: var(--accent-color);
 }
 

@@ -3,37 +3,68 @@ import { openOrderModal } from './order-pop-up';
 import { resetLocalStorageFilters } from './local-storage';
 
 // --------------------------------------------Активні посилання навігації сайту
+const linkHome = document.querySelector(".header-link-home");
+const linkFav = document.querySelector(".header-link-fav");
+if (window.location.pathname.includes("Favorites.html")) {
+  console.log(2);        
+  setActiveLink(linkFav);
+  } else {
+  console.log(1);          
+  setActiveLink(linkHome);
+  }
 
-document.addEventListener("DOMContentLoaded", (evt) => {
-  console.log('Loaded');
-  const linkHome = document.querySelector('.header-link-home');
-  const linkFav = document.querySelector('.header-link-fav');
-   console.log(linkHome, linkFav);
-
-  function onLinkClick(link) {
-    linkHome.classList.remove("js-link");
-    linkFav.classList.remove("js-link");
+  function setActiveLink(link) {
+    // linkHome.classList.remove("js-link");
+    // linkFav.classList.remove("js-link");
     link.classList.add("js-link");
   }
 
-  linkHome.addEventListener('click', (evt) => {
-    console.log('Push HOME');
-    onLinkClick(linkHome);
-  });
 
-  linkFav.addEventListener('click', (evt) => {
-    onLinkClick(linkFav);
-    console.log('Push FAV');
-  })
 
-});   // При загрузці HTML-документа
+
+// document.addEventListener('DOMContentLoaded', (evt) => {
+//   const linkHome = document.querySelector(".header-link-home")
+//   const linkFav = document.querySelector(".header-link-fav")
+//   console.log('Loaded');
+  
+//   console.log(linkHome, linkFav);
+
+//   linkHome.addEventListener('click', onLinkClickHome(linkHome));
+//   linkFav.addEventListener('click', onLinkClickFav(linkFav));
+  
+//   function onLinkClickHome(link) {
+//     console.log('home');
+//     linkHome.classList.remove("js-link");
+//     linkFav.classList.remove("js-link");
+//     link.classList.add("js-link");
+//   }
+//   function onLinkClickFav(link) {
+//     console.log('fav');
+//     linkHome.classList.remove("js-link");
+//     linkFav.classList.remove("js-link");
+//     link.classList.add("js-link");
+//   }
+
+  //   linkHome.addEventListener('click', (evt) => {
+  //   console.log('Push HOME');
+  //   // onLinkClick(linkHome);
+  // });
+
+  // linkFav.addEventListener('click', (evt) => {
+  //   // onLinkClick(linkFav);
+  //   console.log('Push FAV');
+  // })
+
+// });   // При загрузці HTML-документа
+
+
 
 
 
 
 // document.addEventListener("DOMContentLoaded", function() {
-//         const headerLinkHome = document.getElementById("home-link");
-//         const headerLinkFavorites = document.getElementById("favorites-link");
+//         const headerLinkHome = document.querySelector(".header-link-home");
+//         const headerLinkFavorites = document.querySelector(".header-link-fav");
 
 //         function setActiveLink(link) {
 //             headerLinkHome.classList.remove("active");
@@ -120,4 +151,4 @@ const basketEl = document.querySelector('.header-basket');
 basketEl.addEventListener('click', openOrderModal);
 
 // ----------------------------------------Зброс локалсторідж по фільтрам
-homeEl.addEventListener('click', resetLocalStorageFilters);
+// homeEl.addEventListener('click', resetLocalStorageFilters);
