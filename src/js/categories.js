@@ -15,6 +15,7 @@ const categoriesBtnEl = document.querySelector('.categories-btn-js');
 const categoriesListEl = document.querySelector('.categories-list-js');
 const errorEl = document.querySelector('.error-el');
 const recipesTable = document.querySelector('.js-card-items');
+const paginationContainer = document.querySelector('#pagination');
 
 let categoryBtns = [];
 let totalPages;
@@ -85,6 +86,9 @@ export async function getAllRecipes(selectedPage) {
     totalPages = resp.data.totalPages;
     currentPage = resp.data.page;
     cardsMarkUp(resp.data.results);
+    if (paginationContainer.classList.contains('is-hidden')) {
+      paginationContainer.classList.remove('is-hidden');
+    }
     if (pageToShow === 1) {
       paginationSetUp(currentPage, totalPages);
     }
@@ -128,10 +132,14 @@ export async function getRecipesByCategory(category, selectedPage) {
       errorElementCategoryAndFilters(
         'We are sorry. There are no recipes in this category.'
       );
+      paginationContainer.classList.add('is-hidden');
     }
     totalPages = resp.data.totalPages;
     currentPage = resp.data.page;
     cardsMarkUp(resp.data.results);
+    if (paginationContainer.classList.contains('is-hidden')) {
+      paginationContainer.classList.remove('is-hidden');
+    }
     if (pageToShow === 1) {
       paginationSetUp(currentPage, totalPages);
     }
@@ -166,6 +174,9 @@ export function getTotalPages() {
 
 export async function getRecipeByInfo(filtersObj, selectedPage) {
   errorRemove();
+  if (paginationContainer.classList.contains('is-hidden')) {
+    paginationContainer.classList.remove('is-hidden');
+  }
   if (filtersObj.title) {
     getRecipeByTitleInfo(filtersObj, selectedPage);
   } else {
@@ -206,6 +217,7 @@ export async function getRecipeByTitle(filtersObj, selectedPage) {
       errorElementCategoryAndFilters(
         'We are sorry. There are no recipes matching your request.'
       );
+      paginationContainer.classList.add('is-hidden');
     }
     totalPages = resp.data.totalPages;
     currentPage = resp.data.page;
@@ -236,6 +248,7 @@ export async function getRecipeByTitleAndCategory(filtersObj, selectedPage) {
       errorElementCategoryAndFilters(
         'We are sorry. There are no recipes matching your request.'
       );
+      paginationContainer.classList.add('is-hidden');
     }
     totalPages = resp.data.totalPages;
     currentPage = resp.data.page;
@@ -267,6 +280,7 @@ export async function getRecipeByFilter(filtersObj, selectedPage) {
       errorElementCategoryAndFilters(
         'We are sorry. There are no recipes matching your request.'
       );
+      paginationContainer.classList.add('is-hidden');
     }
     totalPages = resp.data.totalPages;
     currentPage = resp.data.page;
@@ -299,6 +313,7 @@ export async function getRecipeByFilterAndCategory(filtersObj, selectedPage) {
       errorElementCategoryAndFilters(
         'We are sorry. There are no recipes matching your request.'
       );
+      paginationContainer.classList.add('is-hidden');
     }
     totalPages = resp.data.totalPages;
     currentPage = resp.data.page;
