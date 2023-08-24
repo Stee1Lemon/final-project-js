@@ -34,8 +34,7 @@ function recipeModalContentMurkup() {
             <button type="button" class="base-btn btn-favorite">Add to favorite</button>
             <button type="button" class="base-btn btn-give-rating">Give a rating</button>
          </div>
-    </div>
-    </div>
+          </div>
 `
 }
 
@@ -45,10 +44,10 @@ function recipeModalMarkup(recipeData){
             if (recipeData.youtube) {
               const videoId = recipeData.youtube.split('v=')[1];
               const embedLink = `https://www.youtube.com/embed/${videoId}`;
-              const video = `<iframe class="recipe-modal-video" src="${embedLink}" width="295" height="295"></iframe>`;
+              const video = `<iframe class="recipe-modal-video" src="${embedLink}" width="295" height="295" alt="${recipeData.title}"></iframe>`;
               return video;
             }
-            return `<img class="recipe-modal-img" src="${recipeData.preview}" width="295" height="295"></img>`;
+            return `<img class="recipe-modal-img" src="${recipeData.preview}" width="295" height="295" alt="${recipeData.title}"></img>`;
           };
 
     const ingredientsList = recipeData.ingredients.map(
@@ -78,8 +77,7 @@ function recipeModalMarkup(recipeData){
         `<p class="recipe-modal-instructions-paragraph">${paragraph}</p>`
     )
     .join('');
-    const recipeMarkup =  `<div class="fixed-div">
-             <div class="video-or-image-wrap">${videoOrImage()}</div>
+    const recipeMarkup =  `<div class="video-or-image-wrap">${videoOrImage()}</div>
              <h2 class="recipe-modal-title">${recipeData.title}</h2>
              <div class="rating-time-tags-wrap"></div>
             <div class="rating-time-wrap">
@@ -98,7 +96,6 @@ function recipeModalMarkup(recipeData){
                   </div>
             <p class="recipe-modal-time">${recipeData.time}min</p>
             </div>
-                    </div>
                     <div class="scroll-div">
                 <ul class="modal-ingredients-list">
                 ${ingredientsList}

@@ -1,22 +1,23 @@
-/* 
 .scroll-div{
     overflow-y: auto;
-    flex-grow: 1;
-} */
-.modal-recipe {
+    margin-bottom: 20px;
+    max-height: calc(100vh - 600px);
+}
+
+.scroll-div {
     scrollbar-width: thin;
     scrollbar-color: var(--light-modal-scroll-color) inherit;
     }
     
-.modal-recipe::-webkit-scrollbar {
+.scroll-div::-webkit-scrollbar {
     width: 8px;
 }
 
-.modal-recipe::-webkit-scrollbar-track {
+.scroll-div::-webkit-scrollbar-track {
     background: inherit;
 }
 
-.modal-recipe::-webkit-scrollbar-thumb {
+.scroll-div::-webkit-scrollbar-thumb {
     background-color: var(--light-modal-scroll-color);
     border-radius: 12px;
     border: transparent;
@@ -28,12 +29,11 @@
     width: 320px;
     max-height: 100vh;
     padding: 40px 20px;
-    /* display: flex; */
     flex-direction: column;
     align-items: center;
     background: var(--light-modal-background-color);
     margin: 0;
-    position: absolute;
+    position: absolute; 
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(0);
@@ -132,7 +132,6 @@
 }
 
 .modal-ingredients-list {
-    margin-top: 33px;
     margin-bottom: 40px;
 }
 
