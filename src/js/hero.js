@@ -35,15 +35,11 @@ heroBtn.addEventListener("click", openOrderModal);
 
 fetchListItems()
   .then(response => {
-    console.log(response);
     swiperRendering(response);
     const swiper = new Swiper('.swiper', {
       slidesPerView: 1,
       slidesPerGroup: 1,
       spaceBetween: 10,
-    
-      // setWrapperSize: true,
-   
       modules: [Pagination, Navigation],
       pagination: {
         clickable: true,
