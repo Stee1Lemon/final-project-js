@@ -14,5 +14,4 @@ import './js/recipe-pop-up.js';
 import './js/scroll-up.js';
 import './js/loader.js';
 import './js/local-storage.js';
-import './js/footer.js';
 import './js/developer-modal.js';
