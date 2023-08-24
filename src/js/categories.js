@@ -13,6 +13,7 @@ import {
   errorElementCategoryAndFilters,
   errorRemove,
 } from './error-msg';
+import { resetAllFilters } from './filter';
 
 const request = new FetchInfo();
 const categoriesBtnEl = document.querySelector('.categories-btn-js');
@@ -77,6 +78,7 @@ function handlerAllCategoriesBtn() {
   removeCategoriesFromLS();
   errorRemove();
   getAllRecipes();
+  resetAllFilters();
   resetLocalStorageFilters();
 }
 
