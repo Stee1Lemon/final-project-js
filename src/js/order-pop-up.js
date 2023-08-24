@@ -3,12 +3,7 @@ import {saveInLocalStorageModal, resetLocalStorageModal, returnObjectOfModal} fr
 import { createModal } from './open-any-modal';
 import { FetchInfo } from "./fetch-requests";
 
-const openBtn = document.querySelector('.btn-open-order');
-openBtn?.addEventListener('click', openOrderModal);
-
 const fetch = new FetchInfo();
-
-const form = document.querySelector('.form-oder');
 
 export function openOrderModal(){
   createModal(orderModalMarkup());
@@ -16,6 +11,7 @@ export function openOrderModal(){
   addBorder();
 
   const form = document.querySelector('.form-oder');
+  const SendBtnOrder = document.querySelector('.order-submit');
   const {name, phone, email, comment} = form.elements;
 
   form?.addEventListener('input', () => {
@@ -26,24 +22,26 @@ export function openOrderModal(){
       comment: comment.value,
     }
     saveInLocalStorageModal(objForLocal)});
-  form?.addEventListener('submit', submitForm);
-
-  console.log(form);
+    form?.addEventListener('submit', submitForm);
 
   function submitForm(e) {
     e.preventDefault();
+  
+    if(name.value === '' || phone.value === '' || email.value === '' || comment.value === '')
+    return Notify.info('Please, fill all fields!');
+  
+    const dataForm = returnObjectOfModal();
 
-    if(name.value === '' || phone.value === '' || email.value === '')
-    return Notify.info('Please, fill name, phone and email!');
-  
-    postBack();
-  
-    e.currentTarget.reset();
-    resetLocalStorageModal();
+    fetch.postOrderApi(dataForm.name, dataForm.phone, dataForm.email, dataForm.comment)
+    .then(() => {
+      SendBtnOrder.classList.add('close');
+      Notify.success('Thanks for your order!');
+      e.currentTarget.reset();
+      resetLocalStorageModal();
+    })
+    .catch((error) => {return Notify.warning(`${error.response.data.message}`)});
+
   }
-  
-  // postBack();
- 
 }
 
 
@@ -68,8 +66,7 @@ function orderModalMarkup(){
         class="order-form-input"
         type="text"
         name="phone"
-        pattern="[0-9]{10}"
-        placeholder="Your phone: 0681112233"
+        placeholder="Your phone: +380681112233"
       />
     </label>
     <label class="order-form-label">
@@ -95,13 +92,5 @@ function addBorder(){
   }
 }
 
-
-function postBack() {
-  const dataForm = returnObjectOfModal();
-  console.log(dataForm);
-  console.log(dataForm.name);
-  fetch.postOrderApi(dataForm.name, dataForm.phone, dataForm.email, dataForm.comment)
-  .then(console.log('date go to back'));
-}
 
 
