@@ -240,8 +240,8 @@ function takeFromLocal() {
 
   inputSubmit.value = searchText;
   slimSelectTime.setSelected(searchTime);
-  slimSelectArea.setSelectedByValue(searchArea);
-  slimSelectIngredients.setSelectedByValue(searchIngredient);
+  // slimSelectArea.setSelectedByValue(searchArea);
+  // slimSelectIngredients.setSelectedByValue(searchIngredient);
 
   if (searchText.length >= 1) {
     resetInput.classList.remove('is-hidden');
