@@ -1,10 +1,9 @@
 import { FetchInfo } from './fetch-requests';
-import { showRating } from './rating-pop-up.js';
+import { showRating, openRatingModal } from './rating-pop-up.js';
 import { createModal } from './open-any-modal.js';
-import { openRatingModal } from './rating-pop-up.js'
-import { takeFavoritesCardsFromLS, addToLocalFavoritesCards, removeFromLocalStorage} from './local-storage';
-import { makeCardsMarkUp } from './recipes-cards.js';
-// import {cardsMarkup} from './recipes-cards.js';
+import { takeFavoritesCardsFromLS, addToLocalFavoritesCards, removeFromLocalStorage, getPaginationFromLS} from './local-storage';
+import { makeCardsMarkUp, seeViewport, cardsMarkup } from './recipes-cards.js';
+import {getAllRecipes} from './categories.js';
 
 const recipes = new FetchInfo();
 
@@ -146,33 +145,29 @@ function addOrRemoveBtn(recipeTitle) {
  const btnAddFav = document.querySelector('.btn-favorite');
  const btnRemoveFav = document.querySelector('.btn-remove-fav');
   const recipesInLS = takeFavoritesCardsFromLS();
-    console.log(recipesInLS);
     if (recipesInLS[0] === null){
-      console.log('length 0')
       return;
     } 
-    console.log('lenght > 0'); 
 
     const isRecipeTitleInObj = Object.values(recipesInLS)
     .some(obj => obj.title === recipeTitle);
 
     if(isRecipeTitleInObj){
-      console.log('resipes include my recipe');
       btnAddFav.classList.add('is-hidden');
       btnRemoveFav.classList.remove('is-hidden');
     }
-    else console.log('resipes NOT include my recipe');
 }
 
 function addToFav(recipe){
   const btnAddFav = document.querySelector('.btn-favorite');
- const btnRemoveFav = document.querySelector('.btn-remove-fav');
-  console.log('click add to fav');
+  const btnRemoveFav = document.querySelector('.btn-remove-fav');
   addToLocalFavoritesCards(recipe);
-  const recipesFromLS = takeFavoritesCardsFromLS();
-  console.log(recipesFromLS);
-  makeCardsMarkUp(recipesFromLS);
-  console.log('add fav');
+  // getAllRecipes();
+  // const recipesFromLS = takeFavoritesCardsFromLS();
+  // const recipesTable = document.querySelector('.js-card-items');
+  // recipes.fetchAllRecipesPerPage(seeViewport(), 1).then((allRecipes) => { 
+  // console.log(allRecipes);
+  // recipesTable.innerHTML = makeCardsMarkUp(allRecipes.data.results)});
   btnAddFav.classList.add('is-hidden');
   btnRemoveFav.classList.remove('is-hidden');
 }
@@ -180,12 +175,9 @@ function addToFav(recipe){
 function removeFromFav(recipe){
   const btnAddFav = document.querySelector('.btn-favorite');
   const btnRemoveFav = document.querySelector('.btn-remove-fav');
-  console.log('click remove');
-  removeFromLocalStorage(recipe.id);
+  removeFromLocalStorage(recipe._id);
   const recipesFromLS = takeFavoritesCardsFromLS();
-  console.log(recipesFromLS);
   makeCardsMarkUp(recipesFromLS);
-  console.log('remove from fav');
   btnRemoveFav.classList.add('is-hidden');
   btnAddFav.classList.remove('is-hidden');
 }
