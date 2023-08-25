@@ -14,7 +14,7 @@ function getModalContent() {
   return `<div class="developer-list">
   <div class="developer-list-item">
       <img class="footer-modal-image" src="${manImage}">
-      <span class="developer-name">Vladyslav Holodniuk</span><br>
+      <span class="developer-name">Vladyslav Golodniuk</span><br>
       <span class="developer-role">Team Lead</span>
   </div>
   <div class="developer-list-item">
