@@ -100,7 +100,6 @@ body {
 .container {
   margin: 0 auto;
   padding: 0 15px;
-  outline: 2px solid blue;
 }
 
 @media screen and (min-width: 375px) {
