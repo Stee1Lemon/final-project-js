@@ -138,17 +138,17 @@ function handlerInput(evt) {
 
 function selectedTime(evt) {
   searchTime = evt.currentTarget.value;
-  scheduleUpdate();
+  updateFullFilter();
 }
 
 function selectedArea(evt) {
   searchArea = evt.currentTarget.value;
-  scheduleUpdate();
+  updateFullFilter();
 }
 
 function selectedIngredient(evt) {
   searchIngredient = evt.currentTarget.value;
-  scheduleUpdate();
+  updateFullFilter();
 }
 
 function scheduleUpdate() {
@@ -175,7 +175,7 @@ function removeEnter(evt) {
   }
 }
 
-setTimeout(() => {takeFromLocal()}, 2000);
+// setTimeout(() => {takeFromLocal()}, 2000);
 
 function updateFullFilter() {
   fullFilter.title = searchText;
@@ -183,7 +183,7 @@ function updateFullFilter() {
   fullFilter.area = searchArea;
   fullFilter.ingredients = searchIngredient;
 
-  saveInLocalStorageFilters(fullFilter);
+  // saveInLocalStorageFilters(fullFilter);
 
   if (searchTime || searchArea || searchIngredient) {
     inputSubmit.classList.add('disabled');
