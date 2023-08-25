@@ -92,6 +92,7 @@
     width: 105px;
     height: 16px;
     margin-left: auto;
+    padding: 0;
     background-color: var(--light-theme-background-color);
 }
 

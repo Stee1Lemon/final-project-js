@@ -200,7 +200,7 @@ function updateFullFilter() {
   } else if (!searchTime && !searchArea && !searchIngredient) {
     return;
   } else {
-    Notify.info(`Please fill all fields`);
+    Notify.info(`Please, fill all fields!`);
   }
 }
 
