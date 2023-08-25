@@ -15,6 +15,7 @@ import 'swiper/swiper-bundle.min.css'
 import 'swiper/swiper.min.css'
 // export function openOrderModal()
 import { openOrderModal } from "./order-pop-up"; 
+import errorImg from "../images/error-img.webp"
 
 import axios from 'axios';
 const paginationPosition = document.querySelector('.swiper-pagination');
@@ -22,6 +23,7 @@ const swiperSlide = document.querySelector('.swiper-slide');
 const heroBtn = document.querySelector('.hero-btn');
 
 const swiperWrapper = document.querySelector('.swiper-wrapper');
+const mySwiperWrap = document.querySelector('.my-swiper-wrap');
 
 const fetchListItems = async () => {
   const events = await axios.get(`https://tasty-treats-backend.p.goit.global/api/events`);
@@ -33,15 +35,11 @@ heroBtn.addEventListener("click", openOrderModal);
 
 fetchListItems()
   .then(response => {
-    console.log(response);
     swiperRendering(response);
     const swiper = new Swiper('.swiper', {
       slidesPerView: 1,
       slidesPerGroup: 1,
       spaceBetween: 10,
-    
-      // setWrapperSize: true,
-   
       modules: [Pagination, Navigation],
       pagination: {
         clickable: true,
@@ -66,13 +64,11 @@ fetchListItems()
     
   })
   .catch(err => {
-    console.log(err);
-    // errorSwiperRendering();
-    
+    console.log(err);   
+    return mySwiperWrap.innerHTML = `<img class="err-img" src=${errorImg} alt="Error image" />`;
+  });
 
-  })
 
-const picErr = "../images/error-img.webp";
 
 
 function swiperRendering(elements) {
