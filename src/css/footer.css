@@ -29,6 +29,7 @@ ul{
 	margin-bottom: 20px;
 	font-weight: 700;
 	position: relative;
+	color: var(--light-theme-text-color);
 }
 
 .footer-col li:not(:last-child){
@@ -62,6 +63,7 @@ ul{
 	display: inline-block;
 	padding: 30px 50px;
 	cursor: pointer;
+	color: var(--light-theme-text-color);
 }
 
 .developer-wrap{
