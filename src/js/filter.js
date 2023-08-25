@@ -54,7 +54,7 @@ function timesMarkup() {
     })
     .join('');
   const selectTimeMarkup = defaultTimeOption + fullTimeOption + timeMarkup;
-  selectTime.insertAdjacentHTML('beforeend', selectTimeMarkup);
+  if (selectTime) selectTime.insertAdjacentHTML('beforeend', selectTimeMarkup);
 
   slimSelectTime = new SlimSelect({
     select: '.time-select',
