@@ -1,9 +1,11 @@
 import { Notify } from "notiflix";
-import {saveInLocalStorageModal, resetLocalStorageModal, returnObjectOfModal} from './local-storage';
+import {saveInLocalStorageModal, resetLocalStorageModal, returnObjectOfModal, isInLSModalKey} from './local-storage';
 import { createModal } from './open-any-modal';
 import { FetchInfo } from "./fetch-requests";
 
 const fetch = new FetchInfo();
+
+
 
 export function openOrderModal(){
   createModal(orderModalMarkup());
@@ -13,6 +15,14 @@ export function openOrderModal(){
   const form = document.querySelector('.form-oder');
   const SendBtnOrder = document.querySelector('.order-submit');
   const {name, phone, email, comment} = form.elements;
+
+  if(isInLSModalKey()){
+    const saveInLSInput = returnObjectOfModal();
+    name.value = saveInLSInput.name;
+    phone.value = saveInLSInput.phone;
+    email.value = saveInLSInput.email;
+    comment.value = saveInLSInput.comment;
+  }
 
   form?.addEventListener('input', () => {
     const objForLocal = {
@@ -36,7 +46,6 @@ export function openOrderModal(){
     .then(() => {
       SendBtnOrder.classList.add('close');
       Notify.success('Thanks for your order!');
-      e.currentTarget.reset();
       resetLocalStorageModal();
     })
     .catch((error) => {return Notify.warning(`${error.response.data.message}`)});
@@ -91,6 +100,4 @@ function addBorder(){
     modalOrder.style.borderRadius = '10px';
   }
 }
-
-
 
