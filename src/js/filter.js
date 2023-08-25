@@ -82,7 +82,7 @@ filters
     });
   })
   .catch(() => {
-    Notify.failure(`Oops! Something went wrong! Try reloading the page!`);
+    // Notify.failure(`Oops! Something went wrong! Try reloading the page!`);
   });
 
 filters
