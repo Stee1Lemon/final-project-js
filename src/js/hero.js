@@ -15,7 +15,6 @@ import 'swiper/swiper-bundle.min.css'
 import 'swiper/swiper.min.css'
 // export function openOrderModal()
 import { openOrderModal } from "./order-pop-up"; 
-import errorImg from "../images/error-img.webp"
 
 import axios from 'axios';
 const paginationPosition = document.querySelector('.swiper-pagination');
@@ -23,7 +22,6 @@ const swiperSlide = document.querySelector('.swiper-slide');
 const heroBtn = document.querySelector('.hero-btn');
 
 const swiperWrapper = document.querySelector('.swiper-wrapper');
-const mySwiperWrap = document.querySelector('.my-swiper-wrap');
 
 const fetchListItems = async () => {
   const events = await axios.get(`https://tasty-treats-backend.p.goit.global/api/events`);
@@ -35,11 +33,22 @@ heroBtn.addEventListener("click", openOrderModal);
 
 fetchListItems()
   .then(response => {
+    console.log(response);
     swiperRendering(response);
+    const swiperWrapper = document.querySelector('.swiper-wrapper');
+    const secondSlideThirdElem = swiperWrapper.children[1].firstElementChild.lastElementChild.firstElementChild;
+    const thirdSlideThirdElem = swiperWrapper.children[2].firstElementChild.lastElementChild.firstElementChild;
+    console.log(secondSlideThirdElem, thirdSlideThirdElem);
+    secondSlideThirdElem.classList.add("second-slide-third-elem");
+    thirdSlideThirdElem.classList.add("third-slide-third-elem");
+
     const swiper = new Swiper('.swiper', {
       slidesPerView: 1,
       slidesPerGroup: 1,
       spaceBetween: 10,
+    
+      // setWrapperSize: true,
+   
       modules: [Pagination, Navigation],
       pagination: {
         clickable: true,
@@ -56,17 +65,17 @@ fetchListItems()
         enabled: true,
         onlyInViewport: false,
       }
-    });
-    
-  
+   });
     
     return swiper;
     
   })
   .catch(err => {
-    console.log(err);   
-    return mySwiperWrap.innerHTML = `<img class="err-img" src=${errorImg} alt="Error image" />`;
-  });
+    console.log(err);
+    // errorSwiperRendering();
+    
+
+  })
 
 
 
@@ -77,15 +86,15 @@ function swiperRendering(elements) {
     <div class="swiper-slide">
       <div class="hero-slide-wrap">
         <div class="first-pic">
-          <img class="cook" src="${element.cook.imgWebpUrl}" alt="Photo of the cook who prepared the dish" />
+          <img class="cook" src="${element.cook.imgWebpUrl}" />
         </div>
         <div class="second-pic">
-          <img  class="pic" src="${element.topic.previewWebpUrl}" alt = "The name of the finished dish and the country of origin" />
+          <img  class="pic" src="${element.topic.previewWebpUrl}" />
           <p class="dish-description">${element.topic.name}</p>
           <p class="dish-area">${element.topic.area}</p>
         </div>
         <div class="third-pic">
-          <img class="zoom-dish zoom-one zoom-two zoom-three" src="${element.topic.imgWebpUrl}" alt = "zoom image of the finished dish" />
+          <img class="zoom-dish" src="${element.topic.imgWebpUrl}" />
         </div>
       </div>
     </div>
@@ -94,3 +103,35 @@ function swiperRendering(elements) {
   .join("");
   swiperWrapper.insertAdjacentHTML("beforeend", markup);
 };
+
+
+
+
+
+
+
+
+  // return `
+  //   <div class="swiper-slide"><img class="cook" src="${element.cook.imgWebpUrl}" /></div>
+  //   <div class="swiper-slide"><div class="main-dish-bg"><img  class="pic" src="${element.topic.previewWebpUrl}" /></div></div>
+  //   <div class="swiper-slide"><div class="big-dish-bg"><img src="${element.topic.imgWebpUrl}" /> </div></div>
+  //   `;
+  
+
+    //   return ` 
+    // <div class="swiper-slide">
+    //   <div class="cook-name">
+    //     <img class="cook" src="${element.cook.imgWebpUrl}" />
+    //   </div>
+    // </div>
+    // <div class="swiper-slide">
+    //  <div class="main-dish-bg">
+    //     <img  class="pic" src="${element.topic.previewWebpUrl}" />
+    //   </div>
+    // </div>
+    // <div class="swiper-slide">
+    //   <div class="big-dish-bg">
+    //     <img class="zoom-dish" src="${element.topic.imgWebpUrl}" />
+    //   </div>
+    // </div>
+    // `;

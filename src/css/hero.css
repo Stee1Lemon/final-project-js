@@ -121,20 +121,33 @@
 
 .zoom-dish {
   border-radius: 12px;
-  border: 1px solid var(--dark-color);
+  /* border: 1px solid var(--dark-color); */
+  width: 222px;
   height: 280px;
-  max-width: 197px;
+  /* max-width: 197px; */
   object-fit: cover;
   object-position: -6% 6px;
   transform: scale(1.2);
-}
-
-.zoom-two {
-  object-fit: cover;
+  /* object-fit: cover;
   object-position: 15% -10px;
-  transform: scale(1.3);
+  transform: scale(1.3); */
+}
+.second-slide-third-elem {
+
+  height: 529px;
+  max-width: 529px;
+  object-fit: cover;
+  object-position: -111px -117px;
+  transform: scale(1);
 }
 
+.third-slide-third-elem {
+  height: 500px;
+  max-width: 500px;
+  object-fit: cover;
+  object-position: -123px -102px;
+  transform: scale(1);
+}
 
 
 
@@ -149,7 +162,7 @@
    align-items: center;
    justify-content: center;
    width: 200px;
-   max-height: 302px;
+   max-height: 280px;
    background-color: var(--dark-color);
 
    border-radius: 12px;
@@ -164,7 +177,7 @@
 
     display: flex;
     width: 200px;
-    max-height: 302px;
+    max-height: 280px;
     background-color: var(--dark-color);
     /* object-fit: cover; */
     border-radius: 12px;
@@ -304,16 +317,31 @@
     }
 
     .zoom-dish {
+      width: 351px;
+      height: 442px;
       
-      height: 378px;
-      max-width: 276px;
+      object-fit: cover;
+      object-position: 12% 0px;
+      transform: scale(1.1);
     }
 
-    .zoom-two {
+    .second-slide-third-elem {
+
+      height: 663px;
+      max-width: 663px;
       object-fit: cover;
-      object-position: 6% -6px;
-      transform: scale(1.6);
+      object-position: -111px -117px;
+      transform: scale(1);
     }
+
+    .third-slide-third-elem {
+      height:747px;
+      max-width: 838px;
+      object-fit: cover;
+      object-position: -194px -123px;
+      transform: scale(1);
+    }
+
 
   
     .first-pic {
@@ -441,5 +469,31 @@
 .swiper-horizontal {
   bottom: 0px;
 }
+/* .zoom-dish {
+  width: 351px;
+  height: 442px;
+
+  object-fit: cover;
+  object-position: 12% 0px;
+  transform: scale(1.1);
+} */
+
+.second-slide-third-elem {
+
+  height: 663px;
+  max-width: 663px;
+  object-fit: cover;
+  object-position: -111px -117px;
+  transform: scale(1);
+}
+
+/* .third-slide-third-elem {
+  height: 747px;
+  max-width: 838px;
+  object-fit: cover;
+  object-position: -193px -124px;
+  transform: scale(1);
+} */
+
 }
 
